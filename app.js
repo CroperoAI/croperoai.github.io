@@ -1,7 +1,8 @@
 / ULTIMATE Cropero AI Platform - FIXED Complete Translation System
 // Addressing CRITICAL translation issue: ALL elements now translate, not just titles
 
-class CroperoAIUltimate {
+class CroperoAIUltimate 
+{
     constructor() {
         this.version = "3.1.0-TRANSLATION-FIXED";
         this.currentLanguage = 'en';
