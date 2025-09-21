@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌾 Cropero AI - Advanced Agricultural Intelligence Platform</title>
+    <meta name="description" content="Advanced AI-powered agricultural platform with GPS precision, 100+ crop varieties, and comprehensive farm management">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="loading-screen">
+        <div class="loading-content">
+            <div class="logo-animation">
+                <span class="logo-icon">🌾</span>
+                <h1 id="loading-title">Cropero AI</h1>
+            </div>
+            <div class="loading-bar">
+                <div class="loading-progress" id="loading-progress"></div>
+            </div>
+            <p class="loading-text" id="loading-text">Initializing AI Systems...</p>
+            <div class="loading-features">
+                <div class="feature-indicator">
+                    <i class="fas fa-brain"></i>
+                    <span id="neural-networks-text">Neural Networks</span>
+                </div>
+                <div class="feature-indicator">
+                    <i class="fas fa-satellite"></i>
+                    <span id="gps-systems-text">GPS Systems</span>
+                </div>
+                <div class="feature-indicator">
+                    <i class="fas fa-cloud"></i>
+                    <span id="weather-ai-text">Weather AI</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Application -->
+    <div id="main-app" class="main-app">
+        <header class="header">
+            <div class="container">
+                <div class="header-content">
+                    <div class="logo">
+                        <span class="logo-icon">🌾</span>
+                        <div class="logo-text">
+                            <span class="main-title" id="main-title">Cropero AI</span>
+                            <span class="sub-title" id="platform-subtitle">Smart AgriTech Platform</span>
+                        </div>
+                    </div>
+                    
+                    <div class="header-controls">
+                        <div class="ai-status">
+                            <div class="ai-indicator">
+                                <div class="pulse-dot"></div>
+                                <span id="ai-status-text">AI Systems Online</span>
+                            </div>
+                        </div>
+                        
+                        <div class="language-selector">
+                            <select id="language-select" class="form-control">
+                                <option value="en">🇬🇧 English</option>
+                                <option value="hi">🇮🇳 हिंदी</option>
+                                <option value="ta">🇮🇳 தமிழ்</option>
+                                <option value="or">🇮🇳 ଓଡ଼ିଆ</option>
+                            </select>
+                        </div>
+                        
+                        <button id="theme-toggle" class="theme-toggle">
+                            <i class="fas fa-moon"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="container">
+                <div class="hero-content">
+                    <div class="hero-text">
+                        <h1 id="app-title">Smart Cropero AI Platform</h1>
+                        <p id="hero-subtitle">Advanced AI-Powered Agricultural Intelligence with Computer Vision, Yield Prediction & Comprehensive Farm Management</p>
+                        
+                        <div class="hero-stats">
+                            <div class="stat-item">
+                                <div class="stat-icon">🤖</div>
+                                <div class="stat-content">
+                                    <span class="stat-label" id="ensemble-ml-text">Ensemble ML</span>
+                                    <span class="stat-value" id="accuracy-text">95%+ Accuracy</span>
+                                </div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-icon">🔬</div>
+                                <div class="stat-content">
+                                    <span class="stat-label" id="computer-vision-text">Computer Vision</span>
+                                    <span class="stat-value" id="diseases-count-text">200+ Diseases</span>
+                                </div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-icon">🛰️</div>
+                                <div class="stat-content">
+                                    <span class="stat-label" id="multi-gnss-text">Multi-GNSS GPS</span>
+                                    <span class="stat-value" id="precision-text">1m Precision</span>
+                                </div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-icon">🌾</div>
+                                <div class="stat-content">
+                                    <span class="stat-label" id="crop-varieties-text">Crop Database</span>
+                                    <span class="stat-value" id="varieties-count-text">100+ Varieties</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Navigation Tabs -->
+        <nav class="nav-tabs">
+            <div class="container">
+                <div class="tabs-container">
+                    <button class="tab-btn active" data-tab="home">
+                        <i class="fas fa-home"></i>
+                        <span id="home-tab-text">AI Dashboard</span>
+                    </button>
+                    <button class="tab-btn" data-tab="disease">
+                        <i class="fas fa-microscope"></i>
+                        <span id="disease-tab-text">Disease Detection</span>
+                    </button>
+                    <button class="tab-btn" data-tab="weather">
+                        <i class="fas fa-cloud-sun"></i>
+                        <span id="weather-tab-text">Weather Intelligence</span>
+                    </button>
+                    <button class="tab-btn" data-tab="market">
+                        <i class="fas fa-chart-line"></i>
+                        <span id="market-tab-text">Market Analytics</span>
+                    </button>
+                    <button class="tab-btn" data-tab="expert">
+                        <i class="fas fa-user-tie"></i>
+                        <span id="expert-tab-text">Expert Consultation</span>
+                    </button>
+                    <button class="tab-btn" data-tab="innovation">
+                        <i class="fas fa-rocket"></i>
+                        <span id="innovation-tab-text">Innovation Hub</span>
+                    </button>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <div class="container">
+                <!-- AI Dashboard Tab -->
+                <div id="home-content" class="tab-content active">
+                    <div class="dashboard-header">
+                        <h2 id="dashboard-title">🤖 Advanced AI Agricultural Intelligence</h2>
+                        <div class="dashboard-stats">
+                            <div class="stat-card">
+                                <div class="stat-number">1,247,382</div>
+                                <div class="stat-label" id="active-farms-text">Active Farms</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-number">2,156,891</div>
+                                <div class="stat-label" id="ai-predictions-text">AI Predictions</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-number">34.7%</div>
+                                <div class="stat-label" id="yield-increase-text">Avg Yield Increase</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-grid">
+                        <!-- Location Detection -->
+                        <div class="dashboard-card">
+                            <div class="card-header">
+                                <h3 id="location-title">🛰️ Precision Location Detection</h3>
+                                <div class="accuracy-indicator" id="accuracy-indicator">±1m accuracy</div>
+                            </div>
+                            <div class="card-content">
+                                <div id="location-info" class="location-info hidden">
+                                    <div class="location-display">
+                                        <div id="current-location" class="current-location"></div>
+                                        <div id="coordinates-display" class="coordinates"></div>
+                                        <div id="weather-details" class="weather-info"></div>
+                                    </div>
+                                </div>
+                                <div class="location-controls">
+                                    <button id="detect-location" class="btn btn-primary">
+                                        <i class="fas fa-location-arrow"></i>
+                                        <span id="detect-location-text">Advanced GPS Detection</span>
+                                    </button>
+                                    <button id="open-map" class="btn btn-secondary">
+                                        <i class="fas fa-map"></i>
+                                        <span id="open-map-text">Interactive Map</span>
+                                    </button>
+                                </div>
+                                <div id="location-detected" class="success-message hidden">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span id="location-detected-text">High-precision location detected</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Soil Analysis -->
+                        <div class="dashboard-card">
+                            <div class="card-header">
+                                <h3 id="soil-analysis-title">🧪 AI Soil Intelligence System</h3>
+                                <div class="confidence-badge" id="confidence-badge">98.7% Confidence</div>
+                            </div>
+                            <div class="card-content">
+                                <div class="soil-inputs">
+                                    <div class="input-group">
+                                        <label for="soil-ph" id="ph-label">pH Level (4.0-9.0)</label>
+                                        <div class="input-with-indicator">
+                                            <input type="number" id="soil-ph" min="4" max="9" step="0.1" placeholder="6.5">
+                                            <div id="ph-indicator" class="input-indicator"></div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="input-row">
+                                        <div class="input-group">
+                                            <label for="soil-nitrogen" id="nitrogen-label">Nitrogen (N) mg/kg</label>
+                                            <div class="input-with-indicator">
+                                                <input type="number" id="soil-nitrogen" min="100" max="500" placeholder="280">
+                                                <div id="nitrogen-indicator" class="input-indicator"></div>
+                                            </div>
+                                        </div>
+                                        <div class="input-group">
+                                            <label for="soil-phosphorus" id="phosphorus-label">Phosphorus (P) mg/kg</label>
+                                            <div class="input-with-indicator">
+                                                <input type="number" id="soil-phosphorus" min="10" max="200" placeholder="45">
+                                                <div id="phosphorus-indicator" class="input-indicator"></div>
+                                            </div>
+                                        </div>
+                                        <div class="input-group">
+                                            <label for="soil-potassium" id="potassium-label">Potassium (K) mg/kg</label>
+                                            <div class="input-with-indicator">
+                                                <input type="number" id="soil-potassium" min="50" max="400" placeholder="195">
+                                                <div id="potassium-indicator" class="input-indicator"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button id="analyze-soil" class="btn btn-success btn-block">
+                                    <i class="fas fa-microscope"></i>
+                                    <span id="analyze-soil-text">AI Soil Analysis</span>
+                                </button>
+                                <div id="soil-results" class="analysis-results hidden"></div>
+                            </div>
+                        </div>
+
+                        <!-- Crop Selection -->
+                        <div class="dashboard-card">
+                            <div class="card-header">
+                                <h3 id="crop-selection-title">🌾 Intelligent Crop Selection</h3>
+                                <div class="database-badge" id="database-badge">100+ Varieties</div>
+                            </div>
+                            <div class="card-content">
+                                <div class="input-group">
+                                    <label for="crop-category" id="crop-category-label">Crop Category</label>
+                                    <select id="crop-category" class="form-control">
+                                        <option value="" id="select-category-option">Select category...</option>
+                                        <option value="cereals" id="cereals-option">Cereals</option>
+                                        <option value="pulses" id="pulses-option">Pulses & Legumes</option>
+                                        <option value="oilseeds" id="oilseeds-option">Oilseeds</option>
+                                        <option value="cashcrops" id="cash-crops-option">Cash Crops</option>
+                                        <option value="vegetables" id="vegetables-option">Vegetables</option>
+                                        <option value="fruits" id="fruits-option">Fruits</option>
+                                        <option value="spices" id="spices-option">Spices</option>
+                                    </select>
+                                </div>
+                                <div id="crop-recommendations" class="crop-recommendations hidden">
+                                    <h4 id="ai-recommendations-title">🤖 AI Recommendations:</h4>
+                                    <div id="recommended-crops" class="recommended-crops"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Farm Area Input -->
+                        <div class="dashboard-card">
+                            <div class="card-header">
+                                <h3 id="area-input-title">📐 Precision Farm Mapping</h3>
+                                <div class="satellite-measure" id="satellite-measure-text">Satellite Measure</div>
+                            </div>
+                            <div class="card-content">
+                                <div class="area-inputs">
+                                    <div class="input-group">
+                                        <label for="area-hectares" id="hectares-label">Hectares</label>
+                                        <input type="number" id="area-hectares" min="0" step="0.01" placeholder="0.0">
+                                    </div>
+                                    <div class="conversion-symbol">=</div>
+                                    <div class="input-group">
+                                        <label for="area-acres" id="acres-label">Acres</label>
+                                        <input type="number" id="area-acres" min="0" step="0.01" placeholder="0.0">
+                                    </div>
+                                </div>
+                                <div class="conversion-info" id="conversion-info">
+                                    1 hectare = 2.47 acres | 1 tonne = 10 quintals
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- AI Recommendations -->
+                        <div class="dashboard-card recommendation-card">
+                            <div class="card-content">
+                                <button id="get-recommendations" class="btn btn-primary btn-large btn-block">
+                                    <i class="fas fa-brain"></i>
+                                    <span id="get-recommendations-text">Generate AI-Powered Smart Recommendations</span>
+                                </button>
+                                <div id="results" class="results-container hidden">
+                                    <!-- Fertilizer Recommendations -->
+                                    <div class="result-section">
+                                        <h3 id="fertilizer-title">🌱 AI Fertilizer Optimization</h3>
+                                        <div class="optimization-score" id="optimization-score">97% Optimized</div>
+                                        <div id="fertilizer-content" class="content-area"></div>
+                                    </div>
+
+                                    <!-- Yield Predictions -->
+                                    <div class="result-section">
+                                        <h3 id="predictions-title">📈 AI Yield Prediction & Optimization</h3>
+                                        <div class="prediction-confidence" id="prediction-confidence">95.8% Confidence</div>
+                                        <div id="yield-predictions" class="content-area"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Disease Detection Tab -->
+                <div id="disease-content" class="tab-content">
+                    <div class="section-header">
+                        <h2 id="disease-detection-title">🔬 Advanced Disease Detection AI</h2>
+                        <div class="feature-badges">
+                            <span class="badge" id="disease-accuracy">95%+ Accuracy</span>
+                            <span class="badge" id="disease-count">200+ Diseases</span>
+                            <span class="badge" id="real-time-analysis">Real-time Analysis</span>
+                        </div>
+                    </div>
+
+                    <div class="disease-grid">
+                        <div class="upload-section">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 id="disease-upload-title">📷 Computer Vision Disease Analysis</h3>
+                                </div>
+                                <div class="card-content">
+                                    <div id="image-drop-zone" class="image-drop-zone">
+                                        <div class="upload-icon">📱</div>
+                                        <h4 id="upload-text">Upload Crop Image for AI Analysis</h4>
+                                        <p id="upload-subtext">Supports JPG, PNG, JPEG | Max 10MB</p>
+                                        <input type="file" id="image-upload-input" accept="image/*" hidden>
+                                    </div>
+                                    <div id="uploaded-image" class="uploaded-image hidden">
+                                        <img id="preview-image" alt="Uploaded crop image">
+                                        <button id="remove-image" class="btn btn-danger btn-small">
+                                            <i class="fas fa-times"></i>
+                                            <span id="remove-image-text">Remove Image</span>
+                                        </button>
+                                    </div>
+                                    <button id="analyze-disease" class="btn btn-success btn-block" disabled>
+                                        <i class="fas fa-microscope"></i>
+                                        <span id="analyze-disease-text">AI Disease Analysis</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="results-section">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 id="analysis-results-title">🔬 AI Analysis Results</h3>
+                                </div>
+                                <div class="card-content">
+                                    <div id="disease-results" class="disease-results hidden">
+                                        <div id="disease-analysis-content"></div>
+                                    </div>
+                                    <div class="placeholder-content">
+                                        <i class="fas fa-upload"></i>
+                                        <p id="upload-prompt">Upload an image to see AI analysis results</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Weather Tab -->
+                <div id="weather-content" class="tab-content">
+                    <div class="section-header">
+                        <h2 id="weather-intelligence-title">🌤️ Advanced Weather Intelligence</h2>
+                    </div>
+
+                    <div class="weather-grid">
+                        <div class="current-weather-card">
+                            <h3 id="current-weather-title">🌤️ Current Weather</h3>
+                            <div class="current-weather">
+                                <div class="weather-main">
+                                    <div class="temperature">28°C</div>
+                                    <div class="condition">Partly Cloudy</div>
+                                </div>
+                                <div class="weather-details">
+                                    <div class="weather-item">
+                                        <span class="label">Humidity:</span>
+                                        <span class="value">65%</span>
+                                    </div>
+                                    <div class="weather-item">
+                                        <span class="label">Wind:</span>
+                                        <span class="value">12 km/h</span>
+                                    </div>
+                                    <div class="weather-item">
+                                        <span class="label">UV Index:</span>
+                                        <span class="value">7</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="forecast-card">
+                            <h3 id="forecast-title">📅 15-Day Forecast</h3>
+                            <div class="forecast-list">
+                                <div class="forecast-item">
+                                    <span id="today-text">Today</span>
+                                    <span class="temps">28° / 22°</span>
+                                </div>
+                                <div class="forecast-item">
+                                    <span id="tomorrow-text">Tomorrow</span>
+                                    <span class="temps">30° / 24°</span>
+                                </div>
+                                <div class="forecast-item">
+                                    <span id="wednesday-text">Wednesday</span>
+                                    <span class="temps">26° / 20°</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Market Tab -->
+                <div id="market-content" class="tab-content">
+                    <div class="section-header">
+                        <h2 id="market-analytics-title">💰 Market Analytics</h2>
+                    </div>
+
+                    <div class="market-grid">
+                        <div class="prices-card">
+                            <h3 id="live-prices-title">💰 Live Market Prices</h3>
+                            <div class="price-list">
+                                <div class="price-item">
+                                    <span id="rice-paddy">Rice (Paddy)</span>
+                                    <div class="price-info">
+                                        <span class="price">₹2,150/quintal</span>
+                                        <span class="change positive">+2.5%</span>
+                                    </div>
+                                </div>
+                                <div class="price-item">
+                                    <span id="wheat-commodity">Wheat</span>
+                                    <div class="price-info">
+                                        <span class="price">₹2,350/quintal</span>
+                                        <span class="change positive">+1.8%</span>
+                                    </div>
+                                </div>
+                                <div class="price-item">
+                                    <span id="cotton-commodity">Cotton</span>
+                                    <div class="price-info">
+                                        <span class="price">₹6,800/quintal</span>
+                                        <span class="change negative">-0.5%</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Expert Tab -->
+                <div id="expert-content" class="tab-content">
+                    <div class="section-header">
+                        <h2 id="expert-consultation-title">👨‍🌾 Expert Consultation</h2>
+                    </div>
+
+                    <div class="expert-grid">
+                        <div class="advisory-card">
+                            <h3 id="seasonal-advisory-title">🗓️ Seasonal Advisory</h3>
+                            <div class="seasonal-content">
+                                <h4 id="current-season">Current Season: Kharif 2025</h4>
+                                <ul class="advisory-list">
+                                    <li id="rec1">✅ Optimal time for rice transplantation</li>
+                                    <li id="rec2">🌧️ Monsoon progress is normal</li>
+                                    <li id="rec3">🦗 Monitor for stem borer infestation</li>
+                                    <li id="rec4">💧 Maintain 2-3 cm standing water in rice fields</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Innovation Hub Tab -->
+                <div id="innovation-content" class="tab-content">
+                    <div class="section-header">
+                        <h2 id="innovation-hub-title">🚀 Innovation Hub</h2>
+                    </div>
+
+                    <div class="innovation-grid">
+                        <div class="innovation-card">
+                            <div class="innovation-header">
+                                <h3 id="blockchain-title">⛓️ Blockchain Supply Chain</h3>
+                            </div>
+                            <div class="innovation-content">
+                                <ul>
+                                    <li id="blockchain-feature1">Secure traceability from farm to table</li>
+                                    <li id="blockchain-feature2">Immutable quality certificates</li>
+                                </ul>
+                                <button class="btn btn-primary" id="connect-network-text">Connect to Network</button>
+                            </div>
+                        </div>
+
+                        <div class="innovation-card">
+                            <div class="innovation-header">
+                                <h3 id="drone-integration-title">🚁 Drone Integration</h3>
+                            </div>
+                            <div class="innovation-content">
+                                <ul>
+                                    <li id="drone-feature1">Aerial crop surveillance</li>
+                                    <li id="drone-feature2">Precision spraying</li>
+                                </ul>
+                                <button class="btn btn-primary" id="schedule-mission-text">Schedule Mission</button>
+                            </div>
+                        </div>
+
+                        <div class="innovation-card">
+                            <div class="innovation-header">
+                                <h3 id="iot-sensor-title">🌐 IoT Sensor Network</h3>
+                            </div>
+                            <div class="innovation-content">
+                                <div class="sensor-readings">
+                                    <div class="sensor-item">
+                                        <span id="soil-moisture-text">Soil Moisture</span>
+                                        <span class="sensor-value">42%</span>
+                                    </div>
+                                    <div class="sensor-item">
+                                        <span id="soil-ph-text">Soil pH</span>
+                                        <span class="sensor-value">6.8</span>
+                                    </div>
+                                    <div class="sensor-item">
+                                        <span id="temperature-text">Temperature</span>
+                                        <span class="sensor-value">28°C</span>
+                                    </div>
+                                </div>
+                                <button class="btn btn-primary" id="manage-network-text">Manage Network</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Interactive Map Modal -->
+    <div id="map-modal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="map-modal-title">Interactive Agricultural Map</h3>
+                <button id="modal-close" class="modal-close">×</button>
+            </div>
+            <div class="modal-body">
+                <div id="map" class="map-container"></div>
+            </div>
+            <div class="modal-footer">
+                <button id="confirm-location" class="btn btn-primary" disabled>
+                    <span id="confirm-location-text">Confirm Location</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
