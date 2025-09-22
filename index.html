@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🤖 Cropero AI - Advanced Agricultural Intelligence Platform</title>
+    <title>🌾 Cropero AI - Advanced Agricultural Intelligence Platform</title>
     <meta name="description" content="Advanced AI-powered agricultural platform with GPS precision, 100+ crop varieties, and comprehensive farm management">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
@@ -14,7 +14,7 @@
     <div id="loading-screen" class="loading-screen">
         <div class="loading-content">
             <div class="logo-animation">
-                <span class="logo-icon">🤖🌾</span>
+                <span class="logo-icon">🌾</span>
                 <h1 id="loading-title">Cropero AI</h1>
             </div>
             <div class="loading-bar">
@@ -44,10 +44,10 @@
             <div class="container">
                 <div class="header-content">
                     <div class="logo">
-                        <span class="logo-icon">🤖🌾</span>
+                        <span class="logo-icon">🌾</span>
                         <div class="logo-text">
                             <span class="main-title" id="main-title">Cropero AI</span>
-                            <span class="sub-title" id="platform-subtitle">Ultimate AgriTech Platform</span>
+                            <span class="sub-title" id="platform-subtitle">Smart AgriTech Platform</span>
                         </div>
                     </div>
                     
@@ -61,12 +61,10 @@
                         
                         <div class="language-selector">
                             <select id="language-select" class="form-control">
-                                <option value="en">🇮🇳 English</option>
-                                <option value="hi">🇮🇳 हिन्दी</option>
+                                <option value="en">🇬🇧 English</option>
+                                <option value="hi">🇮🇳 हिंदी</option>
                                 <option value="ta">🇮🇳 தமிழ்</option>
-                                <option value="te">🇮🇳 తెలుగు</option>
-                                <option value="kn">🇮🇳 ಕನ್ನಡ</option>
-                                <option value="ml">🇮🇳 മലയാളം</option>
+                                <option value="or">🇮🇳 ଓଡ଼ିଆ</option>
                             </select>
                         </div>
                         
@@ -80,21 +78,22 @@
             </div>
         </header>
 
+        <!-- Hero Section -->
         <main class="main">
             <section class="hero">
                 <div class="container">
                     <div class="hero-content">
-                        <h1 id="app-title" class="glitch-text">ULTIMATE Cropero AI Platform</h1>
+                        <h1 id="app-title" class="glitch-text">Smart Cropero AI Platform</h1>
                         <p id="hero-subtitle" class="hero-subtitle">Advanced AI-Powered Agricultural Intelligence with Computer Vision, Yield Prediction & Comprehensive Farm Management</p>
                         
                         <div class="ai-features-showcase">
                             <div class="feature-card">
-                                <div class="feature-icon">🧠</div>
+                                <div class="feature-icon">🤖</div>
                                 <div class="feature-title" id="ensemble-ml-text">Ensemble ML</div>
                                 <div class="feature-desc" id="accuracy-text">95%+ Accuracy</div>
                             </div>
                             <div class="feature-card">
-                                <div class="feature-icon">👁️</div>
+                                <div class="feature-icon">🔬</div>
                                 <div class="feature-title" id="computer-vision-text">Computer Vision</div>
                                 <div class="feature-desc" id="diseases-count-text">200+ Diseases</div>
                             </div>
@@ -177,7 +176,7 @@
                                         <span class="accuracy-indicator" id="accuracy-indicator">±1m accuracy</span>
                                     </div>
                                 </div>
-                                <div class="card__body">
+                                <div class="card-body">
                                     <div class="location-buttons">
                                         <button id="detect-location" class="btn btn--primary">
                                             <i class="fas fa-satellite"></i>
@@ -194,7 +193,7 @@
                                             <div class="coordinates" id="coordinates-display"></div>
                                         </div>
                                         <div id="current-weather" class="weather-info">
-                                            <span id="weather-icon">🌤️</span>
+                                            <span id="weather-icon"></span>
                                             <span id="weather-details"></span>
                                             <div class="weather-extras">
                                                 <span id="air-quality">AQI: 85</span>
@@ -213,7 +212,7 @@
                                         <span class="confidence-badge" id="confidence-badge">98.7% Confidence</span>
                                     </div>
                                 </div>
-                                <div class="card__body">
+                                <div class="card-body">
                                     <div class="soil-inputs">
                                         <div class="input-group">
                                             <label id="ph-label">pH Level (4.0-9.0)</label>
@@ -252,22 +251,22 @@
                                         <span class="database-badge" id="database-badge">100+ Varieties</span>
                                     </div>
                                 </div>
-                                <div class="card__body">
+                                <div class="card-body">
                                     <div class="form-group">
                                         <label id="crop-category-label">Crop Category</label>
                                         <select id="crop-category" class="form-control">
                                             <option value="" id="select-category-option">Select category...</option>
-                                            <option value="cereals" id="cereals-option">🌾 Cereals</option>
-                                            <option value="pulses" id="pulses-option">🫘 Pulses & Legumes</option>
-                                            <option value="oilseeds" id="oilseeds-option">🌻 Oilseeds</option>
-                                            <option value="cash_crops" id="cash-crops-option">💰 Cash Crops</option>
-                                            <option value="vegetables" id="vegetables-option">🥕 Vegetables</option>
-                                            <option value="fruits" id="fruits-option">🍎 Fruits</option>
-                                            <option value="spices" id="spices-option">🌶️ Spices</option>
+                                            <option value="cereals" id="cereals-option">Cereals</option>
+                                            <option value="pulses" id="pulses-option">Pulses & Legumes</option>
+                                            <option value="oilseeds" id="oilseeds-option">Oilseeds</option>
+                                            <option value="cashcrops" id="cash-crops-option">Cash Crops</option>
+                                            <option value="vegetables" id="vegetables-option">Vegetables</option>
+                                            <option value="fruits" id="fruits-option">Fruits</option>
+                                            <option value="spices" id="spices-option">Spices</option>
                                         </select>
                                     </div>
                                     <div id="crop-recommendations" class="crop-recommendations hidden">
-                                        <h5 id="ai-recommendations-title">🎯 AI Recommendations:</h5>
+                                        <h5 id="ai-recommendations-title">🤖 AI Recommendations:</h5>
                                         <div id="recommended-crops" class="recommended-crops"></div>
                                     </div>
                                 </div>
@@ -279,11 +278,12 @@
                                     <h3 id="area-input-title">📐 Precision Farm Mapping</h3>
                                     <div class="measurement-tools">
                                         <button class="btn btn--secondary btn--sm" id="satellite-measure">
-                                            <i class="fas fa-satellite-dish"></i> <span id="satellite-measure-text">Satellite Measure</span>
+                                            <i class="fas fa-satellite-dish"></i>
+                                            <span id="satellite-measure-text">Satellite Measure</span>
                                         </button>
                                     </div>
                                 </div>
-                                <div class="card__body">
+                                <div class="card-body">
                                     <div class="area-inputs">
                                         <div class="input-group">
                                             <label id="hectares-label">Hectares</label>
@@ -306,9 +306,9 @@
                             <button id="get-recommendations" class="btn btn--primary btn--full-width btn--mega">
                                 <div class="btn-content">
                                     <i class="fas fa-robot"></i>
-                                    <span id="get-recommendations-text">🧠 Generate AI-Powered Smart Recommendations</span>
-                                    <div class="btn-glow"></div>
+                                    <span id="get-recommendations-text">Generate AI-Powered Smart Recommendations</span>
                                 </div>
+                                <div class="btn-glow"></div>
                             </button>
                         </div>
 
@@ -322,7 +322,7 @@
                                         <span class="score-badge" id="optimization-score">97% Optimized</span>
                                     </div>
                                 </div>
-                                <div class="card__body">
+                                <div class="card-body">
                                     <div id="fertilizer-content" class="content-grid"></div>
                                 </div>
                             </div>
@@ -330,12 +330,12 @@
                             <!-- Yield Predictions -->
                             <div class="card">
                                 <div class="card-header">
-                                    <h3 id="predictions-title">🎯 AI Yield Prediction & Optimization</h3>
+                                    <h3 id="predictions-title">📈 AI Yield Prediction & Optimization</h3>
                                     <div class="prediction-confidence">
                                         <span class="confidence-badge" id="prediction-confidence">95.8% Confidence</span>
                                     </div>
                                 </div>
-                                <div class="card__body">
+                                <div class="card-body">
                                     <div class="predictions" id="yield-predictions"></div>
                                 </div>
                             </div>
@@ -352,13 +352,13 @@
                                 <div class="capability-badge" id="realtime-analysis">Real-time Analysis</div>
                             </div>
                         </div>
-                        
+
                         <div class="disease-detection">
                             <div class="card">
                                 <div class="card-header">
                                     <h3 id="disease-upload-title">📷 Computer Vision Disease Analysis</h3>
                                 </div>
-                                <div class="card__body">
+                                <div class="card-body">
                                     <div class="image-upload">
                                         <div id="image-drop-zone" class="image-drop-zone">
                                             <div class="upload-content">
@@ -366,7 +366,7 @@
                                                     <i class="fas fa-camera"></i>
                                                 </div>
                                                 <div class="upload-text">
-                                                    <p id="upload-text">📱 Upload Crop Image for AI Analysis</p>
+                                                    <p id="upload-text">Upload Crop Image for AI Analysis</p>
                                                     <small id="upload-subtext">Supports JPG, PNG, JPEG | Max 10MB</small>
                                                 </div>
                                             </div>
@@ -376,20 +376,20 @@
                                             <img id="preview-image" src="" alt="Uploaded crop image">
                                             <button id="remove-image" class="btn btn--secondary" id="remove-image-text">Remove Image</button>
                                         </div>
+                                        <button id="analyze-disease" class="btn btn--primary btn--full-width" disabled>
+                                            <i class="fas fa-microscope"></i>
+                                            <span id="analyze-disease-text">AI Disease Analysis</span>
+                                        </button>
                                     </div>
-                                    <button id="analyze-disease" class="btn btn--primary btn--full-width" disabled>
-                                        <i class="fas fa-microscope"></i>
-                                        <span id="analyze-disease-text">🔬 AI Disease Analysis</span>
-                                    </button>
                                 </div>
                             </div>
-                            
+
                             <div id="disease-results" class="disease-results hidden">
                                 <div class="card">
                                     <div class="card-header">
-                                        <h3 id="analysis-results-title">🎯 AI Analysis Results</h3>
+                                        <h3 id="analysis-results-title">🔬 AI Analysis Results</h3>
                                     </div>
-                                    <div class="card__body">
+                                    <div class="card-body">
                                         <div id="disease-analysis-content"></div>
                                     </div>
                                 </div>
@@ -402,14 +402,14 @@
                         <div class="section-header">
                             <h2 class="section-title" id="weather-intelligence-title">🌤️ Advanced Weather Intelligence</h2>
                         </div>
-                        
+
                         <div class="weather-dashboard">
                             <div class="weather-grid">
                                 <div class="card">
                                     <div class="card-header">
                                         <h3 id="current-weather-title">🌤️ Current Weather</h3>
                                     </div>
-                                    <div class="card__body">
+                                    <div class="card-body">
                                         <div class="current-weather">
                                             <div class="weather-main">
                                                 <div class="temperature" id="current-temp">28°C</div>
@@ -428,7 +428,7 @@
                                     <div class="card-header">
                                         <h3 id="forecast-title">📅 15-Day Forecast</h3>
                                     </div>
-                                    <div class="card__body">
+                                    <div class="card-body">
                                         <div id="weather-forecast" class="weather-forecast">
                                             <div class="forecast-day">
                                                 <div class="day" id="today-text">Today</div>
@@ -437,12 +437,12 @@
                                             </div>
                                             <div class="forecast-day">
                                                 <div class="day" id="tomorrow-text">Tomorrow</div>
-                                                <div class="weather-icon">☀️</div>
+                                                <div class="weather-icon">🌧️</div>
                                                 <div class="temp-range">30° / 24°</div>
                                             </div>
                                             <div class="forecast-day">
                                                 <div class="day" id="wednesday-text">Wednesday</div>
-                                                <div class="weather-icon">🌧️</div>
+                                                <div class="weather-icon">⛈️</div>
                                                 <div class="temp-range">26° / 20°</div>
                                             </div>
                                         </div>
@@ -457,13 +457,13 @@
                         <div class="section-header">
                             <h2 class="section-title" id="market-analytics-title">💰 Market Analytics</h2>
                         </div>
-                        
+
                         <div class="market-dashboard">
                             <div class="card">
                                 <div class="card-header">
                                     <h3 id="live-prices-title">💰 Live Market Prices</h3>
                                 </div>
-                                <div class="card__body">
+                                <div class="card-body">
                                     <div id="market-prices" class="market-prices">
                                         <div class="price-item">
                                             <div class="commodity" id="rice-paddy">Rice (Paddy)</div>
@@ -491,13 +491,13 @@
                         <div class="section-header">
                             <h2 class="section-title" id="expert-consultation-title">👨‍🌾 Expert Consultation</h2>
                         </div>
-                        
+
                         <div class="expert-dashboard">
                             <div class="card">
                                 <div class="card-header">
                                     <h3 id="seasonal-advisory-title">🗓️ Seasonal Advisory</h3>
                                 </div>
-                                <div class="card__body">
+                                <div class="card-body">
                                     <div class="seasonal-advice">
                                         <h4 id="current-season">Current Season: Kharif 2025</h4>
                                         <ul id="seasonal-recommendations">
@@ -517,14 +517,14 @@
                         <div class="section-header">
                             <h2 class="section-title" id="innovation-hub-title">🚀 Innovation Hub</h2>
                         </div>
-                        
+
                         <div class="innovation-dashboard">
                             <div class="innovation-grid">
                                 <div class="card">
                                     <div class="card-header">
                                         <h3 id="blockchain-title">⛓️ Blockchain Supply Chain</h3>
                                     </div>
-                                    <div class="card__body">
+                                    <div class="card-body">
                                         <div class="blockchain-features">
                                             <div class="feature-item">
                                                 <i class="fas fa-shield-alt"></i>
@@ -536,7 +536,8 @@
                                             </div>
                                         </div>
                                         <button class="btn btn--primary btn--full-width" id="connect-network-btn">
-                                            <i class="fas fa-link"></i> <span id="connect-network-text">Connect to Network</span>
+                                            <i class="fas fa-link"></i>
+                                            <span id="connect-network-text">Connect to Network</span>
                                         </button>
                                     </div>
                                 </div>
@@ -545,7 +546,7 @@
                                     <div class="card-header">
                                         <h3 id="drone-integration-title">🚁 Drone Integration</h3>
                                     </div>
-                                    <div class="card__body">
+                                    <div class="card-body">
                                         <div class="drone-features">
                                             <div class="feature-item">
                                                 <i class="fas fa-camera-retro"></i>
@@ -557,7 +558,8 @@
                                             </div>
                                         </div>
                                         <button class="btn btn--primary btn--full-width" id="schedule-mission-btn">
-                                            <i class="fas fa-helicopter"></i> <span id="schedule-mission-text">Schedule Mission</span>
+                                            <i class="fas fa-helicopter"></i>
+                                            <span id="schedule-mission-text">Schedule Mission</span>
                                         </button>
                                     </div>
                                 </div>
@@ -566,7 +568,7 @@
                                     <div class="card-header">
                                         <h3 id="iot-sensor-title">🌐 IoT Sensor Network</h3>
                                     </div>
-                                    <div class="card__body">
+                                    <div class="card-body">
                                         <div class="sensor-readings">
                                             <div class="sensor-item">
                                                 <span class="sensor-name" id="soil-moisture-text">Soil Moisture</span>
@@ -582,7 +584,8 @@
                                             </div>
                                         </div>
                                         <button class="btn btn--primary btn--full-width" id="manage-network-btn">
-                                            <i class="fas fa-wifi"></i> <span id="manage-network-text">Manage Network</span>
+                                            <i class="fas fa-wifi"></i>
+                                            <span id="manage-network-text">Manage Network</span>
                                         </button>
                                     </div>
                                 </div>
@@ -598,18 +601,19 @@
     <div id="map-modal" class="modal hidden">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 id="map-modal-title">🛰️ Interactive Agricultural Map</h3>
+                <h3 id="map-modal-title">Interactive Agricultural Map</h3>
                 <button class="modal-close" id="modal-close">
                     <i class="fas fa-times"></i>
                 </button>
             </div>
             <div class="modal-body">
-                <div id="map-container" class="map-container">
-                    <div id="map" style="height: 400px; width: 100%;"></div>
+                <div class="map-container">
+                    <div id="map" style="height: 400px; width: 100%"></div>
                 </div>
                 <div class="map-controls">
                     <button id="confirm-location" class="btn btn--primary" disabled>
-                        <i class="fas fa-check"></i> <span id="confirm-location-text">Confirm Location</span>
+                        <i class="fas fa-check"></i>
+                        <span id="confirm-location-text">Confirm Location</span>
                     </button>
                 </div>
             </div>
