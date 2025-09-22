@@ -1,4 +1,4 @@
-/**
+//**
  * ===================================================================
  * AGRITECH AI PLATFORM - UNIFIED JAVASCRIPT
  * Author: Gemini AI
