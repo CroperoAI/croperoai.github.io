@@ -1,625 +1,849 @@
 <!DOCTYPE html>
-<html lang="en" data-color-scheme="light">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title data-translate="main_title">AgriTech AI Platform</title>
-    <meta name="description" content="An integrated AI platform for crop yield prediction, disease detection, and market analytics for modern agriculture.">
-    
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@3.0.0/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+    <title>🌾 Cropero - AI Agriculture Platform</title>
+    <meta name="description" content="An integrated AI platform for crop yield prediction, disease detection, market analytics, and expert agricultural advice.">
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
     <link rel="stylesheet" href="style.css">
     
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>🌿</text></svg>">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>🌾</text></svg>">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@3.0.0/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
 </head>
 <body>
-
-    <div class="main-layout">
-        <aside class="sidebar">
-            <div class="sidebar-header">
-                <span class="sidebar-logo">🌿</span>
-                <h1 data-translate="main_title_short">AgriTech AI</h1>
+    <div class="container">
+        <header class="app-header">
+            <h1 class="app-title" data-translate="app_title">🌾 Cropero AI Platform</h1>
+            <div class="header-controls">
+                <select id="languageSelect" class="form-control language-select">
+                    <option value="en">English</option>
+                    <option value="hi">हिंदी</option>
+                    <option value="bn">বাংলা</option>
+                    <option value="te">తెలుగు</option>
+                    <option value="ta">தமிழ்</option>
+                    <option value="gu">ગુજરાતી</option>
+                    <option value="mr">मराठी</option>
+                    <option value="kn">ಕನ್ನಡ</option>
+                    <option value="ml">മലയാളം</option>
+                    <option value="pa">ਪੰਜਾਬੀ</option>
+                </select>
             </div>
-            <nav class="sidebar-nav">
-                <a href="#yield" class="nav-link active" data-page="yield">
-                    <i class="fas fa-seedling fa-fw"></i>
-                    <span data-translate="yield_prediction_nav">Yield Prediction</span>
-                </a>
-                <a href="#disease" class="nav-link" data-page="disease">
-                    <i class="fas fa-microscope fa-fw"></i>
-                    <span data-translate="disease_detection_nav">Disease Detection</span>
-                </a>
-                <a href="#market" class="nav-link" data-page="market">
-                    <i class="fas fa-chart-line fa-fw"></i>
-                    <span data-translate="market_analytics_nav">Market Analytics</span>
-                </a>
-            </nav>
-            <div class="sidebar-footer">
-                <p>&copy; 2025 AgriTech AI</p>
-            </div>
-        </aside>
+        </header>
 
-        <main class="main-content">
-            <header class="app-header">
-                <h1 id="pageTitle" class="app-title" data-translate="yield_prediction_title">🌾 AI Crop Yield Prediction</h1>
-                <div class="header-controls">
-                    <select id="languageSelect" class="form-control language-select">
-                        <option value="en">English</option>
-                        <option value="hi">हिंदी</option>
-                        <option value="bn">বাংলা</option>
-                        <option value="te">తెలుగు</option>
-                        <option value="ta">தமிழ்</option>
-                        <option value="gu">ગુજરાતી</option>
-                        <option value="mr">मराठी</option>
-                        <option value="kn">ಕನ್ನಡ</option>
-                        <option value="ml">മലയാളം</option>
-                        <option value="pa">ਪੰਜਾਬੀ</option>
-                        <option value="ur">اردو</option>
-                        <option value="od">ଓଡ଼ିଆ</option>
-                        <option value="as">অসমীয়া</option>
-                    </select>
-                    <button id="theme-toggle" class="btn btn--secondary theme-toggle-btn">
-                        <i class="fas fa-moon"></i>
+        <nav class="main-tab-navigation">
+            <button class="main-tab-btn active" data-tab="yield">
+                <i class="fas fa-seedling"></i>
+                <span data-translate="yield_prediction_tab">Yield Prediction</span>
+            </button>
+            <button class="main-tab-btn" data-tab="disease">
+                <i class="fas fa-leaf"></i>
+                <span data-translate="disease_detection_tab">Disease Detection</span>
+            </button>
+            <button class="main-tab-btn" data-tab="market">
+                <i class="fas fa-chart-line"></i>
+                <span data-translate="market_analytics_tab">Market Analytics</span>
+            </button>
+            <button class="main-tab-btn" data-tab="advice">
+                <i class="fas fa-user-tie"></i>
+                <span data-translate="expert_advice_tab">Expert Advice</span>
+            </button>
+        </nav>
+
+        <main class="main-content-area">
+            <div id="yield-content" class="main-tab-content active">
+                <nav class="tab-navigation">
+                    <button class="tab-btn active" data-tab="crop">
+                        <span class="tab-icon">🌾</span>
+                        <span class="tab-label" data-translate="crop_selection">Crop Selection</span>
                     </button>
-                </div>
-            </header>
+                    <button class="tab-btn" data-tab="location">
+                        <span class="tab-icon">📍</span>
+                        <span class="tab-label" data-translate="location_weather">Location & Weather</span>
+                    </button>
+                    <button class="tab-btn" data-tab="soil">
+                        <span class="tab-icon">🌱</span>
+                        <span class="tab-label" data-translate="soil_parameters">Soil Parameters</span>
+                    </button>
+                    <button class="tab-btn" data-tab="farm">
+                        <span class="tab-icon">🚜</span>
+                        <span class="tab-label" data-translate="farm_details">Farm Details</span>
+                    </button>
+                    <button class="tab-btn" data-tab="prediction">
+                        <span class="tab-icon">🤖</span>
+                        <span class="tab-label" data-translate="ai_prediction">AI Prediction</span>
+                    </button>
+                </nav>
+                 <main class="tab-container">
+                    <section id="crop-tab" class="tab-content active">
+                        <div class="card">
+                            <div class="card__body">
+                                <h2 data-translate="crop_selection_title">🌾 Crop Selection</h2>
+                                <p data-translate="crop_selection_desc">Select your crop category, type, variety and planting season</p>
+                                
+                                <div class="form-grid">
+                                    <div class="form-group">
+                                        <label class="form-label" data-translate="crop_category">Crop Category</label>
+                                        <select id="cropCategory" class="form-control">
+                                            <option value="" data-translate="select_category">Select Category</option>
+                                            <option value="cereals" data-translate="cereals">Cereals</option>
+                                            <option value="pulses" data-translate="pulses">Pulses</option>
+                                            <option value="oilseeds" data-translate="oilseeds">Oilseeds</option>
+                                            <option value="cash_crops" data-translate="cash_crops">Cash Crops</option>
+                                            <option value="vegetables" data-translate="vegetables">Vegetables</option>
+                                            <option value="fruits" data-translate="fruits">Fruits</option>
+                                        </select>
+                                    </div>
 
-            <div class="page-container">
+                                    <div class="form-group">
+                                        <label class="form-label" data-translate="crop_type">Crop Type</label>
+                                        <select id="cropType" class="form-control" disabled>
+                                            <option value="" data-translate="select_type">Select Type</option>
+                                        </select>
+                                    </div>
 
-                <section id="yield-page" class="page-content active">
-                    <div class="container yield-container">
-                        <nav class="tab-navigation yield-tabs">
-                             <button class="tab-btn active" data-tab="crop">
-                                <span class="tab-icon">🌾</span>
-                                <span class="tab-label" data-translate="crop_selection">Crop Selection</span>
-                            </button>
-                            <button class="tab-btn" data-tab="location">
-                                <span class="tab-icon">📍</span>
-                                <span class="tab-label" data-translate="location_weather">Location & Weather</span>
-                            </button>
-                            <button class="tab-btn" data-tab="soil">
-                                <span class="tab-icon">🌱</span>
-                                <span class="tab-label" data-translate="soil_parameters">Soil Parameters</span>
-                            </button>
-                            <button class="tab-btn" data-tab="farm">
-                                <span class="tab-icon">🚜</span>
-                                <span class="tab-label" data-translate="farm_details">Farm Details</span>
-                            </button>
-                            <button class="tab-btn" data-tab="prediction">
-                                <span class="tab-icon">🤖</span>
-                                <span class="tab-label" data-translate="ai_prediction">AI Prediction</span>
-                            </button>
-                        </nav>
-                
-                        <main class="tab-container">
-                            <section id="crop-tab" class="tab-content active">
-                                <div class="card">
-                                    <div class="card__body">
-                                        <h2 data-translate="crop_selection_title">🌾 Crop Selection</h2>
-                                        <p data-translate="crop_selection_desc">Select your crop category, type, variety and planting season</p>
-                                        
+                                    <div class="form-group">
+                                        <label class="form-label" data-translate="crop_variety">Crop Variety</label>
+                                        <select id="cropVariety" class="form-control" disabled>
+                                            <option value="" data-translate="select_variety">Select Variety</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="form-label" data-translate="planting_season">Planting Season</label>
+                                        <select id="plantingSeason" class="form-control">
+                                            <option value="kharif" data-translate="kharif">Kharif (Jun-Oct)</option>
+                                            <option value="rabi" data-translate="rabi">Rabi (Nov-Apr)</option>
+                                            <option value="zaid" data-translate="zaid">Zaid (Mar-Jun)</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="crop-info" id="cropInfo" style="display: none;">
+                                    <h3 data-translate="crop_information">Crop Information</h3>
+                                    <div id="cropInfoContent"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section id="location-tab" class="tab-content">
+                        <div class="card">
+                            <div class="card__body">
+                                <h2 data-translate="location_weather_title">📍 Location & Weather</h2>
+                                <p data-translate="location_weather_desc">GPS location detection with live weather data</p>
+
+                                <div class="location-section">
+                                    <div class="location-controls">
+                                        <button id="detectGPS" class="btn btn--primary">
+                                            <span data-translate="detect_location">📡 Detect GPS Location</span>
+                                        </button>
+                                    </div>
+
+                                    <div id="locationInfo" class="location-info" style="display: none;">
+                                        <h3 data-translate="current_location">Current Location</h3>
+                                        <div class="location-details">
+                                            <p><strong data-translate="coordinates">Coordinates:</strong> <span id="coordinates"></span></p>
+                                            <p><strong data-translate="address">Address:</strong> <span id="address"></span></p>
+                                        </div>
+                                    </div>
+
+                                    <div id="weatherInfo" class="weather-info" style="display: none;">
+                                        <h3 data-translate="weather_data">Weather Data</h3>
+                                        <div class="weather-grid">
+                                            <div class="weather-item">
+                                                <span class="weather-icon">🌡️</span>
+                                                <div>
+                                                    <span class="weather-label" data-translate="temperature">Temperature</span>
+                                                    <span class="weather-value" id="temperature">--°C</span>
+                                                </div>
+                                            </div>
+                                            <div class="weather-item">
+                                                <span class="weather-icon">💧</span>
+                                                <div>
+                                                    <span class="weather-label" data-translate="humidity">Humidity</span>
+                                                    <span class="weather-value" id="humidity">--%</span>
+                                                </div>
+                                            </div>
+                                            <div class="weather-item">
+                                                <span class="weather-icon">🌧️</span>
+                                                <div>
+                                                    <span class="weather-label" data-translate="rainfall">Rainfall</span>
+                                                    <span class="weather-value" id="rainfall">-- mm</span>
+                                                </div>
+                                            </div>
+                                            <div class="weather-item">
+                                                <span class="weather-icon">💨</span>
+                                                <div>
+                                                    <span class="weather-label" data-translate="wind_speed">Wind Speed</span>
+                                                    <span class="weather-value" id="windSpeed">-- km/h</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section id="soil-tab" class="tab-content">
+                        <div class="card">
+                            <div class="card__body">
+                                <h2 data-translate="soil_parameters_title">🌱 Soil Parameters</h2>
+                                <p data-translate="soil_parameters_desc">IoT sensor data or manual soil parameter input</p>
+
+                                <div class="soil-input-methods">
+                                    <div class="input-method-tabs">
+                                        <button id="iotSensorTab" class="method-tab active" data-method="iot">
+                                            <span data-translate="iot_sensors">📡 IoT Sensors</span>
+                                        </button>
+                                        <button id="manualInputTab" class="method-tab" data-method="manual">
+                                            <span data-translate="manual_input">✏️ Manual Input</span>
+                                        </button>
+                                    </div>
+
+                                    <div id="iotSensorPanel" class="input-panel active">
+                                        <div class="sensor-status">
+                                            <div class="status status--success">
+                                                <span data-translate="sensors_connected">📡 IoT Sensors Connected</span>
+                                            </div>
+                                        </div>
+                                        <div class="sensor-readings">
+                                            <div class="reading-item">
+                                                <span class="reading-label" data-translate="soil_ph">pH Level</span>
+                                                <span class="reading-value" id="sensorPH">6.8</span>
+                                            </div>
+                                            <div class="reading-item">
+                                                <span class="reading-label" data-translate="nitrogen">Nitrogen (N)</span>
+                                                <span class="reading-value" id="sensorN">42 kg/ha</span>
+                                            </div>
+                                            <div class="reading-item">
+                                                <span class="reading-label" data-translate="phosphorus">Phosphorus (P)</span>
+                                                <span class="reading-value" id="sensorP">18 kg/ha</span>
+                                            </div>
+                                            <div class="reading-item">
+                                                <span class="reading-label" data-translate="potassium">Potassium (K)</span>
+                                                <span class="reading-value" id="sensorK">156 kg/ha</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div id="manualInputPanel" class="input-panel">
                                         <div class="form-grid">
                                             <div class="form-group">
-                                                <label class="form-label" data-translate="crop_category">Crop Category</label>
-                                                <select id="cropCategory" class="form-control">
-                                                    <option value="" data-translate="select_category">Select Category</option>
-                                                    <option value="cereals" data-translate="cereals">Cereals</option>
-                                                    <option value="pulses" data-translate="pulses">Pulses</option>
-                                                    <option value="oilseeds" data-translate="oilseeds">Oilseeds</option>
-                                                    <option value="cash_crops" data-translate="cash_crops">Cash Crops</option>
-                                                    <option value="vegetables" data-translate="vegetables">Vegetables</option>
-                                                    <option value="fruits" data-translate="fruits">Fruits</option>
-                                                    <option value="spices" data-translate="spices">Spices</option>
-                                                </select>
+                                                <label class="form-label" data-translate="soil_ph">pH Level</label>
+                                                <input type="number" id="manualPH" class="form-control" placeholder="6.0-8.0" step="0.1" min="1" max="14">
                                             </div>
-                
                                             <div class="form-group">
-                                                <label class="form-label" data-translate="crop_type">Crop Type</label>
-                                                <select id="cropType" class="form-control" disabled>
-                                                    <option value="" data-translate="select_type">Select Type</option>
-                                                </select>
+                                                <label class="form-label" data-translate="nitrogen">Nitrogen (kg/ha)</label>
+                                                <input type="number" id="manualN" class="form-control" placeholder="0-100" min="0">
                                             </div>
-                
                                             <div class="form-group">
-                                                <label class="form-label" data-translate="crop_variety">Crop Variety</label>
-                                                <select id="cropVariety" class="form-control" disabled>
-                                                    <option value="" data-translate="select_variety">Select Variety</option>
-                                                </select>
+                                                <label class="form-label" data-translate="phosphorus">Phosphorus (kg/ha)</label>
+                                                <input type="number" id="manualP" class="form-control" placeholder="0-50" min="0">
                                             </div>
-                
                                             <div class="form-group">
-                                                <label class="form-label" data-translate="planting_season">Planting Season</label>
-                                                <select id="plantingSeason" class="form-control">
-                                                    <option value="kharif" data-translate="kharif">Kharif (Jun-Oct)</option>
-                                                    <option value="rabi" data-translate="rabi">Rabi (Nov-Apr)</option>
-                                                    <option value="zaid" data-translate="zaid">Zaid (Mar-Jun)</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                
-                                        <div class="crop-info" id="cropInfo" style="display: none;">
-                                            <h3 data-translate="crop_information">Crop Information</h3>
-                                            <div id="cropInfoContent"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </section>
-                
-                            <section id="location-tab" class="tab-content">
-                                 <div class="card">
-                                    <div class="card__body">
-                                        <h2 data-translate="location_weather_title">📍 Location & Weather</h2>
-                                        <p data-translate="location_weather_desc">GPS location detection with live weather data</p>
-                
-                                        <div class="location-section">
-                                            <div class="location-controls">
-                                                <button id="detectGPS" class="btn btn--primary">
-                                                    <span data-translate="detect_location">📡 Detect GPS Location</span>
-                                                </button>
-                                                <button id="manualLocation" class="btn btn--outline">
-                                                    <span data-translate="manual_location">🗺️ Manual Selection</span>
-                                                </button>
-                                            </div>
-                
-                                            <div id="locationInfo" class="location-info" style="display: none;">
-                                                <h3 data-translate="current_location">Current Location</h3>
-                                                <div class="location-details">
-                                                    <p><strong data-translate="coordinates">Coordinates:</strong> <span id="coordinates"></span></p>
-                                                    <p><strong data-translate="address">Address:</strong> <span id="address"></span></p>
-                                                </div>
-                                            </div>
-                
-                                            <div id="weatherInfo" class="weather-info" style="display: none;">
-                                                <h3 data-translate="weather_data">Weather Data</h3>
-                                                <div class="weather-grid">
-                                                    <div class="weather-item">
-                                                        <span class="weather-icon">🌡️</span>
-                                                        <div>
-                                                            <span class="weather-label" data-translate="temperature">Temperature</span>
-                                                            <span class="weather-value" id="temperature">--°C</span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="weather-item">
-                                                        <span class="weather-icon">💧</span>
-                                                        <div>
-                                                            <span class="weather-label" data-translate="humidity">Humidity</span>
-                                                            <span class="weather-value" id="humidity">--%</span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="weather-item">
-                                                        <span class="weather-icon">🌧️</span>
-                                                        <div>
-                                                            <span class="weather-label" data-translate="rainfall">Rainfall</span>
-                                                            <span class="weather-value" id="rainfall">-- mm</span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="weather-item">
-                                                        <span class="weather-icon">💨</span>
-                                                        <div>
-                                                            <span class="weather-label" data-translate="wind_speed">Wind Speed</span>
-                                                            <span class="weather-value" id="windSpeed">-- km/h</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                <label class="form-label" data-translate="potassium">Potassium (kg/ha)</label>
+                                                <input type="number" id="manualK" class="form-control" placeholder="0-200" min="0">
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </section>
-                
-                            <section id="soil-tab" class="tab-content">
-                                <div class="card">
-                                    <div class="card__body">
-                                        <h2 data-translate="soil_parameters_title">🌱 Soil Parameters</h2>
-                                        <p data-translate="soil_parameters_desc">IoT sensor data or manual soil parameter input</p>
-                
-                                        <div class="soil-input-methods">
-                                            <div class="input-method-tabs">
-                                                <button id="iotSensorTab" class="method-tab active" data-method="iot">
-                                                    <span data-translate="iot_sensors">📡 IoT Sensors</span>
-                                                </button>
-                                                <button id="manualInputTab" class="method-tab" data-method="manual">
-                                                    <span data-translate="manual_input">✏️ Manual Input</span>
-                                                </button>
-                                            </div>
-                
-                                            <div id="iotSensorPanel" class="input-panel active">
-                                                <div class="sensor-status">
-                                                    <div class="status success">
-                                                        <span data-translate="sensors_connected">📡 IoT Sensors Connected</span>
-                                                    </div>
-                                                </div>
-                                                <div class="sensor-readings">
-                                                    <div class="reading-item">
-                                                        <span class="reading-label" data-translate="soil_ph">pH Level</span>
-                                                        <span class="reading-value" id="sensorPH">6.8</span>
-                                                    </div>
-                                                    <div class="reading-item">
-                                                        <span class="reading-label" data-translate="nitrogen">Nitrogen (N)</span>
-                                                        <span class="reading-value" id="sensorN">42 kg/ha</span>
-                                                    </div>
-                                                    <div class="reading-item">
-                                                        <span class="reading-label" data-translate="phosphorus">Phosphorus (P)</span>
-                                                        <span class="reading-value" id="sensorP">18 kg/ha</span>
-                                                    </div>
-                                                    <div class="reading-item">
-                                                        <span class="reading-label" data-translate="potassium">Potassium (K)</span>
-                                                        <span class="reading-value" id="sensorK">156 kg/ha</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                
-                                            <div id="manualInputPanel" class="input-panel">
-                                                <div class="form-grid">
-                                                    <div class="form-group">
-                                                        <label class="form-label" data-translate="soil_ph">pH Level</label>
-                                                        <input type="number" id="manualPH" class="form-control" placeholder="6.0-8.0" step="0.1" min="1" max="14">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label class="form-label" data-translate="nitrogen">Nitrogen (kg/ha)</label>
-                                                        <input type="number" id="manualN" class="form-control" placeholder="0-200" min="0">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label class="form-label" data-translate="phosphorus">Phosphorus (kg/ha)</label>
-                                                        <input type="number" id="manualP" class="form-control" placeholder="0-100" min="0">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label class="form-label" data-translate="potassium">Potassium (kg/ha)</label>
-                                                        <input type="number" id="manualK" class="form-control" placeholder="0-300" min="0">
-                                                    </div>
-                                                </div>
-                                            </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section id="farm-tab" class="tab-content">
+                        <div class="card">
+                            <div class="card__body">
+                                <h2 data-translate="farm_details_title">🚜 Farm Details</h2>
+                                <p data-translate="farm_details_desc">Farm area, irrigation system and management practices</p>
+
+                                <div class="form-grid">
+                                    <div class="form-group">
+                                        <label class="form-label" data-translate="farm_area">Farm Area</label>
+                                        <div class="input-with-unit">
+                                            <input type="number" id="farmArea" class="form-control" placeholder="Enter area" min="0.1" step="0.1">
+                                            <select id="areaUnit" class="form-control unit-select">
+                                                <option value="hectare" data-translate="hectare">Hectare</option>
+                                                <option value="acre" data-translate="acre">Acre</option>
+                                            </select>
                                         </div>
-                
-                                        <div class="fertilizer-recommendations" id="fertilizerRecs" style="display: none;">
-                                            <h3 data-translate="fertilizer_recommendations">Fertilizer Recommendations</h3>
-                                            <div id="fertilizerRecsContent"></div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="form-label" data-translate="irrigation_system">Irrigation System</label>
+                                        <select id="irrigationSystem" class="form-control">
+                                            <option value="" data-translate="select_irrigation">Select System</option>
+                                            <option value="drip" data-translate="drip_irrigation">Drip Irrigation</option>
+                                            <option value="sprinkler" data-translate="sprinkler_irrigation">Sprinkler</option>
+                                            <option value="flood" data-translate="flood_irrigation">Flood Irrigation</option>
+                                            <option value="furrow" data-translate="furrow_irrigation">Furrow</option>
+                                            <option value="rainfed" data-translate="rainfed">Rain-fed</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="form-label" data-translate="previous_crop">Previous Crop</label>
+                                        <input type="text" id="previousCrop" class="form-control" data-translate-placeholder="enter_previous_crop" placeholder="Enter previous crop">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="form-label" data-translate="farm_management">Management Practice</label>
+                                        <select id="farmManagement" class="form-control">
+                                            <option value="" data-translate="select_management">Select Practice</option>
+                                            <option value="organic" data-translate="organic">Organic</option>
+                                            <option value="conventional" data-translate="conventional">Conventional</option>
+                                            <option value="integrated" data-translate="integrated">Integrated</option>
+                                            <option value="precision" data-translate="precision">Precision Farming</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="economic-inputs">
+                                    <h3 data-translate="economic_parameters">Economic Parameters</h3>
+                                    <div class="form-grid">
+                                        <div class="form-group">
+                                            <label class="form-label" data-translate="seed_cost">Seed Cost (₹/ha)</label>
+                                            <input type="number" id="seedCost" class="form-control" placeholder="5000" min="0">
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label" data-translate="fertilizer_cost">Fertilizer Cost (₹/ha)</label>
+                                            <input type="number" id="fertilizerCost" class="form-control" placeholder="8000" min="0">
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label" data-translate="labor_cost">Labor Cost (₹/ha)</label>
+                                            <input type="number" id="laborCost" class="form-control" placeholder="12000" min="0">
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label" data-translate="irrigation_cost">Irrigation Cost (₹/ha)</label>
+                                            <input type="number" id="irrigationCost" class="form-control" placeholder="3000" min="0">
                                         </div>
                                     </div>
                                 </div>
-                            </section>
-                
-                            <section id="farm-tab" class="tab-content">
-                               <div class="card">
-                                    <div class="card__body">
-                                        <h2 data-translate="farm_details_title">🚜 Farm Details</h2>
-                                        <p data-translate="farm_details_desc">Farm area, irrigation system and management practices</p>
-                
-                                        <div class="form-grid">
-                                            <div class="form-group">
-                                                <label class="form-label" data-translate="farm_area">Farm Area</label>
-                                                <div class="input-with-unit">
-                                                    <input type="number" id="farmArea" class="form-control" placeholder="Enter area" min="0.1" step="0.1">
-                                                    <select id="areaUnit" class="form-control unit-select">
-                                                        <option value="hectare" data-translate="hectare">Hectare</option>
-                                                        <option value="acre" data-translate="acre">Acre</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                
-                                            <div class="form-group">
-                                                <label class="form-label" data-translate="irrigation_system">Irrigation System</label>
-                                                <select id="irrigationSystem" class="form-control">
-                                                    <option value="" data-translate="select_irrigation">Select System</option>
-                                                    <option value="drip" data-translate="drip_irrigation">Drip Irrigation</option>
-                                                    <option value="sprinkler" data-translate="sprinkler_irrigation">Sprinkler</option>
-                                                    <option value="flood" data-translate="flood_irrigation">Flood Irrigation</option>
-                                                    <option value="furrow" data-translate="furrow_irrigation">Furrow</option>
-                                                    <option value="rainfed" data-translate="rainfed">Rain-fed</option>
-                                                </select>
-                                            </div>
-                
-                                            <div class="form-group">
-                                                <label class="form-label" data-translate="previous_crop">Previous Crop</label>
-                                                <input type="text" id="previousCrop" class="form-control" data-translate-placeholder="enter_previous_crop" placeholder="Enter previous crop">
-                                            </div>
-                
-                                            <div class="form-group">
-                                                <label class="form-label" data-translate="farm_management">Management Practice</label>
-                                                <select id="farmManagement" class="form-control">
-                                                    <option value="" data-translate="select_management">Select Practice</option>
-                                                    <option value="organic" data-translate="organic">Organic</option>
-                                                    <option value="conventional" data-translate="conventional">Conventional</option>
-                                                    <option value="integrated" data-translate="integrated">Integrated</option>
-                                                    <option value="precision" data-translate="precision">Precision Farming</option>
-                                                </select>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section id="prediction-tab" class="tab-content">
+                        <div class="card">
+                            <div class="card__body">
+                                <h2 data-translate="ai_prediction_title">🤖 AI Prediction</h2>
+                                <p data-translate="ai_prediction_desc">Generate comprehensive yield prediction with economic analysis</p>
+
+                                <div class="prediction-controls">
+                                    <button id="generatePrediction" class="btn btn--primary btn--lg">
+                                        <span data-translate="generate_prediction">🔮 Generate AI Prediction</span>
+                                    </button>
+                                </div>
+
+                                <div id="predictionResults" class="prediction-results" style="display: none;">
+                                    <div class="results-header">
+                                        <h3 data-translate="prediction_results">Prediction Results</h3>
+                                        <div class="confidence-indicator">
+                                            <span data-translate="confidence">Confidence:</span>
+                                            <span id="confidenceValue" class="confidence-value">---%</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="results-grid">
+                                        <div class="result-card">
+                                            <div class="result-icon">📊</div>
+                                            <div class="result-content">
+                                                <h4 data-translate="predicted_yield">Predicted Yield</h4>
+                                                <p id="predictedYield" class="result-value">-- tonnes/ha</p>
                                             </div>
                                         </div>
-                
-                                        <div class="economic-inputs">
-                                            <h3 data-translate="economic_parameters">Economic Parameters</h3>
-                                            <div class="form-grid">
-                                                <div class="form-group">
-                                                    <label class="form-label" data-translate="seed_cost">Seed Cost (₹/ha)</label>
-                                                    <input type="number" id="seedCost" class="form-control" placeholder="5000" min="0">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label class="form-label" data-translate="fertilizer_cost">Fertilizer Cost (₹/ha)</label>
-                                                    <input type="number" id="fertilizerCost" class="form-control" placeholder="8000" min="0">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label class="form-label" data-translate="labor_cost">Labor Cost (₹/ha)</label>
-                                                    <input type="number" id="laborCost" class="form-control" placeholder="12000" min="0">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label class="form-label" data-translate="irrigation_cost">Irrigation Cost (₹/ha)</label>
-                                                    <input type="number" id="irrigationCost" class="form-control" placeholder="3000" min="0">
-                                                </div>
+
+                                        <div class="result-card">
+                                            <div class="result-icon">💰</div>
+                                            <div class="result-content">
+                                                <h4 data-translate="estimated_revenue">Estimated Revenue</h4>
+                                                <p id="estimatedRevenue" class="result-value">₹ --/ha</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="result-card">
+                                            <div class="result-icon">📈</div>
+                                            <div class="result-content">
+                                                <h4 data-translate="profit_margin">Profit Margin</h4>
+                                                <p id="profitMargin" class="result-value">--%</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="result-card">
+                                            <div class="result-icon">⚠️</div>
+                                            <div class="result-content">
+                                                <h4 data-translate="risk_assessment">Risk Level</h4>
+                                                <p id="riskAssessment" class="result-value">--</p>
                                             </div>
                                         </div>
                                     </div>
+
+                                    <div class="recommendations" id="recommendations">
+                                        <h3 data-translate="recommendations">Recommendations</h3>
+                                        <ul id="recommendationsList"></ul>
+                                    </div>
+
+                                    <div class="prediction-actions">
+                                        <button id="downloadReport" class="btn btn--secondary">
+                                            <span data-translate="download_report">📄 Download Report</span>
+                                        </button>
+                                        <button id="savePrediction" class="btn btn--outline">
+                                            <span data-translate="save_prediction">💾 Save Prediction</span>
+                                        </button>
+                                    </div>
                                 </div>
-                            </section>
-                
-                            <section id="prediction-tab" class="tab-content">
-                                <div class="card">
-                                    <div class="card__body">
-                                        <h2 data-translate="ai_prediction_title">🤖 AI Prediction</h2>
-                                        <p data-translate="ai_prediction_desc">Generate comprehensive yield prediction with economic analysis</p>
-                
-                                        <div class="prediction-controls">
-                                            <button id="generatePrediction" class="btn btn--primary btn--lg">
-                                                <span data-translate="generate_prediction">🔮 Generate AI Prediction</span>
+
+                                <div id="loadingIndicator" class="loading-indicator" style="display: none;">
+                                    <div class="loading-spinner"></div>
+                                    <p data-translate="generating_prediction">Generating AI prediction...</p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </main>
+            </div>
+
+            <div id="disease-content" class="main-tab-content">
+                <main class="disease-main-content">
+                    
+                    <section class="upload-section">
+                        <div class="upload-card">
+                            <div class="card-header">
+                                <h2 data-translate="disease_upload_title">📸 Upload Crop Image for Analysis</h2>
+                                <div class="supported-formats">
+                                    <span data-translate="disease_supported_formats">Supports: JPG, PNG, WebP | Max: 10MB</span>
+                                </div>
+                            </div>
+                            
+                            <div class="card-body">
+                                <div class="upload-area" id="upload-area">
+                                    <div class="upload-content" id="upload-content">
+                                        <div class="upload-icon">
+                                            <i class="fas fa-camera"></i>
+                                        </div>
+                                        <h3 data-translate="disease_upload_heading">Upload or Capture Crop Image</h3>
+                                        <p data-translate="disease_upload_desc">Drag & drop an image here or click to select from device</p>
+                                        <div class="upload-buttons">
+                                            <button class="btn btn-primary" id="select-file-btn">
+                                                <i class="fas fa-folder-open"></i>
+                                                <span data-translate="disease_select_file">Select File</span>
+                                            </button>
+                                            <button class="btn btn-outline" id="camera-btn">
+                                                <i class="fas fa-camera"></i>
+                                                <span data-translate="disease_use_camera">Use Camera</span>
                                             </button>
                                         </div>
-                
-                                        <div id="predictionResults" class="prediction-results" style="display: none;">
-                                            <div class="results-header">
-                                                <h3 data-translate="prediction_results">Prediction Results</h3>
-                                                <div class="confidence-indicator">
-                                                    <span data-translate="confidence">Confidence:</span>
-                                                    <span id="confidenceValue" class="confidence-value">---%</span>
-                                                </div>
-                                            </div>
-                
-                                            <div class="results-grid">
-                                                <div class="result-card">
-                                                    <div class="result-icon">📊</div>
-                                                    <div class="result-content">
-                                                        <h4 data-translate="predicted_yield">Predicted Yield</h4>
-                                                        <p id="predictedYield" class="result-value">-- tonnes/ha</p>
-                                                    </div>
-                                                </div>
-                
-                                                <div class="result-card">
-                                                    <div class="result-icon">💰</div>
-                                                    <div class="result-content">
-                                                        <h4 data-translate="estimated_revenue">Estimated Revenue</h4>
-                                                        <p id="estimatedRevenue" class="result-value">₹ --/ha</p>
-                                                    </div>
-                                                </div>
-                
-                                                <div class="result-card">
-                                                    <div class="result-icon">📈</div>
-                                                    <div class="result-content">
-                                                        <h4 data-translate="profit_margin">Profit Margin</h4>
-                                                        <p id="profitMargin" class="result-value">--%</p>
-                                                    </div>
-                                                </div>
-                
-                                                <div class="result-card">
-                                                    <div class="result-icon">⚠️</div>
-                                                    <div class="result-content">
-                                                        <h4 data-translate="risk_assessment">Risk Level</h4>
-                                                        <p id="riskAssessment" class="result-value">--</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                
-                                            <div class="recommendations" id="recommendations">
-                                                <h3 data-translate="recommendations">Recommendations</h3>
-                                                <ul id="recommendationsList"></ul>
-                                            </div>
-                
-                                            <div class="prediction-actions">
-                                                <button id="downloadReport" class="btn btn--secondary">
-                                                    <span data-translate="download_report">📄 Download Report</span>
-                                                </button>
-                                                <button id="savePrediction" class="btn btn--outline">
-                                                    <span data-translate="save_prediction">💾 Save Prediction</span>
-                                                </button>
-                                            </div>
-                                        </div>
-                
-                                        <div id="loadingIndicator" class="loading-indicator" style="display: none;">
-                                            <div class="loading-spinner"></div>
-                                            <p data-translate="generating_prediction">Generating AI prediction...</p>
-                                        </div>
                                     </div>
-                                </div>
-                            </section>
-                        </main>
-                    </div>
-                </section>
-
-                <section id="disease-page" class="page-content">
-                     <div class="container disease-container">
-                        <section class="upload-section">
-                            <div class="upload-card">
-                                <div class="card-header">
-                                    <h2 data-translate="disease_upload_title">📸 Upload Crop Image for Analysis</h2>
-                                    <div class="supported-formats">
-                                        <span data-translate="disease_supported_formats">Supports: JPG, PNG, WebP | Max: 10MB</span>
+                                    
+                                    <div class="image-preview hidden" id="image-preview">
+                                        <img id="preview-image" alt="Uploaded crop image">
+                                        <div class="image-overlay">
+                                            <div class="image-info">
+                                                <span id="image-name">image.jpg</span>
+                                                <span id="image-size">2.5 MB</span>
+                                            </div>
+                                            <button class="btn btn-danger btn-sm" id="remove-image">
+                                                <i class="fas fa-trash"></i>
+                                                <span data-translate="disease_remove_image">Remove</span>
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
                                 
-                                <div class="card-body">
-                                    <div class="upload-area" id="upload-area">
-                                        <div class="upload-content" id="upload-content">
-                                            <div class="upload-icon"><i class="fas fa-camera"></i></div>
-                                            <h3 data-translate="disease_upload_heading">Upload or Capture Crop Image</h3>
-                                            <p data-translate="disease_upload_desc">Drag & drop an image here or click to select from device</p>
-                                            <div class="upload-buttons">
-                                                <button class="btn btn-primary" id="select-file-btn">
-                                                    <i class="fas fa-folder-open"></i> <span data-translate="disease_select_file">Select File</span>
-                                                </button>
-                                                <button class="btn btn--outline" id="camera-btn">
-                                                    <i class="fas fa-camera"></i> <span data-translate="disease_use_camera">Use Camera</span>
-                                                </button>
-                                            </div>
+                                <input type="file" id="file-input" accept="image/*" hidden>
+                                
+                                <button class="btn btn-success btn-large btn-analyze" id="analyze-btn" disabled>
+                                    <i class="fas fa-microscope"></i>
+                                    <span data-translate="disease_start_analysis">Start AI Disease Analysis</span>
+                                </button>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="processing-section hidden" id="processing-section">
+                        <div class="processing-card">
+                            <div class="processing-animation">
+                                <div class="ai-brain">
+                                    <i class="fas fa-brain"></i>
+                                </div>
+                                <div class="processing-waves">
+                                    <div class="wave"></div>
+                                    <div class="wave"></div>
+                                    <div class="wave"></div>
+                                </div>
+                            </div>
+                            <h3 data-translate="disease_analysis_progress">AI Disease Analysis in Progress...</h3>
+                            <p id="processing-status" data-translate="disease_initializing">Initializing computer vision algorithms...</p>
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="progress-fill"></div>
+                            </div>
+                            <div class="progress-percentage" id="progress-percentage">0%</div>
+                        </div>
+                    </section>
+
+                    <section class="results-section hidden" id="results-section">
+                        <div class="results-header">
+                            <h2 data-translate="disease_results_title">🔬AI Analysis Results</h2>
+                            <div class="analysis-summary">
+                                <span class="analysis-time" data-translate="disease_analysis_time">Analysis completed in 3.2 seconds</span>
+                                <span class="confidence-badge" id="overall-confidence">98.7% Confidence</span>
+                            </div>
+                        </div>
+                        
+                        <div class="disease-results" id="disease-results">
+                            </div>
+                        
+                        <div class="treatment-section" id="treatment-section">
+                            <div class="treatment-header">
+                                <h3 data-translate="disease_treatment_title">💊 Comprehensive Treatment Recommendations</h3>
+                                <div class="treatment-tabs">
+                                    <button class="tab-btn active" data-tab="chemical" data-translate="disease_chemical">Chemical</button>
+                                    <button class="tab-btn" data-tab="biological" data-translate="disease_biological">Biological</button>
+                                    <button class="tab-btn" data-tab="integrated" data-translate="disease_integrated">Integrated</button>
+                                </div>
+                            </div>
+                            
+                            <div class="treatment-content" id="treatment-content">
+                                </div>
+                        </div>
+                        
+                        <div class="cost-calculator" id="cost-calculator">
+                            <div class="calculator-header">
+                                <h3 data-translate="disease_cost_calculator_title">💰 Treatment Cost Calculator</h3>
+                            </div>
+                            <div class="calculator-body">
+                                <div class="area-input">
+                                    <label for="farm-area" data-translate="disease_farm_area">Farm Area:</label>
+                                    <input type="number" id="farm-area" placeholder="Enter area" min="0.1" step="0.1">
+                                    <select id="area-unit">
+                                        <option value="hectares" data-translate="hectare">Hectares</option>
+                                        <option value="acres" data-translate="acre">Acres</option>
+                                    </select>
+                                </div>
+                                <div class="cost-breakdown" id="cost-breakdown">
+                                    </div>
+                            </div>
+                        </div>
+                        
+                        <div class="action-buttons">
+                            <button class="btn btn-primary" id="find-dealers">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span data-translate="disease_find_dealers">Find Nearby Dealers</span>
+                            </button>
+                            <button class="btn btn-outline" id="consult-expert">
+                                <i class="fas fa-user-md"></i>
+                                <span data-translate="disease_consult_expert">Consult Expert</span>
+                            </button>
+                            <button class="btn btn-outline" id="save-report">
+                                <i class="fas fa-download"></i>
+                                <span data-translate="disease_download_report">Download Report</span>
+                            </button>
+                            <button class="btn btn-secondary" id="analyze-another">
+                                <i class="fas fa-redo"></i>
+                                <span data-translate="disease_analyze_another">Analyze Another Image</span>
+                            </button>
+                        </div>
+                    </section>
+                </main>
+
+            </div>
+
+            <div id="market-content" class="main-tab-content">
+                <main class="main-container">
+            
+                    <nav class="tab-navigation">
+                        <button class="market-tab-btn active" data-tab="overview">
+                            <i class="fas fa-chart-pie"></i>
+                            <span data-translate="market_overview">Market Overview</span>
+                        </button>
+                        <button class="market-tab-btn" data-tab="predictions">
+                            <i class="fas fa-crystal-ball"></i>
+                            <span data-translate="price_predictions">Price Predictions</span>
+                        </button>
+                        <button class="market-tab-btn" data-tab="analytics">
+                            <i class="fas fa-chart-bar"></i>
+                            <span data-translate="technical_analytics">Technical Analytics</span>
+                        </button>
+                        <button class="market-tab-btn" data-tab="insights">
+                            <i class="fas fa-lightbulb"></i>
+                            <span data-translate="ai_insights">AI Insights</span>
+                        </button>
+                    </nav>
+
+                    <div class="price-ticker">
+                        <div class="ticker-content" id="priceTicker">
+                            </div>
+                    </div>
+
+                    <div class="market-tab-content active" id="overview-tab">
+                        <div class="overview-grid">
+                            
+                            <div class="market-summary">
+                                <h2 data-translate="market_summary"><i class="fas fa-chart-line"></i> Market Summary</h2>
+                                <div class="summary-cards">
+                                    <div class="summary-card bullish">
+                                        <div class="card-header">
+                                            <h3 data-translate="total_markets">Total Markets</h3>
+                                            <i class="fas fa-store"></i>
                                         </div>
-                                        
-                                        <div class="image-preview hidden" id="image-preview">
-                                            <img id="preview-image" alt="Uploaded crop image">
-                                            <div class="image-overlay">
-                                                <div class="image-info">
-                                                    <span id="image-name">image.jpg</span>
-                                                    <span id="image-size">2.5 MB</span>
-                                                </div>
-                                                <button class="btn btn-danger btn-sm" id="remove-image">
-                                                    <i class="fas fa-trash"></i> <span data-translate="disease_remove">Remove</span>
-                                                </button>
-                                            </div>
+                                        <div class="card-value">500+</div>
+                                        <div class="card-change positive">
+                                            <i class="fas fa-arrow-up"></i>
+                                            <span data-translate="new_today">15 New Today</span>
                                         </div>
                                     </div>
-                                    <input type="file" id="file-input" accept="image/*" hidden>
-                                    <button class="btn btn--primary btn--lg btn-analyze" id="analyze-btn" disabled>
-                                        <i class="fas fa-microscope"></i> <span data-translate="disease_start_analysis">Start AI Disease Analysis</span>
+                                    
+                                    <div class="summary-card">
+                                        <div class="card-header">
+                                            <h3 data-translate="active_crops">Active Crops</h3>
+                                            <i class="fas fa-seedling"></i>
+                                        </div>
+                                        <div class="card-value">52</div>
+                                        <div class="card-change positive">
+                                            <i class="fas fa-arrow-up"></i>
+                                            <span>+2.3%</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="summary-card">
+                                        <div class="card-header">
+                                            <h3 data-translate="ai_accuracy">AI Accuracy</h3>
+                                            <i class="fas fa-brain"></i>
+                                        </div>
+                                        <div class="card-value">92.4%</div>
+                                        <div class="card-change positive">
+                                            <i class="fas fa-arrow-up"></i>
+                                            <span>+0.2%</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="summary-card">
+                                        <div class="card-header">
+                                            <h3 data-translate="daily_volume">Daily Volume</h3>
+                                            <i class="fas fa-chart-bar"></i>
+                                        </div>
+                                        <div class="card-value">₹2.5B</div>
+                                        <div class="card-change negative">
+                                            <i class="fas fa-arrow-down"></i>
+                                            <span>-1.2%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="top-performers">
+                                <h2 data-translate="top_performers"><i class="fas fa-trophy"></i> Top Performers</h2>
+                                <div class="performers-tabs">
+                                    <button class="performers-tab-btn active" data-performers="gainers" data-translate="top_gainers">
+                                        Top Gainers
+                                    </button>
+                                    <button class="performers-tab-btn" data-performers="losers" data-translate="top_losers">
+                                        Top Losers
+                                    </button>
+                                    <button class="performers-tab-btn" data-performers="volume" data-translate="high_volume">
+                                        High Volume
+                                    </button>
+                                </div>
+                                <div class="performers-list" id="performersList">
+                                    </div>
+                            </div>
+
+                            <div class="price-chart-container">
+                                <div class="chart-header">
+                                    <h2 data-translate="live_market_prices"><i class="fas fa-chart-line"></i> Live Market Prices</h2>
+                                    <div class="chart-controls">
+                                        <select id="cropSelector" class="form-control">
+                                            </select>
+                                        <select id="marketSelector" class="form-control">
+                                            </select>
+                                    </div>
+                                </div>
+                                <canvas id="liveChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="market-tab-content" id="predictions-tab">
+                        <div class="predictions-layout">
+                            
+                            <div class="prediction-controls">
+                                <h2 data-translate="ai_price_predictions"><i class="fas fa-crystal-ball"></i> AI Price Predictions</h2>
+                                <div class="prediction-form">
+                                    <div class="form-group">
+                                        <label for="predictionCrop" data-translate="select_crop">Select Crop:</label>
+                                        <select id="predictionCrop" class="form-control">
+                                            </select>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="predictionMarket" data-translate="select_market">Select Market:</label>
+                                        <select id="predictionMarket" class="form-control">
+                                            </select>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="predictionDays" data-translate="prediction_period">Prediction Period:</label>
+                                        <select id="predictionDays" class="form-control">
+                                            <option value="7">1 Week</option>
+                                            <option value="15">2 Weeks</option>
+                                            <option value="30" selected>1 Month</option>
+                                            <option value="90">3 Months</option>
+                                        </select>
+                                    </div>
+                                    
+                                    <button class="btn btn-primary prediction-btn">
+                                        <i class="fas fa-magic"></i>
+                                        <span data-translate="generate_prediction_market">Generate AI Prediction</span>
                                     </button>
                                 </div>
                             </div>
-                        </section>
-            
-                        <section class="processing-section hidden" id="processing-section">
-                            <div class="processing-card">
-                                <div class="processing-animation">
-                                    <div class="ai-brain"><i class="fas fa-brain"></i></div>
-                                    <div class="processing-waves">
-                                        <div class="wave"></div><div class="wave"></div><div class="wave"></div>
-                                    </div>
-                                </div>
-                                <h3 data-translate="disease_analysis_progress">AI Disease Analysis in Progress...</h3>
-                                <p id="processing-status" data-translate="disease_initializing">Initializing computer vision algorithms...</p>
-                                <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
-                                <div class="progress-percentage" id="progress-percentage">0%</div>
-                            </div>
-                        </section>
-            
-                        <section class="results-section hidden" id="results-section">
-                            <div class="results-header">
-                                <h2 data-translate="disease_results_title">🔬 AI Analysis Results</h2>
-                                <div class="analysis-summary">
-                                    <span class="analysis-time" data-translate="disease_analysis_time">Analysis completed in 3.2 seconds</span>
-                                    <span class="confidence-badge" id="overall-confidence">98.7% Confidence</span>
-                                </div>
-                            </div>
-                            <div class="disease-results" id="disease-results"></div>
-                            <div class="treatment-section" id="treatment-section">
-                                <div class="treatment-header">
-                                    <h3 data-translate="disease_treatment_title">💊 Comprehensive Treatment Recommendations</h3>
-                                    <div class="treatment-tabs">
-                                        <button class="tab-btn active" data-tab="chemical" data-translate="chemical">Chemical</button>
-                                        <button class="tab-btn" data-tab="biological" data-translate="biological">Biological</button>
-                                        <button class="tab-btn" data-tab="integrated" data-translate="integrated_pest_management">Integrated</button>
-                                    </div>
-                                </div>
-                                <div class="treatment-content" id="treatment-content"></div>
-                            </div>
-                            <div class="cost-calculator" id="cost-calculator">
-                                <div class="calculator-header">
-                                    <h3 data-translate="disease_cost_calculator_title">💰 Treatment Cost Calculator</h3>
-                                </div>
-                                <div class="calculator-body">
-                                    <div class="area-input">
-                                        <label for="farm-area" data-translate="farm_area">Farm Area:</label>
-                                        <input type="number" id="farm-area" placeholder="Enter area" min="0.1" step="0.1">
-                                        <select id="area-unit">
-                                            <option value="hectares" data-translate="hectare">Hectares</option>
-                                            <option value="acres" data-translate="acre">Acres</option>
-                                        </select>
-                                    </div>
-                                    <div class="cost-breakdown" id="cost-breakdown"></div>
-                                </div>
-                            </div>
-                            <div class="action-buttons">
-                                <button class="btn btn--primary" id="find-dealers">
-                                    <i class="fas fa-map-marker-alt"></i> <span data-translate="disease_find_dealers">Find Nearby Dealers</span>
-                                </button>
-                                <button class="btn btn--outline" id="consult-expert">
-                                    <i class="fas fa-user-md"></i> <span data-translate="disease_consult_expert">Consult Expert</span>
-                                </button>
-                                <button class="btn btn--outline" id="save-report">
-                                    <i class="fas fa-download"></i> <span data-translate="download_report">Download Report</span>
-                                </button>
-                                <button class="btn btn--secondary" id="analyze-another">
-                                    <i class="fas fa-redo"></i> <span data-translate="disease_analyze_another">Analyze Another Image</span>
-                                </button>
-                            </div>
-                        </section>
-                     </div>
-                </section>
 
-                <section id="market-page" class="page-content">
-                    <div class="container market-container">
-                        <div class="price-ticker">
-                            <div class="ticker-content" id="priceTicker"></div>
-                        </div>
-
-                        <nav class="tab-navigation market-tabs">
-                             <button class="tab-btn active" data-tab="overview">
-                                <i class="fas fa-chart-pie"></i>
-                                <span data-translate="market_overview">Market Overview</span>
-                            </button>
-                            <button class="tab-btn" data-tab="predictions">
-                                <i class="fas fa-robot"></i>
-                                <span data-translate="price_predictions">Price Predictions</span>
-                            </button>
-                            <button class="tab-btn" data-tab="analytics">
-                                <i class="fas fa-chart-bar"></i>
-                                <span data-translate="technical_analytics">Technical Analytics</span>
-                            </button>
-                            <button class="tab-btn" data-tab="alerts">
-                                <i class="fas fa-bell"></i>
-                                <span data-translate="price_alerts">Price Alerts</span>
-                            </button>
-                            <button class="tab-btn" data-tab="insights">
-                                <i class="fas fa-lightbulb"></i>
-                                <span data-translate="ai_insights">AI Insights</span>
-                            </button>
-                        </nav>
-
-                        <div class="tab-content active" id="overview-tab">
-                             <div class="overview-grid">
-                                <div class="market-summary">
-                                    <h2 data-translate="market_summary">Market Summary</h2>
-                                    <div class="summary-cards">
-                                        <div class="summary-card bullish"><div class="card-header"><h3 data-translate="total_markets">Total Markets</h3><i class="fas fa-store"></i></div><div class="card-value">500+</div><div class="card-change positive"><i class="fas fa-arrow-up"></i> <span data-translate="new_today">15 New Today</span></div></div>
-                                        <div class="summary-card"><div class="card-header"><h3 data-translate="active_crops">Active Crops</h3><i class="fas fa-seedling"></i></div><div class="card-value">52</div><div class="card-change positive"><i class="fas fa-arrow-up"></i><span>+2.3%</span></div></div>
-                                        <div class="summary-card"><div class="card-header"><h3 data-translate="ai_accuracy">AI Accuracy</h3><i class="fas fa-brain"></i></div><div class="card-value">92.4%</div><div class="card-change positive"><i class="fas fa-arrow-up"></i><span>+0.2%</span></div></div>
-                                        <div class="summary-card"><div class="card-header"><h3 data-translate="daily_volume">Daily Volume</h3><i class="fas fa-chart-bar"></i></div><div class="card-value">₹2.5B</div><div class="card-change negative"><i class="fas fa-arrow-down"></i><span>-1.2%</span></div></div>
-                                    </div>
+                            <div class="prediction-results">
+                                <div class="prediction-chart-container">
+                                    <h3 data-translate="price_forecast">Price Forecast</h3>
+                                    <canvas id="predictionChart"></canvas>
                                 </div>
-                                <div class="top-performers">
-                                    <h2 data-translate="top_performers">Top Performers</h2>
-                                    <div class="performers-tabs">
-                                        <button class="performers-tab-btn active" data-performers="gainers" data-translate="top_gainers">Top Gainers</button>
-                                        <button class="performers-tab-btn" data-performers="losers" data-translate="top_losers">Top Losers</button>
-                                        <button class="performers-tab-btn" data-performers="volume" data-translate="high_volume">High Volume</button>
-                                    </div>
-                                    <div class="performers-list" id="performersList"></div>
-                                </div>
-                                <div class="price-chart-container">
-                                    <div class="chart-header">
-                                        <h2 data-translate="live_market_prices">Live Market Prices</h2>
-                                        <div class="chart-controls">
-                                            <select id="cropSelector" class="form-control"></select>
-                                            <select id="marketSelector" class="form-control"></select>
+                                
+                                <div class="prediction-summary">
+                                    <h3 data-translate="prediction_summary">Prediction Summary</h3>
+                                    <div class="prediction-metrics" id="predictionMetrics">
+                                        <div class="metric">
+                                            <label data-translate="current_price">Current Price:</label>
+                                            <span class="value" id="currentPrice">--</span>
+                                        </div>
+                                        <div class="metric">
+                                            <label data-translate="predicted_price">Predicted Price:</label>
+                                            <span class="value" id="predictedPrice">--</span>
+                                        </div>
+                                        <div class="metric">
+                                            <label data-translate="price_change">Price Change:</label>
+                                            <span class="value" id="priceChange">--</span>
+                                        </div>
+                                        <div class="metric">
+                                            <label data-translate="confidence">Confidence:</label>
+                                            <span class="value" id="confidence">--</span>
                                         </div>
                                     </div>
-                                    <canvas id="liveChart"></canvas>
                                 </div>
-                             </div>
+                            </div>
                         </div>
-
-                         <div class="tab-content" id="predictions-tab"></div>
-                         <div class="tab-content" id="analytics-tab"></div>
-                         <div class="tab-content" id="alerts-tab"></div>
-                         <div class="tab-content" id="insights-tab"></div>
                     </div>
-                </section>
+                     <div class="market-tab-content" id="analytics-tab">
+                         <div class="analytics-layout">
+                             <div class="technical-charts">
+                                 <div class="chart-container">
+                                     <div class="chart-header">
+                                         <h3 data-translate="technical_analysis">Technical Analysis</h3>
+                                     </div>
+                                     <canvas id="technicalChart"></canvas>
+                                 </div>
+                             </div>
+                             <div class="trading-signals">
+                                 <h3 data-translate="ai_trading_signals">AI Trading Signals</h3>
+                                 <div class="signals-list" id="signalsList">
+                                     </div>
+                             </div>
+                         </div>
+                    </div>
+                     <div class="market-tab-content" id="insights-tab">
+                         <div class="insights-layout">
+                            <div class="market-intelligence">
+                                <h2 data-translate="market_intelligence"><i class="fas fa-lightbulb"></i> AI Market Intelligence</h2>
+                                <div class="intelligence-cards">
+                                    <div class="intelligence-card bullish">
+                                        <div class="card-icon">📈</div>
+                                        <div class="card-content">
+                                            <h3 data-translate="market_sentiment">Market Sentiment</h3>
+                                            <div class="sentiment-score" data-translate="sentiment_bullish">Bullish (72%)</div>
+                                            <p data-translate="sentiment_desc">Overall market sentiment is positive with strong demand in cereals and oilseeds. Weather conditions favor good harvest.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                             <div class="ai-recommendations">
+                                 <h3 data-translate="ai_trading_recommendations">AI Trading Recommendations</h3>
+                                 <div class="recommendations-list" id="recommendationsContainer">
+                                    </div>
+                             </div>
+                         </div>
+                    </div>
+                 </main>
+            </div>
+
+            <div id="advice-content" class="main-tab-content">
+                <h2 data-translate="expert_advice_title">🧑‍🏫 Expert Advice</h2>
+                <div class="advice-grid">
+                    <div class="advice-card seasonal">
+                        <div class="advice-card-header">
+                            <i class="fas fa-calendar-alt"></i>
+                            <h3 data-translate="seasonal_advisory">Seasonal Advisory</h3>
+                        </div>
+                        <div class="advice-card-body">
+                            <h4 data-translate="kharif_2025">Current Season Advisory - Kharif 2025</h4>
+                            <ul>
+                                <li data-translate="advice_kharif_1">Current Kharif season is ideal for rice and cotton cultivation.</li>
+                                <li data-translate="advice_kharif_2">Ensure adequate irrigation during monsoon gaps.</li>
+                                <li data-translate="advice_kharif_3">Use certified seeds for better yields and disease resistance.</li>
+                                <li data-translate="advice_kharif_4">Monitor weather forecasts for pest and disease outbreaks.</li>
+                                <li data-translate="advice_kharif_5">Plan for timely fertilizer application and harvesting.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="advice-card tips">
+                        <div class="advice-card-header">
+                            <i class="fas fa-lightbulb"></i>
+                            <h3 data-translate="expert_tips">Expert Tips</h3>
+                        </div>
+                        <div class="advice-card-body">
+                            <div class="tip-section">
+                                <h4 data-translate="soil_health">Soil Health</h4>
+                                <p data-translate="tip_soil">Regular soil testing helps maintain optimal nutrient levels and pH balance for better crop yields.</p>
+                            </div>
+                            <div class="tip-section">
+                                <h4 data-translate="water_management">Water Management</h4>
+                                <p data-translate="tip_water">Implement drip irrigation to reduce water usage by 30-50% while maintaining crop productivity.</p>
+                            </div>
+                             <div class="tip-section">
+                                <h4 data-translate="pest_control">Pest Control</h4>
+                                <p data-translate="tip_pest">Use integrated pest management (IPM) combining biological, cultural, and chemical methods.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="advice-card schemes">
+                        <div class="advice-card-header">
+                            <i class="fas fa-university"></i>
+                            <h3 data-translate="government_schemes">Government Schemes</h3>
+                        </div>
+                        <div class="advice-card-body">
+                           <div class="scheme-item">
+                               <strong data-translate="scheme_pmkisan">PM-KISAN</strong>
+                               <p data-translate="scheme_pmkisan_desc">Direct income support of ₹6,000 per year to farmers.</p>
+                               <span class="benefit" data-translate="scheme_pmkisan_benefit">Benefit: ₹6,000/year</span>
+                           </div>
+                           <div class="scheme-item">
+                               <strong data-translate="scheme_soilcard">Soil Health Card</strong>
+                               <p data-translate="scheme_soilcard_desc">Free soil testing and nutrient recommendations.</p>
+                               <span class="benefit" data-translate="scheme_soilcard_benefit">Benefit: Free soil analysis</span>
+                           </div>
+                            <div class="scheme-item">
+                               <strong data-translate="scheme_cropinsurance">Crop Insurance (PMFBY)</strong>
+                               <p data-translate="scheme_cropinsurance_desc">Risk coverage for crop losses due to natural calamities.</p>
+                               <span class="benefit" data-translate="scheme_cropinsurance_benefit">Benefit: Up to ₹2 lakh coverage</span>
+                           </div>
+                           <div class="scheme-item">
+                               <strong data-translate="scheme_kcc">Kisan Credit Card</strong>
+                               <p data-translate="scheme_kcc_desc">Easy access to credit for agricultural needs.</p>
+                               <span class="benefit" data-translate="scheme_kcc_benefit">Benefit: Credit up to ₹3 lakh</span>
+                           </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </main>
     </div>
@@ -628,13 +852,18 @@
         <div class="modal-overlay"></div>
         <div class="modal-content">
             <div class="modal-header">
-                <h3 id="modal-disease-name" data-translate="disease_details">Disease Details</h3>
-                <button class="modal-close" id="modal-close"><i class="fas fa-times"></i></button>
+                <h3 id="modal-disease-name">Disease Details</h3>
+                <button class="modal-close" id="modal-close">
+                    <i class="fas fa-times"></i>
+                </button>
             </div>
-            <div class="modal-body" id="modal-body"></div>
+            <div class="modal-body" id="modal-body">
+                </div>
         </div>
     </div>
-    <div id="notification-container"></div>
+
+    <div class="notification-container" id="notification-container">
+        </div>
     
     <script src="app.js"></script>
 </body>
