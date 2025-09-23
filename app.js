@@ -1,1021 +1,687 @@
-// CroperoAI - Smart Agriculture Platform JavaScript
-// Main application logic and event handlers
-
-class CroperoAI {
-    constructor() {
-        this.currentTab = 'disease-detection';
-        this.currentStep = 1;
-        this.selectedCrop = null;
-        this.currentLanguage = 'en';
-        this.currentTheme = 'light';
-        this.currentLocation = 'Coimbatore, Tamil Nadu';
-        this.uploadedImage = null;
-        this.analysisResults = null;
-        
-        this.init();
+// Application Data
+const appData = {
+  "branding": {
+    "name": "Cropero AI",
+    "tagline": "Smart Agriculture Intelligence",
+    "logo": "C🌾",
+    "primaryColor": "#2E7D32",
+    "secondaryColor": "#FF8F00"
+  },
+  "languages": [
+    {"code": "en", "name": "🇺🇸 English", "flag": "🇺🇸"},
+    {"code": "hi", "name": "🇮🇳 हिंदी", "flag": "🇮🇳"},
+    {"code": "ta", "name": "🇮🇳 தமிழ்", "flag": "🇮🇳"},
+    {"code": "te", "name": "🇮🇳 తెలుగు", "flag": "🇮🇳"},
+    {"code": "bn", "name": "🇧🇩 বাংলা", "flag": "🇧🇩"},
+    {"code": "gu", "name": "🇮🇳 ગુજરાતી", "flag": "🇮🇳"},
+    {"code": "mr", "name": "🇮🇳 मराठी", "flag": "🇮🇳"},
+    {"code": "kn", "name": "🇮🇳 ಕನ್ನಡ", "flag": "🇮🇳"},
+    {"code": "ml", "name": "🇮🇳 മലയാളം", "flag": "🇮🇳"},
+    {"code": "pa", "name": "🇮🇳 ਪੰਜਾਬੀ", "flag": "🇮🇳"},
+    {"code": "ur", "name": "🇵🇰 اردو", "flag": "🇵🇰"},
+    {"code": "ar", "name": "🇸🇦 العربية", "flag": "🇸🇦"}
+  ],
+  "crops": {
+    "rice": {"name": "🌾 Rice", "varieties": ["Basmati 1121", "IR-64", "Pusa Basmati 1509", "Sona Masuri"]},
+    "wheat": {"name": "🌾 Wheat", "varieties": ["HD-2967", "PBW-550", "DBW-88", "HD-3086"]},
+    "maize": {"name": "🌽 Maize", "varieties": ["DHM-117", "PMH-1", "Bio-9681", "Pioneer 30V92"]},
+    "cotton": {"name": "🌸 Cotton", "varieties": ["Bt-Cotton RCH-134", "Suraj", "Mallika", "Shankar-6"]},
+    "sugarcane": {"name": "🎋 Sugarcane", "varieties": ["Co-86032", "Co-0238", "Co-94012", "Co-95020"]},
+    "soybean": {"name": "🫘 Soybean", "varieties": ["JS-335", "MACS-450", "MAUS-71", "DS-228"]}
+  },
+  "aiInsights": [
+    {
+      "type": "success",
+      "icon": "✅",
+      "title": "Optimal Growing Conditions Detected",
+      "message": "Current weather and soil parameters are ideal for crop development. Yield potential is 22% above regional average."
+    },
+    {
+      "type": "warning", 
+      "icon": "⚠️",
+      "title": "Irrigation Optimization Opportunity",
+      "message": "Schedule next irrigation for early morning (5-7 AM) to maximize water efficiency and reduce evaporation by 35%."
+    },
+    {
+      "type": "info",
+      "icon": "💡", 
+      "title": "Smart Fertilization Recommendation",
+      "message": "Nitrogen levels optimal, but consider phosphorus boost in 2 weeks to enhance grain filling stage."
     }
-
-    init() {
-        this.setupEventListeners();
-        this.setupImageUpload();
-        this.setupLocationDetection();
-        this.setupThemeToggle();
-        this.setupLanguageSelector();
-        this.setupStepNavigation();
-        this.setupFormValidation();
-        this.initializeCharts();
-        this.startPriceTicker();
-        this.loadTranslations();
+  ],
+  "alerts": [
+    {
+      "type": "critical",
+      "icon": "🌡️",
+      "title": "Temperature Alert",
+      "message": "High temperature detected (38°C). Consider immediate irrigation and shade protection.",
+      "time": "2 min ago"
+    },
+    {
+      "type": "warning",
+      "icon": "💧", 
+      "title": "Soil Moisture Alert",
+      "message": "Soil moisture below 25%. Schedule irrigation within 12 hours.",
+      "time": "15 min ago"
+    },
+    {
+      "type": "info",
+      "icon": "📊",
+      "title": "Weekly Report Ready",
+      "message": "Your farm performance analytics report is available for download.",
+      "time": "2 hours ago"
     }
-
-    setupEventListeners() {
-        // Main tab navigation
-        document.querySelectorAll('.main-tab-btn').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                const tabId = e.currentTarget.dataset.mainTab;
-                this.switchTab(tabId);
-            });
-        });
-
-        // Disease detection buttons
-        const cameraBtn = document.getElementById('cameraBtn');
-        const galleryBtn = document.getElementById('galleryBtn');
-        const analyzeBtn = document.getElementById('analyzeBtn');
-        const changeImageBtn = document.getElementById('changeImageBtn');
-
-        if (cameraBtn) cameraBtn.addEventListener('click', () => this.openCamera());
-        if (galleryBtn) galleryBtn.addEventListener('click', () => this.openGallery());
-        if (analyzeBtn) analyzeBtn.addEventListener('click', () => this.analyzeImage());
-        if (changeImageBtn) changeImageBtn.addEventListener('click', () => this.resetImageUpload());
-
-        // Yield predictor buttons
-        const nextStepBtn = document.getElementById('nextStepBtn');
-        const prevStepBtn = document.getElementById('prevStepBtn');
-        const generatePredictionBtn = document.getElementById('generatePredictionBtn');
-
-        if (nextStepBtn) nextStepBtn.addEventListener('click', () => this.nextStep());
-        if (prevStepBtn) prevStepBtn.addEventListener('click', () => this.prevStep());
-        if (generatePredictionBtn) generatePredictionBtn.addEventListener('click', () => this.generateYieldPrediction());
-
-        // Market analytics buttons
-        const refreshChartBtn = document.getElementById('refreshChartBtn');
-        const createAlertBtn = document.getElementById('createAlertBtn');
-
-        if (refreshChartBtn) refreshChartBtn.addEventListener('click', () => this.refreshMarketChart());
-        if (createAlertBtn) createAlertBtn.addEventListener('click', () => this.createPriceAlert());
-
-        // Modal buttons
-        const changeLocationBtn = document.getElementById('changeLocationBtn');
-        const closeLocationModal = document.getElementById('closeLocationModal');
-
-        if (changeLocationBtn) changeLocationBtn.addEventListener('click', () => this.openLocationModal());
-        if (closeLocationModal) closeLocationModal.addEventListener('click', () => this.closeLocationModal());
-
-        // Crop selection
-        document.querySelectorAll('.crop-card').forEach(card => {
-            card.addEventListener('click', (e) => {
-                this.selectCrop(e.currentTarget.dataset.crop);
-            });
-        });
-
-        // Treatment tabs
-        document.querySelectorAll('.treatment-tab').forEach(tab => {
-            tab.addEventListener('click', (e) => {
-                this.switchTreatmentTab(e.currentTarget.dataset.treatment);
-            });
-        });
-    }
-
-    setupImageUpload() {
-        const uploadArea = document.getElementById('imageUploadArea');
-        const cameraInput = document.getElementById('cameraInput');
-        const galleryInput = document.getElementById('galleryInput');
-
-        // Drag and drop functionality
-        if (uploadArea) {
-            uploadArea.addEventListener('dragover', (e) => {
-                e.preventDefault();
-                uploadArea.classList.add('drag-over');
-            });
-
-            uploadArea.addEventListener('dragleave', () => {
-                uploadArea.classList.remove('drag-over');
-            });
-
-            uploadArea.addEventListener('drop', (e) => {
-                e.preventDefault();
-                uploadArea.classList.remove('drag-over');
-                const files = e.dataTransfer.files;
-                if (files.length > 0) {
-                    this.handleImageUpload(files[0]);
-                }
-            });
-        }
-
-        // File input handlers
-        if (cameraInput) {
-            cameraInput.addEventListener('change', (e) => {
-                if (e.target.files.length > 0) {
-                    this.handleImageUpload(e.target.files[0]);
-                }
-            });
-        }
-
-        if (galleryInput) {
-            galleryInput.addEventListener('change', (e) => {
-                if (e.target.files.length > 0) {
-                    this.handleImageUpload(e.target.files[0]);
-                }
-            });
-        }
-    }
-
-    setupLocationDetection() {
-        const detectLocationBtn = document.getElementById('detectLocationBtn');
-        if (detectLocationBtn) {
-            detectLocationBtn.addEventListener('click', () => this.detectLocation());
-        }
-
-        // Location options
-        document.querySelectorAll('.location-option').forEach(option => {
-            option.addEventListener('click', (e) => {
-                const location = e.currentTarget.dataset.location;
-                this.setLocation(location);
-            });
-        });
-    }
-
-    setupThemeToggle() {
-        const themeToggle = document.getElementById('themeToggle');
-        if (themeToggle) {
-            themeToggle.addEventListener('click', () => this.toggleTheme());
-        }
-
-        // Apply saved theme
-        const savedTheme = localStorage.getItem('cropero-theme') || 'light';
-        this.setTheme(savedTheme);
-    }
-
-    setupLanguageSelector() {
-        const languageSelect = document.getElementById('languageSelect');
-        if (languageSelect) {
-            languageSelect.addEventListener('change', (e) => {
-                this.changeLanguage(e.target.value);
-            });
-        }
-
-        // Apply saved language
-        const savedLanguage = localStorage.getItem('cropero-language') || 'en';
-        this.setLanguage(savedLanguage);
-    }
-
-    setupStepNavigation() {
-        // Step navigation for yield predictor
-        document.querySelectorAll('[data-step]').forEach(step => {
-            step.addEventListener('click', (e) => {
-                const stepNumber = parseInt(e.currentTarget.dataset.step);
-                this.goToStep(stepNumber);
-            });
-        });
-    }
-
-    setupFormValidation() {
-        // Form validation for yield predictor
-        const requiredFields = document.querySelectorAll('[required]');
-        requiredFields.forEach(field => {
-            field.addEventListener('blur', () => this.validateField(field));
-            field.addEventListener('input', () => this.clearFieldError(field));
-        });
-    }
-
-    // Tab Management
-    switchTab(tabId) {
-        // Hide all tab contents
-        document.querySelectorAll('.main-tab-content').forEach(content => {
-            content.classList.remove('active');
-        });
-
-        // Remove active class from all tab buttons
-        document.querySelectorAll('.main-tab-btn').forEach(btn => {
-            btn.classList.remove('active');
-        });
-
-        // Show selected tab content
-        const targetContent = document.getElementById(tabId);
-        if (targetContent) {
-            targetContent.classList.add('active');
-        }
-
-        // Add active class to selected tab button
-        const targetBtn = document.querySelector(`[data-main-tab="${tabId}"]`);
-        if (targetBtn) {
-            targetBtn.classList.add('active');
-        }
-
-        this.currentTab = tabId;
-
-        // Initialize tab-specific functionality
-        this.initializeTabFeatures(tabId);
-    }
-
-    initializeTabFeatures(tabId) {
-        switch (tabId) {
-            case 'disease-detection':
-                this.initializeDiseaseDetection();
-                break;
-            case 'yield-predictor':
-                this.initializeYieldPredictor();
-                break;
-            case 'market-analytics':
-                this.initializeMarketAnalytics();
-                break;
-        }
-    }
-
-    // Image Upload and Analysis
-    openCamera() {
-        const cameraInput = document.getElementById('cameraInput');
-        if (cameraInput) cameraInput.click();
-    }
-
-    openGallery() {
-        const galleryInput = document.getElementById('galleryInput');
-        if (galleryInput) galleryInput.click();
-    }
-
-    handleImageUpload(file) {
-        if (!file.type.startsWith('image/')) {
-            this.showAlert('Please select a valid image file.', 'error');
-            return;
-        }
-
-        const reader = new FileReader();
-        reader.onload = (e) => {
-            const imageUrl = e.target.result;
-            this.displayImagePreview(imageUrl);
-            this.uploadedImage = file;
-        };
-        reader.readAsDataURL(file);
-    }
-
-    displayImagePreview(imageUrl) {
-        const placeholder = document.getElementById('uploadPlaceholder');
-        const previewContainer = document.getElementById('imagePreviewContainer');
-        const previewImage = document.getElementById('previewImage');
-
-        if (placeholder) placeholder.style.display = 'none';
-        if (previewContainer) previewContainer.style.display = 'block';
-        if (previewImage) previewImage.src = imageUrl;
-    }
-
-    resetImageUpload() {
-        const placeholder = document.getElementById('uploadPlaceholder');
-        const previewContainer = document.getElementById('imagePreviewContainer');
-        const analysisResults = document.getElementById('analysisResults');
-
-        if (placeholder) placeholder.style.display = 'block';
-        if (previewContainer) previewContainer.style.display = 'none';
-        if (analysisResults) analysisResults.style.display = 'none';
-
-        this.uploadedImage = null;
-        this.analysisResults = null;
-    }
-
-    async analyzeImage() {
-        if (!this.uploadedImage) {
-            this.showAlert('Please upload an image first.', 'error');
-            return;
-        }
-
-        this.showLoading('Analyzing image...', 'AI is processing your plant image');
-        
-        try {
-            // Simulate API call
-            await this.delay(3000);
-            
-            // Mock analysis results
-            const results = this.generateMockAnalysisResults();
-            this.displayAnalysisResults(results);
-            this.hideLoading();
-            
-        } catch (error) {
-            this.hideLoading();
-            this.showAlert('Analysis failed. Please try again.', 'error');
-        }
-    }
-
-    generateMockAnalysisResults() {
-        const diseases = [
-            {
-                name: 'Cotton Bollworm',
-                scientificName: 'Helicoverpa armigera',
-                confidence: 88.9,
-                severity: 'High',
-                yieldImpact: '25-45% Loss',
-                symptoms: ['Holes in leaves', 'Damaged bolls', 'Frass presence', 'Wilting'],
-                treatments: {
-                    organic: ['Neem oil spray', 'Bacillus thuringiensis', 'Pheromone traps'],
-                    chemical: ['Cypermethrin', 'Chlorpyrifos', 'Emamectin benzoate'],
-                    biological: ['Trichogramma wasps', 'Chrysoperla carnea', 'NPV virus'],
-                    integrated: ['Combination approach', 'Rotation strategy', 'Monitoring system']
-                }
-            }
-        ];
-        
-        return { diseases, confidence: 94.2 };
-    }
-
-    displayAnalysisResults(results) {
-        const analysisResults = document.getElementById('analysisResults');
-        const detectedDiseases = document.getElementById('detectedDiseases');
-        
-        if (analysisResults) analysisResults.style.display = 'block';
-        
-        // Display disease cards
-        if (detectedDiseases && results.diseases) {
-            detectedDiseases.innerHTML = '';
-            results.diseases.forEach((disease, index) => {
-                const diseaseCard = this.createDiseaseCard(disease, index);
-                detectedDiseases.appendChild(diseaseCard);
-            });
-        }
-        
-        this.analysisResults = results;
-    }
-
-    createDiseaseCard(disease, index) {
-        const card = document.createElement('div');
-        card.className = 'disease-card';
-        card.innerHTML = `
-            <div class="disease-header">
-                <h4 class="disease-name">${disease.name}</h4>
-                <div class="confidence-score">${disease.confidence}%</div>
-            </div>
-            <p class="disease-description">${disease.scientificName}</p>
-            <div class="disease-summary">
-                <span class="severity-badge ${disease.severity.toLowerCase()}">${disease.severity} Severity</span>
-            </div>
-        `;
-        
-        card.addEventListener('click', () => this.showDiseaseDetails(disease));
-        return card;
-    }
-
-    showDiseaseDetails(disease) {
-        const detailPanel = document.getElementById('diseaseDetailPanel');
-        if (!detailPanel) return;
-        
-        // Update disease details
-        const title = document.getElementById('diseaseTitle');
-        const scientificName = document.getElementById('scientificName');
-        const confidence = document.getElementById('confidenceScore');
-        const severity = document.getElementById('severityLevel');
-        const yieldImpact = document.getElementById('yieldImpact');
-        
-        if (title) title.textContent = disease.name;
-        if (scientificName) scientificName.textContent = disease.scientificName;
-        if (confidence) confidence.textContent = `${disease.confidence}%`;
-        if (severity) severity.textContent = disease.severity;
-        if (yieldImpact) yieldImpact.textContent = disease.yieldImpact;
-        
-        // Update symptoms
-        this.updateSymptoms(disease.symptoms);
-        
-        // Update treatments
-        this.updateTreatments(disease.treatments);
-        
-        detailPanel.style.display = 'block';
-    }
-
-    updateSymptoms(symptoms) {
-        const symptomsGrid = document.getElementById('symptomsGrid');
-        if (!symptomsGrid) return;
-        
-        symptomsGrid.innerHTML = '';
-        symptoms.forEach(symptom => {
-            const symptomItem = document.createElement('div');
-            symptomItem.className = 'symptom-item';
-            symptomItem.innerHTML = `<span>• ${symptom}</span>`;
-            symptomsGrid.appendChild(symptomItem);
-        });
-    }
-
-    updateTreatments(treatments) {
-        const treatmentContent = document.getElementById('treatmentContent');
-        if (!treatmentContent) return;
-        
-        // Show organic treatments by default
-        this.showTreatmentType('organic', treatments);
-    }
-
-    switchTreatmentTab(type) {
-        // Update tab appearance
-        document.querySelectorAll('.treatment-tab').forEach(tab => {
-            tab.classList.remove('active');
-        });
-        
-        const activeTab = document.querySelector(`[data-treatment="${type}"]`);
-        if (activeTab) activeTab.classList.add('active');
-        
-        // Show treatments for selected type
-        if (this.analysisResults && this.analysisResults.diseases.length > 0) {
-            this.showTreatmentType(type, this.analysisResults.diseases[0].treatments);
-        }
-    }
-
-    showTreatmentType(type, treatments) {
-        const treatmentContent = document.getElementById('treatmentContent');
-        if (!treatmentContent || !treatments[type]) return;
-        
-        treatmentContent.innerHTML = '';
-        treatments[type].forEach(treatment => {
-            const treatmentItem = document.createElement('div');
-            treatmentItem.className = 'treatment-item';
-            treatmentItem.innerHTML = `
-                <div class="treatment-icon">💊</div>
-                <div class="treatment-details">
-                    <h5>${treatment}</h5>
-                    <p>Detailed instructions for ${treatment} application.</p>
-                </div>
-            `;
-            treatmentContent.appendChild(treatmentItem);
-        });
-    }
-
-    // Yield Predictor Functions
-    selectCrop(cropType) {
-        // Remove selection from all crops
-        document.querySelectorAll('.crop-card').forEach(card => {
-            card.classList.remove('selected');
-        });
-        
-        // Add selection to clicked crop
-        const selectedCard = document.querySelector(`[data-crop="${cropType}"]`);
-        if (selectedCard) {
-            selectedCard.classList.add('selected');
-        }
-        
-        this.selectedCrop = cropType;
-        
-        // Enable next step button
-        const nextStepBtn = document.getElementById('nextStepBtn');
-        if (nextStepBtn) {
-            nextStepBtn.disabled = false;
-        }
-    }
-
-    nextStep() {
-        if (this.currentStep < 5) {
-            this.currentStep++;
-            this.updateStepDisplay();
-        }
-    }
-
-    prevStep() {
-        if (this.currentStep > 1) {
-            this.currentStep--;
-            this.updateStepDisplay();
-        }
-    }
-
-    goToStep(stepNumber) {
-        if (stepNumber >= 1 && stepNumber <= 5) {
-            this.currentStep = stepNumber;
-            this.updateStepDisplay();
-        }
-    }
-
-    updateStepDisplay() {
-        // Update progress indicator
-        document.querySelectorAll('.step').forEach((step, index) => {
-            if (index + 1 <= this.currentStep) {
-                step.classList.add('active');
-            } else {
-                step.classList.remove('active');
-            }
-        });
-        
-        // Show current step content
-        document.querySelectorAll('.step-content').forEach(content => {
-            content.classList.remove('active');
-        });
-        
-        const currentContent = document.querySelector(`[data-step-content="${this.currentStep}"]`);
-        if (currentContent) {
-            currentContent.classList.add('active');
-        }
-    }
-
-    async generateYieldPrediction() {
-        // Validate form inputs
-        if (!this.validateYieldForm()) {
-            this.showAlert('Please fill in all required fields.', 'error');
-            return;
-        }
-        
-        this.showLoading('Generating AI prediction...', 'Analyzing your farm data with advanced ML models');
-        
-        try {
-            // Simulate API call
-            await this.delay(4000);
-            
-            const prediction = this.generateMockPrediction();
-            this.displayPredictionResults(prediction);
-            this.nextStep(); // Move to results step
-            
-            this.hideLoading();
-            
-        } catch (error) {
-            this.hideLoading();
-            this.showAlert('Prediction generation failed. Please try again.', 'error');
-        }
-    }
-
-    validateYieldForm() {
-        const requiredFields = [
-            'yieldFarmArea',
-            'plantingDate',
-            'soilPh',
-            'organicMatter',
-            'nitrogen',
-            'phosphorus',
-            'potassium'
-        ];
-        
-        return requiredFields.every(fieldId => {
-            const field = document.getElementById(fieldId);
-            return field && field.value.trim() !== '';
-        });
-    }
-
-    generateMockPrediction() {
-        return {
-            expectedYield: 45.2,
-            totalProduction: 45.2,
-            marketValue: 128700,
-            harvestDate: 'Dec 15, 2025',
-            confidence: 94,
-            recommendations: [
-                'Increase nitrogen application by 10%',
-                'Monitor soil moisture levels weekly',
-                'Consider organic matter supplementation',
-                'Plan harvest timing for optimal pricing'
-            ]
-        };
-    }
-
-    displayPredictionResults(prediction) {
-        const predictedYield = document.getElementById('predictedYield');
-        const predictionConfidence = document.getElementById('predictionConfidence');
-        const totalProduction = document.getElementById('totalProduction');
-        const marketValue = document.getElementById('marketValue');
-        const harvestDate = document.getElementById('harvestDate');
-        
-        if (predictedYield) predictedYield.textContent = `${prediction.expectedYield} quintals/hectare`;
-        if (predictionConfidence) predictionConfidence.textContent = `${prediction.confidence}%`;
-        if (totalProduction) totalProduction.textContent = `${prediction.totalProduction} quintals`;
-        if (marketValue) marketValue.textContent = `₹${prediction.marketValue.toLocaleString()}`;
-        if (harvestDate) harvestDate.textContent = prediction.harvestDate;
-        
-        // Update recommendations
-        this.updateRecommendations(prediction.recommendations);
-        
-        // Update yield chart
-        this.updateYieldChart();
-    }
-
-    updateRecommendations(recommendations) {
-        const recommendationList = document.getElementById('recommendationList');
-        if (!recommendationList) return;
-        
-        recommendationList.innerHTML = '';
-        recommendations.forEach(rec => {
-            const recItem = document.createElement('div');
-            recItem.className = 'recommendation-item';
-            recItem.innerHTML = `
-                <div class="recommendation-icon">💡</div>
-                <div class="recommendation-content">
-                    <p>${rec}</p>
-                </div>
-            `;
-            recommendationList.appendChild(recItem);
-        });
-    }
-
-    // Location Management
-    openLocationModal() {
-        const modal = document.getElementById('locationModal');
-        if (modal) {
-            modal.classList.remove('hidden');
-        }
-    }
-
-    closeLocationModal() {
-        const modal = document.getElementById('locationModal');
-        if (modal) {
-            modal.classList.add('hidden');
-        }
-    }
-
-    setLocation(location) {
-        this.currentLocation = location;
-        
-        const locationDisplay = document.getElementById('current-location');
-        if (locationDisplay) {
-            locationDisplay.textContent = location;
-        }
-        
-        this.closeLocationModal();
-        this.updateWeatherInfo();
-        localStorage.setItem('cropero-location', location);
-    }
-
-    detectLocation() {
-        if ('geolocation' in navigator) {
-            navigator.geolocation.getCurrentPosition(
-                (position) => {
-                    // In a real app, you would reverse geocode the coordinates
-                    this.setLocation('Detected Location');
-                },
-                (error) => {
-                    this.showAlert('Location detection failed. Please select manually.', 'error');
-                }
-            );
-        } else {
-            this.showAlert('Geolocation is not supported by this browser.', 'error');
-        }
-    }
-
-    updateWeatherInfo() {
-        // Simulate weather update based on location
-        const weatherInfo = document.getElementById('weatherInfo');
-        if (weatherInfo) {
-            // In a real app, you would fetch weather data from an API
-            weatherInfo.innerHTML = `
-                <span class="weather-temp">28°C</span>
-                <span class="weather-desc">Partly Cloudy</span>
-            `;
-        }
-    }
-
-    // Theme Management
-    toggleTheme() {
-        const newTheme = this.currentTheme === 'light' ? 'dark' : 'light';
-        this.setTheme(newTheme);
-    }
-
-    setTheme(theme) {
-        this.currentTheme = theme;
-        document.documentElement.setAttribute('data-theme', theme);
-        
-        const themeIcon = document.querySelector('.theme-icon');
-        if (themeIcon) {
-            themeIcon.textContent = theme === 'light' ? '🌙' : '☀️';
-        }
-        
-        localStorage.setItem('cropero-theme', theme);
-    }
-
-    // Language Management
-    changeLanguage(language) {
-        this.setLanguage(language);
-        this.loadTranslations();
-    }
-
-    setLanguage(language) {
-        this.currentLanguage = language;
-        
-        const languageSelect = document.getElementById('languageSelect');
-        if (languageSelect) {
-            languageSelect.value = language;
-        }
-        
-        localStorage.setItem('cropero-language', language);
-    }
-
-    async loadTranslations() {
-        // In a real app, you would load translations from a file or API
-        // For now, we'll just update the text direction for RTL languages
-        const rtlLanguages = ['ar', 'fa', 'ur'];
-        if (rtlLanguages.includes(this.currentLanguage)) {
-            document.documentElement.setAttribute('dir', 'rtl');
-        } else {
-            document.documentElement.setAttribute('dir', 'ltr');
-        }
-    }
-
-    // Chart Management
-    initializeCharts() {
-        this.yieldChart = null;
-        this.marketChart = null;
-        this.predictionChart = null;
-    }
-
-    updateYieldChart() {
-        const canvas = document.getElementById('yieldChart');
-        if (!canvas) return;
-        
-        const ctx = canvas.getContext('2d');
-        
-        // Destroy existing chart
-        if (this.yieldChart) {
-            this.yieldChart.destroy();
-        }
-        
-        // Create new chart with Chart.js
-        if (typeof Chart !== 'undefined') {
-            this.yieldChart = new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
-                    datasets: [{
-                        label: 'Predicted Yield',
-                        data: [30, 35, 40, 42, 45, 45.2],
-                        borderColor: '#21808D',
-                        backgroundColor: 'rgba(33, 128, 141, 0.1)',
-                        tension: 0.4
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            display: true
-                        }
-                    },
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            title: {
-                                display: true,
-                                text: 'Yield (quintals/hectare)'
-                            }
-                        }
-                    }
-                }
-            });
-        }
-    }
-
-    // Market Analytics
-    initializeMarketAnalytics() {
-        this.updateMarketChart();
-    }
-
-    updateMarketChart() {
-        const canvas = document.getElementById('marketChart');
-        if (!canvas) return;
-        
-        const ctx = canvas.getContext('2d');
-        
-        // Destroy existing chart
-        if (this.marketChart) {
-            this.marketChart.destroy();
-        }
-        
-        // Create market price chart
-        if (typeof Chart !== 'undefined') {
-            this.marketChart = new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-                    datasets: [
-                        {
-                            label: 'Wheat',
-                            data: [2800, 2820, 2850, 2840, 2860, 2850, 2870],
-                            borderColor: '#21808D',
-                            backgroundColor: 'rgba(33, 128, 141, 0.1)'
-                        },
-                        {
-                            label: 'Rice',
-                            data: [3150, 3200, 3180, 3220, 3200, 3190, 3200],
-                            borderColor: '#2ECC71',
-                            backgroundColor: 'rgba(46, 204, 113, 0.1)'
-                        }
-                    ]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            display: true
-                        }
-                    },
-                    scales: {
-                        y: {
-                            beginAtZero: false,
-                            title: {
-                                display: true,
-                                text: 'Price (₹/quintal)'
-                            }
-                        }
-                    }
-                }
-            });
-        }
-    }
-
-    refreshMarketChart() {
-        this.showLoading('Refreshing market data...', 'Fetching latest prices');
-        
-        setTimeout(() => {
-            this.updateMarketChart();
-            this.hideLoading();
-        }, 2000);
-    }
-
-    startPriceTicker() {
-        // Price ticker animation is handled by CSS
-        // This function could be used to update ticker content dynamically
-    }
-
-    createPriceAlert() {
-        const commodity = document.getElementById('alertCommodity').value;
-        const condition = document.getElementById('alertCondition').value;
-        const price = document.getElementById('alertPrice').value;
-        
-        if (!commodity || !condition || !price) {
-            this.showAlert('Please fill in all alert fields.', 'error');
-            return;
-        }
-        
-        // Add alert to list
-        const alertsList = document.getElementById('alertsList');
-        if (alertsList) {
-            const alertItem = document.createElement('div');
-            alertItem.className = 'alert-item';
-            alertItem.innerHTML = `
-                <div class="alert-info">
-                    <span class="alert-commodity">${commodity}</span>
-                    <span class="alert-condition">${condition} ₹${price}/q</span>
-                </div>
-                <div class="alert-actions">
-                    <span class="alert-status active">Active</span>
-                    <button class="alert-delete" onclick="this.parentElement.parentElement.remove()">🗑️</button>
-                </div>
-            `;
-            alertsList.appendChild(alertItem);
-        }
-        
-        // Clear form
-        document.getElementById('alertCommodity').value = '';
-        document.getElementById('alertCondition').value = 'above';
-        document.getElementById('alertPrice').value = '';
-        
-        this.showAlert('Price alert created successfully!', 'success');
-    }
-
-    // Utility Functions
-    showLoading(title, message) {
-        const modal = document.getElementById('loadingModal');
-        const titleEl = document.getElementById('loadingTitle');
-        const messageEl = document.getElementById('loadingMessage');
-        const progressFill = document.getElementById('progressFill');
-        const progressText = document.getElementById('progressText');
-        
-        if (modal) modal.classList.remove('hidden');
-        if (titleEl) titleEl.textContent = title;
-        if (messageEl) messageEl.textContent = message;
-        
-        // Animate progress bar
-        let progress = 0;
-        const interval = setInterval(() => {
-            progress += Math.random() * 10;
-            if (progress >= 100) {
-                progress = 100;
-                clearInterval(interval);
-            }
-            
-            if (progressFill) progressFill.style.width = `${progress}%`;
-            if (progressText) progressText.textContent = `${Math.round(progress)}%`;
-        }, 200);
-    }
-
-    hideLoading() {
-        const modal = document.getElementById('loadingModal');
-        if (modal) {
-            modal.classList.add('hidden');
-        }
-    }
-
-    showAlert(message, type = 'info') {
-        // Create alert element
-        const alert = document.createElement('div');
-        alert.className = `alert alert-${type}`;
-        alert.innerHTML = `
-            <div class="alert-content">
-                <span class="alert-icon">${this.getAlertIcon(type)}</span>
-                <span class="alert-message">${message}</span>
-                <button class="alert-close" onclick="this.parentElement.parentElement.remove()">×</button>
-            </div>
-        `;
-        
-        // Add styles
-        alert.style.cssText = `
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: ${this.getAlertColor(type)};
-            color: white;
-            padding: 15px 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
-            z-index: 10001;
-            max-width: 400px;
-            animation: slideIn 0.3s ease;
-        `;
-        
-        document.body.appendChild(alert);
-        
-        // Auto remove after 5 seconds
-        setTimeout(() => {
-            if (alert.parentNode) {
-                alert.remove();
-            }
-        }, 5000);
-    }
-
-    getAlertIcon(type) {
-        switch (type) {
-            case 'success': return '✅';
-            case 'error': return '❌';
-            case 'warning': return '⚠️';
-            default: return 'ℹ️';
-        }
-    }
-
-    getAlertColor(type) {
-        switch (type) {
-            case 'success': return '#2ECC71';
-            case 'error': return '#E74C3C';
-            case 'warning': return '#F39C12';
-            default: return '#3498DB';
-        }
-    }
-
-    validateField(field) {
-        if (field.hasAttribute('required') && !field.value.trim()) {
-            field.style.borderColor = '#E74C3C';
-            return false;
-        }
-        return true;
-    }
-
-    clearFieldError(field) {
-        field.style.borderColor = '';
-    }
-
-    delay(ms) {
-        return new Promise(resolve => setTimeout(resolve, ms));
-    }
-
-    // Initialize specific tab features
-    initializeDiseaseDetection() {
-        // Reset any previous state
-        this.resetImageUpload();
-    }
-
-    initializeYieldPredictor() {
-        // Reset to first step
-        this.currentStep = 1;
-        this.updateStepDisplay();
-    }
-}
-
-// Initialize the application when DOM is loaded
-document.addEventListener('DOMContentLoaded', () => {
-    new CroperoAI();
+  ],
+  "popularLocations": [
+    {"name": "Punjab (Ludhiana)", "crops": "Wheat, Rice, Cotton", "coordinates": [30.9, 75.8]},
+    {"name": "Maharashtra (Pune)", "crops": "Sugarcane, Cotton, Soybean", "coordinates": [18.5, 73.9]},
+    {"name": "Tamil Nadu (Coimbatore)", "crops": "Cotton, Coconut, Maize", "coordinates": [11.0, 77.0]},
+    {"name": "Karnataka (Bangalore)", "crops": "Ragi, Coffee, Sugarcane", "coordinates": [12.9, 77.6]},
+    {"name": "Andhra Pradesh (Guntur)", "crops": "Chili, Cotton, Rice", "coordinates": [16.3, 80.4]},
+    {"name": "Gujarat (Ahmedabad)", "crops": "Cotton, Groundnut, Wheat", "coordinates": [23.0, 72.6]}
+  ]
+};
+
+// Global variables
+let currentLanguage = 'en';
+let currentLocation = 'Punjab (Ludhiana)';
+let isDarkMode = false;
+let currentStep = 1;
+let predictionData = {};
+
+// Initialize application
+document.addEventListener('DOMContentLoaded', function() {
+  // Show loading screen for 2 seconds
+  setTimeout(() => {
+    document.getElementById('loading-screen').style.display = 'none';
+    document.getElementById('app').classList.remove('hidden');
+    initializeApp();
+  }, 2000);
 });
 
-// Add CSS animation for alerts
-const alertStyles = document.createElement('style');
-alertStyles.textContent = `
-    @keyframes slideIn {
-        from {
-            transform: translateX(100%);
-            opacity: 0;
+function initializeApp() {
+  setupEventListeners();
+  populateInsights();
+  populateAlerts();
+  populateLanguages();
+  populateLocations();
+  initializeCharts();
+  setupWizard();
+  
+  // Set default dates
+  const today = new Date();
+  const plantingDate = new Date(today.getTime() - 30 * 24 * 60 * 60 * 1000);
+  const harvestDate = new Date(today.getTime() + 65 * 24 * 60 * 60 * 1000);
+  
+  document.getElementById('planting-date').value = plantingDate.toISOString().split('T')[0];
+  document.getElementById('harvest-date').value = harvestDate.toISOString().split('T')[0];
+}
+
+function setupEventListeners() {
+  // Navigation
+  document.querySelectorAll('.nav-item').forEach(item => {
+    item.addEventListener('click', (e) => {
+      const section = e.target.dataset.section;
+      switchSection(section);
+    });
+  });
+
+  // Header controls
+  document.getElementById('language-btn').addEventListener('click', () => {
+    document.getElementById('language-modal').classList.remove('hidden');
+  });
+
+  document.getElementById('location-btn').addEventListener('click', () => {
+    document.getElementById('location-modal').classList.remove('hidden');
+  });
+
+  document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
+
+  // Modal close buttons
+  document.querySelectorAll('.modal-close, .modal-backdrop').forEach(element => {
+    element.addEventListener('click', (e) => {
+      if (e.target.classList.contains('modal-close') || e.target.classList.contains('modal-backdrop')) {
+        e.target.closest('.modal').classList.add('hidden');
+      }
+    });
+  });
+
+  // Quick actions
+  document.querySelectorAll('.action-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      const action = e.currentTarget.dataset.action;
+      handleQuickAction(action);
+    });
+  });
+
+  // Detect location button
+  document.getElementById('detect-location').addEventListener('click', detectLocation);
+
+  // Auto-detect soil button
+  document.getElementById('auto-detect-soil').addEventListener('click', autoDetectSoil);
+
+  // Sync weather button
+  document.getElementById('sync-weather').addEventListener('click', syncWeather);
+
+  // Crop type change
+  document.getElementById('crop-type').addEventListener('change', (e) => {
+    populateVarieties(e.target.value);
+  });
+
+  // pH range slider
+  document.getElementById('soil-ph').addEventListener('input', (e) => {
+    document.getElementById('ph-value').textContent = e.target.value;
+  });
+}
+
+function switchSection(section) {
+  // Update navigation
+  document.querySelectorAll('.nav-item').forEach(item => {
+    item.classList.remove('active');
+  });
+  document.querySelector(`[data-section="${section}"]`).classList.add('active');
+
+  // Update sections
+  document.querySelectorAll('.section').forEach(sec => {
+    sec.classList.remove('active');
+  });
+  document.getElementById(`${section}-section`).classList.add('active');
+}
+
+function populateInsights() {
+  const insightsGrid = document.getElementById('insights-grid');
+  insightsGrid.innerHTML = '';
+
+  appData.aiInsights.forEach(insight => {
+    const insightCard = document.createElement('div');
+    insightCard.className = `insight-card ${insight.type}`;
+    insightCard.innerHTML = `
+      <div class="insight-icon">${insight.icon}</div>
+      <div class="insight-content">
+        <h4>${insight.title}</h4>
+        <p>${insight.message}</p>
+      </div>
+    `;
+    insightsGrid.appendChild(insightCard);
+  });
+}
+
+function populateAlerts() {
+  const alertsList = document.getElementById('alerts-list');
+  alertsList.innerHTML = '';
+
+  appData.alerts.forEach(alert => {
+    const alertItem = document.createElement('div');
+    alertItem.className = `alert-item ${alert.type}`;
+    alertItem.innerHTML = `
+      <div class="alert-icon">${alert.icon}</div>
+      <div class="alert-content">
+        <h4>${alert.title}</h4>
+        <p>${alert.message}</p>
+      </div>
+      <div class="alert-time">${alert.time}</div>
+    `;
+    alertsList.appendChild(alertItem);
+  });
+}
+
+function populateLanguages() {
+  const languageGrid = document.getElementById('language-grid');
+  languageGrid.innerHTML = '';
+
+  appData.languages.forEach(lang => {
+    const langItem = document.createElement('div');
+    langItem.className = 'language-item';
+    langItem.innerHTML = `
+      <div class="language-flag">${lang.flag}</div>
+      <div class="language-name">${lang.name}</div>
+    `;
+    langItem.addEventListener('click', () => {
+      selectLanguage(lang);
+    });
+    languageGrid.appendChild(langItem);
+  });
+}
+
+function populateLocations() {
+  const locationsGrid = document.getElementById('popular-locations');
+  locationsGrid.innerHTML = '';
+
+  appData.popularLocations.forEach(location => {
+    const locationItem = document.createElement('div');
+    locationItem.className = 'location-item';
+    locationItem.innerHTML = `
+      <div class="location-name">${location.name}</div>
+      <div class="location-crops">${location.crops}</div>
+    `;
+    locationItem.addEventListener('click', () => {
+      selectLocation(location);
+    });
+    locationsGrid.appendChild(locationItem);
+  });
+}
+
+function selectLanguage(lang) {
+  currentLanguage = lang.code;
+  document.getElementById('current-language').textContent = lang.flag;
+  document.getElementById('language-modal').classList.add('hidden');
+  showToast('success', `Language changed to ${lang.name}`);
+}
+
+function selectLocation(location) {
+  currentLocation = location.name;
+  document.getElementById('location-modal').classList.add('hidden');
+  showToast('success', `Location set to ${location.name}`);
+}
+
+function detectLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const lat = position.coords.latitude;
+        const lon = position.coords.longitude;
+        showToast('success', `Location detected: ${lat.toFixed(2)}, ${lon.toFixed(2)}`);
+        document.getElementById('location-modal').classList.add('hidden');
+      },
+      (error) => {
+        showToast('error', 'Unable to detect location. Please select manually.');
+      }
+    );
+  } else {
+    showToast('error', 'Geolocation is not supported by this browser.');
+  }
+}
+
+function toggleTheme() {
+  isDarkMode = !isDarkMode;
+  document.documentElement.setAttribute('data-color-scheme', isDarkMode ? 'dark' : 'light');
+  document.getElementById('theme-toggle').textContent = isDarkMode ? '☀️' : '🌙';
+  showToast('success', `Switched to ${isDarkMode ? 'dark' : 'light'} mode`);
+}
+
+function handleQuickAction(action) {
+  switch(action) {
+    case 'predict':
+      switchSection('prediction');
+      break;
+    case 'monitor':
+      switchSection('monitoring');
+      break;
+    case 'tips':
+      switchSection('recommendations');
+      break;
+    case 'report':
+      showToast('info', 'Generating comprehensive farm report...');
+      break;
+  }
+}
+
+function showToast(type, message) {
+  const toastContainer = document.getElementById('toast-container');
+  const toast = document.createElement('div');
+  toast.className = `toast ${type}`;
+  toast.textContent = message;
+  
+  toastContainer.appendChild(toast);
+  
+  setTimeout(() => {
+    toast.remove();
+  }, 4000);
+}
+
+function initializeCharts() {
+  // Yield Forecast Chart
+  const yieldCtx = document.getElementById('yield-chart').getContext('2d');
+  new Chart(yieldCtx, {
+    type: 'line',
+    data: {
+      labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5', 'Week 6'],
+      datasets: [{
+        label: 'Predicted Yield (tons/ha)',
+        data: [0.5, 1.2, 2.1, 3.2, 4.1, 4.8],
+        borderColor: '#1FB8CD',
+        backgroundColor: 'rgba(31, 184, 205, 0.1)',
+        fill: true,
+        tension: 0.4
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: {
+          display: false
         }
-        to {
-            transform: translateX(0);
-            opacity: 1;
+      },
+      scales: {
+        y: {
+          beginAtZero: true,
+          title: {
+            display: true,
+            text: 'Yield (tons/ha)'
+          }
         }
+      }
     }
+  });
+
+  // Weather Impact Chart
+  const weatherCtx = document.getElementById('weather-chart').getContext('2d');
+  new Chart(weatherCtx, {
+    type: 'bar',
+    data: {
+      labels: ['Temperature', 'Rainfall', 'Humidity', 'Wind', 'Solar Radiation'],
+      datasets: [{
+        label: 'Impact Score',
+        data: [85, 92, 78, 65, 88],
+        backgroundColor: ['#1FB8CD', '#FFC185', '#B4413C', '#ECEBD5', '#5D878F']
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: {
+          display: false
+        }
+      },
+      scales: {
+        y: {
+          beginAtZero: true,
+          max: 100,
+          title: {
+            display: true,
+            text: 'Impact Score (%)'
+          }
+        }
+      }
+    }
+  });
+
+  // Trends Chart for Monitoring
+  const trendsCtx = document.getElementById('trends-chart').getContext('2d');
+  new Chart(trendsCtx, {
+    type: 'line',
+    data: {
+      labels: ['00:00', '04:00', '08:00', '12:00', '16:00', '20:00', '24:00'],
+      datasets: [{
+        label: 'Temperature (°C)',
+        data: [22, 20, 24, 32, 35, 30, 25],
+        borderColor: '#DB4545',
+        backgroundColor: 'rgba(219, 69, 69, 0.1)',
+        yAxisID: 'y'
+      }, {
+        label: 'Humidity (%)',
+        data: [80, 85, 75, 60, 45, 55, 70],
+        borderColor: '#1FB8CD',
+        backgroundColor: 'rgba(31, 184, 205, 0.1)',
+        yAxisID: 'y1'
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: {
+        y: {
+          type: 'linear',
+          display: true,
+          position: 'left',
+          title: {
+            display: true,
+            text: 'Temperature (°C)'
+          }
+        },
+        y1: {
+          type: 'linear',
+          display: true,
+          position: 'right',
+          title: {
+            display: true,
+            text: 'Humidity (%)'
+          },
+          grid: {
+            drawOnChartArea: false,
+          },
+        }
+      }
+    }
+  });
+}
+
+// Prediction Wizard Functions
+function setupWizard() {
+  document.getElementById('next-step').addEventListener('click', nextStep);
+  document.getElementById('prev-step').addEventListener('click', prevStep);
+  document.getElementById('generate-prediction').addEventListener('click', generatePrediction);
+}
+
+function nextStep() {
+  if (validateStep(currentStep)) {
+    if (currentStep < 4) {
+      currentStep++;
+      updateWizard();
+    }
+  }
+}
+
+function prevStep() {
+  if (currentStep > 1) {
+    currentStep--;
+    updateWizard();
+  }
+}
+
+function updateWizard() {
+  // Update progress steps
+  document.querySelectorAll('.step').forEach((step, index) => {
+    step.classList.remove('active', 'completed');
+    if (index + 1 < currentStep) {
+      step.classList.add('completed');
+    } else if (index + 1 === currentStep) {
+      step.classList.add('active');
+    }
+  });
+
+  // Update wizard steps
+  document.querySelectorAll('.wizard-step').forEach((step, index) => {
+    step.classList.remove('active');
+    if (index + 1 === currentStep) {
+      step.classList.add('active');
+    }
+  });
+
+  // Update navigation buttons
+  document.getElementById('prev-step').style.display = currentStep > 1 ? 'block' : 'none';
+  document.getElementById('next-step').style.display = currentStep < 4 ? 'block' : 'none';
+  document.getElementById('generate-prediction').style.display = currentStep === 4 ? 'block' : 'none';
+}
+
+function validateStep(step) {
+  let isValid = true;
+  let requiredFields = [];
+
+  switch(step) {
+    case 1:
+      requiredFields = ['crop-type', 'crop-variety', 'farm-area', 'planting-date', 'harvest-date', 'farming-type'];
+      break;
+    case 2:
+      requiredFields = ['soil-moisture', 'soil-nitrogen', 'soil-phosphorus', 'soil-potassium', 'organic-matter'];
+      break;
+    case 3:
+      requiredFields = ['irrigation-system', 'water-source', 'fertilizer-usage', 'pest-history'];
+      break;
+    case 4:
+      requiredFields = ['climate-zone', 'avg-rainfall', 'field-slope', 'drainage-quality'];
+      break;
+  }
+
+  requiredFields.forEach(fieldId => {
+    const field = document.getElementById(fieldId);
+    if (!field.value.trim()) {
+      field.style.borderColor = 'var(--color-error)';
+      isValid = false;
+    } else {
+      field.style.borderColor = '';
+    }
+  });
+
+  if (!isValid) {
+    showToast('error', 'Please fill in all required fields');
+  }
+
+  return isValid;
+}
+
+function populateVarieties(cropType) {
+  const varietySelect = document.getElementById('crop-variety');
+  varietySelect.innerHTML = '<option value="">Select Variety</option>';
+
+  if (cropType && appData.crops[cropType]) {
+    appData.crops[cropType].varieties.forEach(variety => {
+      const option = document.createElement('option');
+      option.value = variety;
+      option.textContent = variety;
+      varietySelect.appendChild(option);
+    });
+  }
+}
+
+function autoDetectSoil() {
+  // Simulate soil detection with mock data
+  showToast('info', 'Detecting soil parameters based on your location...');
+  
+  setTimeout(() => {
+    document.getElementById('soil-ph').value = '6.8';
+    document.getElementById('ph-value').textContent = '6.8';
+    document.getElementById('soil-moisture').value = '42';
+    document.getElementById('soil-nitrogen').value = '135';
+    document.getElementById('soil-phosphorus').value = '68';
+    document.getElementById('soil-potassium').value = '45';
+    document.getElementById('organic-matter').value = '3.2';
     
-    .alert-content {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-    }
+    showToast('success', 'Soil parameters detected successfully!');
+  }, 2000);
+}
+
+function syncWeather() {
+  showToast('info', 'Syncing weather data...');
+  
+  setTimeout(() => {
+    showToast('success', 'Weather data synchronized successfully!');
+  }, 1500);
+}
+
+function generatePrediction() {
+  if (validateStep(4)) {
+    // Collect all form data
+    predictionData = {
+      cropType: document.getElementById('crop-type').value,
+      cropVariety: document.getElementById('crop-variety').value,
+      farmArea: parseFloat(document.getElementById('farm-area').value),
+      plantingDate: document.getElementById('planting-date').value,
+      harvestDate: document.getElementById('harvest-date').value,
+      farmingType: document.getElementById('farming-type').value,
+      soilPh: parseFloat(document.getElementById('soil-ph').value),
+      soilMoisture: parseFloat(document.getElementById('soil-moisture').value),
+      soilNitrogen: parseFloat(document.getElementById('soil-nitrogen').value),
+      soilPhosphorus: parseFloat(document.getElementById('soil-phosphorus').value),
+      soilPotassium: parseFloat(document.getElementById('soil-potassium').value),
+      organicMatter: parseFloat(document.getElementById('organic-matter').value),
+      irrigationSystem: document.getElementById('irrigation-system').value,
+      waterSource: document.getElementById('water-source').value,
+      fertilizerUsage: document.getElementById('fertilizer-usage').value,
+      pestHistory: document.getElementById('pest-history').value,
+      previousYield: parseFloat(document.getElementById('previous-yield').value) || 0,
+      climateZone: document.getElementById('climate-zone').value,
+      avgRainfall: parseFloat(document.getElementById('avg-rainfall').value),
+      fieldSlope: document.getElementById('field-slope').value,
+      drainageQuality: document.getElementById('drainage-quality').value
+    };
+
+    showToast('info', 'Generating AI prediction...');
     
-    .alert-close {
-        background: none;
-        border: none;
-        color: white;
-        font-size: 20px;
-        cursor: pointer;
-        margin-left: auto;
+    // Simulate AI processing
+    setTimeout(() => {
+      document.querySelector('.prediction-wizard').style.display = 'none';
+      document.getElementById('prediction-results').classList.remove('hidden');
+      
+      // Update results based on input data
+      updatePredictionResults();
+      showToast('success', 'AI prediction generated successfully!');
+    }, 3000);
+  }
+}
+
+function updatePredictionResults() {
+  // Calculate dynamic results based on input data
+  const baseYield = 4.0;
+  let yieldMultiplier = 1.0;
+  
+  // Factors that affect yield
+  if (predictionData.soilPh >= 6.0 && predictionData.soilPh <= 7.5) yieldMultiplier += 0.1;
+  if (predictionData.soilMoisture >= 40) yieldMultiplier += 0.05;
+  if (predictionData.organicMatter >= 3.0) yieldMultiplier += 0.08;
+  if (predictionData.irrigationSystem === 'drip') yieldMultiplier += 0.12;
+  if (predictionData.fertilizerUsage === 'mixed') yieldMultiplier += 0.06;
+  if (predictionData.drainageQuality === 'excellent') yieldMultiplier += 0.04;
+  
+  const predictedYield = (baseYield * yieldMultiplier).toFixed(1);
+  const totalYield = (predictedYield * predictionData.farmArea).toFixed(1);
+  const revenue = Math.round(totalYield * 28000);
+  
+  // Update result cards
+  document.querySelector('.result-card .result-value').textContent = `${predictedYield} tons/ha`;
+  document.querySelector('.result-card .result-detail').textContent = `Total: ${totalYield} tons`;
+  
+  const revenueCard = document.querySelectorAll('.result-card')[1];
+  revenueCard.querySelector('.result-value').textContent = `₹${revenue.toLocaleString('en-IN')}`;
+  revenueCard.querySelector('.result-detail').textContent = `₹28,000 per ton`;
+}
+
+// Initialize some dynamic content updates
+setInterval(() => {
+  // Update time-based elements
+  const timeElements = document.querySelectorAll('[data-live-time]');
+  timeElements.forEach(element => {
+    const now = new Date();
+    element.textContent = now.toLocaleTimeString();
+  });
+}, 1000);
+
+// Simulate live data updates for monitoring
+setInterval(() => {
+  const monitorValues = document.querySelectorAll('.monitor-value');
+  monitorValues.forEach((value, index) => {
+    const current = parseFloat(value.textContent);
+    const variation = (Math.random() - 0.5) * 2; // ±1 unit variation
+    const newValue = Math.max(0, current + variation);
+    
+    switch(index) {
+      case 0: // Temperature
+        value.textContent = `${Math.round(newValue)}°C`;
+        break;
+      case 1: // Humidity
+        value.textContent = `${Math.round(newValue)}%`;
+        break;
+      case 2: // Soil Moisture
+        value.textContent = `${Math.round(newValue)}%`;
+        break;
+      case 3: // Solar Radiation
+        value.textContent = `${Math.round(newValue)} W/m²`;
+        break;
     }
-`;
-document.head.appendChild(alertStyles);
+  });
+}, 10000); // Update every 10 seconds
+
+// Service Worker Registration for PWA
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js')
+      .then(registration => {
+        console.log('SW registered: ', registration);
+      })
+      .catch(registrationError => {
+        console.log('SW registration failed: ', registrationError);
+      });
+  });
+}
