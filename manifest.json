@@ -1,84 +1,236 @@
 {
-  "name": "CroperoAI - Smart Agriculture Intelligence",
-  "short_name": "CroperoAI",
-  "description": "AI-powered agriculture platform for disease detection, yield prediction, and market analytics",
+  "name": "Cropero AI - Smart Crop Yield Prediction Platform",
+  "short_name": "Cropero AI",
+  "description": "Advanced AI-powered platform for crop yield prediction, real-time farm monitoring, and smart agriculture recommendations with multi-language support",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#21808D",
-  "theme_color": "#21808D",
+  "background_color": "#2E7D32",
+  "theme_color": "#2E7D32",
   "orientation": "portrait-primary",
   "scope": "/",
   "lang": "en",
-  "categories": ["agriculture", "productivity", "utilities"],
+  "dir": "ltr",
+  "categories": ["agriculture", "productivity", "utilities", "business", "education"],
   "icons": [
     {
-      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%2321808D'/%3E%3Ctext x='50' y='60' font-size='60' text-anchor='middle' fill='white'%3E🌾%3C/text%3E%3C/svg%3E",
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'%3E%3Crect width='192' height='192' fill='%232E7D32' rx='24'/%3E%3Cg transform='translate(96,96)'%3E%3Ctext x='0' y='10' font-size='48' text-anchor='middle' fill='white' font-family='system-ui' font-weight='bold'%3EC%3C/text%3E%3Ctext x='15' y='5' font-size='28' text-anchor='middle' fill='white'%3E🌾%3C/text%3E%3C/g%3E%3C/svg%3E",
       "sizes": "192x192",
       "type": "image/svg+xml",
       "purpose": "any maskable"
     },
     {
-      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%2321808D'/%3E%3Ctext x='50' y='60' font-size='40' text-anchor='middle' fill='white'%3E🌾%3C/text%3E%3C/svg%3E",
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' fill='%232E7D32' rx='64'/%3E%3Cg transform='translate(256,256)'%3E%3Ctext x='0' y='20' font-size='120' text-anchor='middle' fill='white' font-family='system-ui' font-weight='bold'%3EC%3C/text%3E%3Ctext x='40' y='10' font-size='72' text-anchor='middle' fill='white'%3E🌾%3C/text%3E%3C/g%3E%3C/svg%3E",
       "sizes": "512x512",
       "type": "image/svg+xml",
       "purpose": "any maskable"
+    },
+    {
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 144 144'%3E%3Crect width='144' height='144' fill='%232E7D32' rx='18'/%3E%3Cg transform='translate(72,72)'%3E%3Ctext x='0' y='8' font-size='36' text-anchor='middle' fill='white' font-family='system-ui' font-weight='bold'%3EC%3C/text%3E%3Ctext x='12' y='4' font-size='22' text-anchor='middle' fill='white'%3E🌾%3C/text%3E%3C/g%3E%3C/svg%3E",
+      "sizes": "144x144",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 96 96'%3E%3Crect width='96' height='96' fill='%232E7D32' rx='12'/%3E%3Cg transform='translate(48,48)'%3E%3Ctext x='0' y='6' font-size='24' text-anchor='middle' fill='white' font-family='system-ui' font-weight='bold'%3EC%3C/text%3E%3Ctext x='8' y='2' font-size='14' text-anchor='middle' fill='white'%3E🌾%3C/text%3E%3C/g%3E%3C/svg%3E",
+      "sizes": "96x96",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 72 72'%3E%3Crect width='72' height='72' fill='%232E7D32' rx='9'/%3E%3Cg transform='translate(36,36)'%3E%3Ctext x='0' y='4' font-size='18' text-anchor='middle' fill='white' font-family='system-ui' font-weight='bold'%3EC%3C/text%3E%3Ctext x='6' y='1' font-size='11' text-anchor='middle' fill='white'%3E🌾%3C/text%3E%3C/g%3E%3C/svg%3E",
+      "sizes": "72x72",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Crect width='48' height='48' fill='%232E7D32' rx='6'/%3E%3Cg transform='translate(24,24)'%3E%3Ctext x='0' y='3' font-size='12' text-anchor='middle' fill='white' font-family='system-ui' font-weight='bold'%3EC%3C/text%3E%3Ctext x='4' y='1' font-size='7' text-anchor='middle' fill='white'%3E🌾%3C/text%3E%3C/g%3E%3C/svg%3E",
+      "sizes": "48x48",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 36 36'%3E%3Crect width='36' height='36' fill='%232E7D32' rx='4'/%3E%3Cg transform='translate(18,18)'%3E%3Ctext x='0' y='2' font-size='9' text-anchor='middle' fill='white' font-family='system-ui' font-weight='bold'%3EC%3C/text%3E%3Ctext x='3' y='1' font-size='5' text-anchor='middle' fill='white'%3E🌾%3C/text%3E%3C/g%3E%3C/svg%3E",
+      "sizes": "36x36",
+      "type": "image/svg+xml",
+      "purpose": "any"
     }
   ],
   "shortcuts": [
     {
-      "name": "Disease Detection",
-      "short_name": "Detect",
-      "description": "Analyze plant diseases using AI",
-      "url": "/?tab=disease-detection",
-      "icons": [
-        {
-          "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext x='50' y='60' font-size='40' text-anchor='middle'%3E🔬%3C/text%3E%3C/svg%3E",
-          "sizes": "96x96"
-        }
-      ]
-    },
-    {
-      "name": "Yield Prediction",
+      "name": "AI Yield Prediction",
       "short_name": "Predict",
-      "description": "Predict crop yields with ML",
-      "url": "/?tab=yield-predictor",
+      "description": "Advanced ML-powered crop yield forecasting",
+      "url": "/?tab=prediction",
       "icons": [
         {
-          "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext x='50' y='60' font-size='40' text-anchor='middle'%3E📊%3C/text%3E%3C/svg%3E",
-          "sizes": "96x96"
+          "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 96 96'%3E%3Crect width='96' height='96' fill='%234CAF50' rx='12'/%3E%3Cg transform='translate(48,48)'%3E%3Ctext x='0' y='12' font-size='40' text-anchor='middle' fill='white'%3E🔮%3C/text%3E%3C/g%3E%3C/svg%3E",
+          "sizes": "96x96",
+          "type": "image/svg+xml"
         }
       ]
     },
     {
-      "name": "Market Analytics",
-      "short_name": "Market",
-      "description": "Real-time agricultural market data",
-      "url": "/?tab=market-analytics",
+      "name": "Real-time Farm Monitor",
+      "short_name": "Monitor",
+      "description": "Live environmental data and farm alerts",
+      "url": "/?tab=monitoring",
       "icons": [
         {
-          "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext x='50' y='60' font-size='40' text-anchor='middle'%3E📹%3C/text%3E%3C/svg%3E",
-          "sizes": "96x96"
+          "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 96 96'%3E%3Crect width='96' height='96' fill='%232196F3' rx='12'/%3E%3Cg transform='translate(48,48)'%3E%3Ctext x='0' y='12' font-size='40' text-anchor='middle' fill='white'%3E📈%3C/text%3E%3C/g%3E%3C/svg%3E",
+          "sizes": "96x96",
+          "type": "image/svg+xml"
+        }
+      ]
+    },
+    {
+      "name": "Smart AI Recommendations",
+      "short_name": "Tips",
+      "description": "Personalized farming insights and tips",
+      "url": "/?tab=recommendations",
+      "icons": [
+        {
+          "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 96 96'%3E%3Crect width='96' height='96' fill='%23FF9800' rx='12'/%3E%3Cg transform='translate(48,48)'%3E%3Ctext x='0' y='12' font-size='40' text-anchor='middle' fill='white'%3E💡%3C/text%3E%3C/g%3E%3C/svg%3E",
+          "sizes": "96x96",
+          "type": "image/svg+xml"
+        }
+      ]
+    },
+    {
+      "name": "Farm Analytics Dashboard",
+      "short_name": "Analytics",
+      "description": "Comprehensive data analysis and insights",
+      "url": "/?tab=analytics",
+      "icons": [
+        {
+          "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 96 96'%3E%3Crect width='96' height='96' fill='%239C27B0' rx='12'/%3E%3Cg transform='translate(48,48)'%3E%3Ctext x='0' y='12' font-size='40' text-anchor='middle' fill='white'%3E📊%3C/text%3E%3C/g%3E%3C/svg%3E",
+          "sizes": "96x96",
+          "type": "image/svg+xml"
         }
       ]
     }
   ],
   "screenshots": [
     {
-      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 800'%3E%3Crect width='400' height='800' fill='%23f5f7fa'/%3E%3Crect x='20' y='60' width='360' height='200' rx='20' fill='%2321808D'/%3E%3Ctext x='200' y='140' font-size='24' text-anchor='middle' fill='white'%3ECroperoAI%3C/text%3E%3Ctext x='200' y='170' font-size='16' text-anchor='middle' fill='white'%3ESmart Agriculture%3C/text%3E%3C/svg%3E",
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 800'%3E%3Crect width='400' height='800' fill='%23F8FDF8'/%3E%3Crect x='0' y='0' width='400' height='100' fill='%232E7D32'/%3E%3Ctext x='200' y='40' font-size='20' text-anchor='middle' fill='white' font-weight='bold'%3ECropero AI%3C/text%3E%3Ctext x='80' y='65' font-size='14' text-anchor='middle' fill='white'%3EC🌾%3C/text%3E%3Ctext x='320' y='65' font-size='12' text-anchor='middle' fill='white'%3ESmart Agriculture%3C/text%3E%3Crect x='20' y='120' width='360' height='80' rx='12' fill='white' stroke='%23E0E0E0'/%3E%3Ctext x='40' y='145' font-size='14' font-weight='bold' fill='%232E7D32'%3E🌾 AI Yield Prediction%3C/text%3E%3Ctext x='40' y='170' font-size='24' font-weight='bold' fill='%232E7D32'%3E4.8 tons/ha%3C/text%3E%3Ctext x='40' y='185' font-size='12' fill='%234CAF50'%3E+18.5%25 above regional average%3C/text%3E%3Crect x='20' y='220' width='170' height='120' rx='12' fill='%234CAF50'/%3E%3Ctext x='105' y='245' font-size='12' text-anchor='middle' fill='white'%3E🔮 AI Model%3C/text%3E%3Ctext x='105' y='260' font-size='12' text-anchor='middle' fill='white'%3EAccuracy%3C/text%3E%3Ctext x='105' y='290' font-size='18' text-anchor='middle' fill='white' font-weight='bold'%3E96.8%25%3C/text%3E%3Ctext x='105' y='305' font-size='10' text-anchor='middle' fill='rgba(255,255,255,0.9)'%3EConfidence Level%3C/text%3E%3Crect x='210' y='220' width='170' height='120' rx='12' fill='%23FF9800'/%3E%3Ctext x='295' y='245' font-size='12' text-anchor='middle' fill='white'%3E💡 Smart%3C/text%3E%3Ctext x='295' y='260' font-size='12' text-anchor='middle' fill='white'%3ERecommendations%3C/text%3E%3Ctext x='295' y='290' font-size='18' text-anchor='middle' fill='white' font-weight='bold'%3E8%3C/text%3E%3Ctext x='295' y='305' font-size='10' text-anchor='middle' fill='rgba(255,255,255,0.9)'%3EAction items%3C/text%3E%3Crect x='20' y='360' width='360' height='150' rx='12' fill='white' stroke='%23E0E0E0'/%3E%3Ctext x='40' y='385' font-size='14' font-weight='bold' fill='%232E7D32'%3E🌦️ Live Farm Monitoring%3C/text%3E%3Ctext x='40' y='410' font-size='12' fill='%23666'%3ETemperature: 28°C (Optimal)%3C/text%3E%3Ctext x='40' y='430' font-size='12' fill='%23666'%3EHumidity: 65%25 (Good)%3C/text%3E%3Ctext x='40' y='450' font-size='12' fill='%23666'%3ESoil Moisture: 42%25 (Ideal)%3C/text%3E%3Ctext x='40' y='470' font-size='12' fill='%23666'%3ERainfall: 2.3mm (24h)%3C/text%3E%3Ctext x='40' y='490' font-size='12' fill='%23666'%3ESolar Radiation: 650 W/m²%3C/text%3E%3Crect x='20' y='530' width='360' height='120' rx='12' fill='rgba(46,125,50,0.1)' stroke='%232E7D32'/%3E%3Ctext x='40' y='555' font-size='14' font-weight='bold' fill='%232E7D32'%3E🚨 AI Farm Alert%3C/text%3E%3Ctext x='40' y='575' font-size='12' fill='%23333'%3EOptimal irrigation window detected%3C/text%3E%3Ctext x='40' y='595' font-size='12' fill='%23666'%3ERecommendation: Schedule irrigation%3C/text%3E%3Ctext x='40' y='615' font-size='12' fill='%23666'%3Ebetween 5-7 AM for maximum efficiency%3C/text%3E%3Ctext x='40' y='635' font-size='10' fill='%23999'%3E3 minutes ago • AI Priority: High%3C/text%3E%3C/svg%3E",
       "sizes": "400x800",
       "type": "image/svg+xml",
       "form_factor": "narrow",
-      "label": "CroperoAI Main Interface"
+      "label": "Cropero AI Mobile Dashboard - Real-time farm monitoring with AI insights"
+    },
+    {
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 800'%3E%3Crect width='400' height='800' fill='%23F8FDF8'/%3E%3Crect x='0' y='0' width='400' height='80' fill='%232E7D32'/%3E%3Ctext x='200' y='35' font-size='18' text-anchor='middle' fill='white' font-weight='bold'%3E🔮 Cropero AI Prediction%3C/text%3E%3Ctext x='60' y='55' font-size='12' text-anchor='middle' fill='white'%3EC🌾%3C/text%3E%3Ctext x='340' y='55' font-size='10' text-anchor='middle' fill='white'%3EAI v2.1%3C/text%3E%3Crect x='20' y='100' width='360' height='200' rx='12' fill='white' stroke='%23E0E0E0'/%3E%3Ctext x='40' y='125' font-size='14' font-weight='bold' fill='%232E7D32'%3E🌱 Smart Farm Analysis%3C/text%3E%3Ctext x='40' y='150' font-size='12' fill='%23666'%3ECrop: Rice (Basmati 1121)%3C/text%3E%3Ctext x='40' y='170' font-size='12' fill='%23666'%3EFarm Area: 3.2 hectares%3C/text%3E%3Ctext x='40' y='190' font-size='12' fill='%23666'%3ESoil Health: pH 6.8 (Optimal)%3C/text%3E%3Ctext x='40' y='210' font-size='12' fill='%23666'%3EIrrigation: Smart Drip System%3C/text%3E%3Ctext x='40' y='230' font-size='12' fill='%23666'%3ENutrients: NPK 130-65-45%3C/text%3E%3Ctext x='40' y='250' font-size='12' fill='%23666'%3EWeather: Favorable conditions%3C/text%3E%3Ctext x='40' y='270' font-size='12' fill='%23666'%3EGrowth Stage: Grain filling%3C/text%3E%3Crect x='150' y='285' width='100' height='30' rx='15' fill='%234CAF50'/%3E%3Ctext x='200' y='302' font-size='12' text-anchor='middle' fill='white' font-weight='bold'%3E🔮 Predict%3C/text%3E%3Crect x='20' y='320' width='360' height='200' rx='12' fill='rgba(76,175,80,0.1)' stroke='%234CAF50'/%3E%3Ctext x='40' y='345' font-size='14' font-weight='bold' fill='%232E7D32'%3E🎯 AI Prediction Results%3C/text%3E%3Ctext x='40' y='365' font-size='12' fill='%23666'%3EModel Confidence: 96.8%25%3C/text%3E%3Ctext x='40' y='390' font-size='18' font-weight='bold' fill='%232E7D32'%3EExpected Yield: 4.8 tons/ha%3C/text%3E%3Ctext x='40' y='415' font-size='14' fill='%234CAF50'%3ETotal Production: 15.4 tons%3C/text%3E%3Ctext x='40' y='435' font-size='14' fill='%234CAF50'%3ERevenue Estimate: ₹4,31,200%3C/text%3E%3Ctext x='40' y='455' font-size='12' fill='%23FF9800'%3EHarvest Ready: 78 days%3C/text%3E%3Ctext x='40' y='475' font-size='12' fill='%23666'%3ERisk Assessment: Low%3C/text%3E%3Ctext x='40' y='495' font-size='11' fill='%23999'%3EQuality Grade: Premium A+%3C/text%3E%3Ctext x='40' y='510' font-size='10' fill='%23999'%3E+22%25 above regional benchmark%3C/text%3E%3Crect x='20' y='540' width='360' height='140' rx='12' fill='white' stroke='%23E0E0E0'/%3E%3Ctext x='40' y='565' font-size='14' font-weight='bold' fill='%232E7D32'%3E🧠 AI Insights & Optimization%3C/text%3E%3Ctext x='40' y='585' font-size='11' fill='%23666'%3E✓ Soil conditions optimal for growth%3C/text%3E%3Ctext x='40' y='600' font-size='11' fill='%23666'%3E✓ Smart irrigation maximizing efficiency%3C/text%3E%3Ctext x='40' y='615' font-size='11' fill='%23666'%3E✓ Weather forecast highly favorable%3C/text%3E%3Ctext x='40' y='630' font-size='11' fill='%23666'%3E⚡ Nitrogen boost recommended day 45%3C/text%3E%3Ctext x='40' y='645' font-size='11' fill='%234CAF50'%3E💡 Potential +8%25 yield with optimization%3C/text%3E%3Ctext x='40' y='660' font-size='11' fill='%23999'%3E📊 Risk mitigation: 3 strategies active%3C/text%3E%3C/svg%3E",
+      "sizes": "400x800",
+      "type": "image/svg+xml",
+      "form_factor": "narrow",
+      "label": "AI Crop Yield Prediction Interface - Advanced ML analysis with detailed recommendations"
+    },
+    {
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 400'%3E%3Crect width='800' height='400' fill='%23F8FDF8'/%3E%3Crect x='0' y='0' width='800' height='60' fill='%232E7D32'/%3E%3Ctext x='400' y='30' font-size='20' text-anchor='middle' fill='white' font-weight='bold'%3ECropero AI - Smart Agriculture Intelligence Platform%3C/text%3E%3Ctext x='80' y='50' font-size='16' text-anchor='middle' fill='white'%3EC🌾%3C/text%3E%3Ctext x='720' y='50' font-size='12' text-anchor='middle' fill='white'%3EAI v2.1 Active%3C/text%3E%3Crect x='20' y='80' width='180' height='280' rx='12' fill='white' stroke='%23E0E0E0'/%3E%3Ctext x='110' y='105' font-size='14' text-anchor='middle' font-weight='bold' fill='%232E7D32'%3E📊 Live Dashboard%3C/text%3E%3Crect x='40' y='120' width='140' height='60' rx='8' fill='rgba(46,125,50,0.1)'/%3E%3Ctext x='110' y='140' font-size='12' text-anchor='middle' fill='%232E7D32'%3EAI Predicted Yield%3C/text%3E%3Ctext x='110' y='160' font-size='20' text-anchor='middle' font-weight='bold' fill='%232E7D32'%3E4.8 t/ha%3C/text%3E%3Crect x='40' y='190' width='65' height='50' rx='8' fill='%234CAF50'/%3E%3Ctext x='72.5' y='208' font-size='10' text-anchor='middle' fill='white'%3E🔮 ML%3C/text%3E%3Ctext x='72.5' y='220' font-size='10' text-anchor='middle' fill='white'%3EAccuracy%3C/text%3E%3Ctext x='72.5' y='232' font-size='10' text-anchor='middle' fill='white'%3E96.8%25%3C/text%3E%3Crect x='115' y='190' width='65' height='50' rx='8' fill='%23FF9800'/%3E%3Ctext x='147.5' y='208' font-size='10' text-anchor='middle' fill='white'%3E💰 ROI%3C/text%3E%3Ctext x='147.5' y='220' font-size='10' text-anchor='middle' fill='white'%3EGains%3C/text%3E%3Ctext x='147.5' y='232' font-size='10' text-anchor='middle' fill='white'%3E+28%25%3C/text%3E%3Crect x='40' y='250' width='140' height='80' rx='8' fill='rgba(33,150,243,0.1)'/%3E%3Ctext x='110' y='270' font-size='12' text-anchor='middle' fill='%232196F3'%3E🌦️ Farm Conditions%3C/text%3E%3Ctext x='110' y='285' font-size='10' text-anchor='middle' fill='%23666'%3ETemp: 28°C (Optimal)%3C/text%3E%3Ctext x='110' y='300' font-size='10' text-anchor='middle' fill='%23666'%3EHumidity: 65%25 (Good)%3C/text%3E%3Ctext x='110' y='315' font-size='10' text-anchor='middle' fill='%23666'%3ESoil pH: 6.8 (Perfect)%3C/text%3E%3Crect x='220' y='80' width='180' height='280' rx='12' fill='white' stroke='%23E0E0E0'/%3E%3Ctext x='310' y='105' font-size='14' text-anchor='middle' font-weight='bold' fill='%232E7D32'%3E🔮 AI Prediction Hub%3C/text%3E%3Crect x='240' y='120' width='140' height='80' rx='8' fill='rgba(76,175,80,0.05)' stroke='%234CAF50'/%3E%3Ctext x='310' y='140' font-size='12' text-anchor='middle' fill='%232E7D32'%3ECrop: Rice (Basmati 1121)%3C/text%3E%3Ctext x='310' y='155' font-size='12' text-anchor='middle' fill='%232E7D32'%3EArea: 3.2 hectares%3C/text%3E%3Ctext x='310' y='170' font-size='12' text-anchor='middle' fill='%232E7D32'%3ESoil Health: Excellent%3C/text%3E%3Ctext x='310' y='185' font-size='12' text-anchor='middle' fill='%232E7D32'%3EIrrigation: Smart Drip%3C/text%3E%3Crect x='275' y='210' width='70' height='25' rx='12' fill='%234CAF50'/%3E%3Ctext x='310' y='225' font-size='11' text-anchor='middle' fill='white' font-weight='bold'%3E🔮 Analyze%3C/text%3E%3Crect x='240' y='245' width='140' height='100' rx='8' fill='rgba(46,125,50,0.1)'/%3E%3Ctext x='310' y='265' font-size='12' text-anchor='middle' font-weight='bold' fill='%232E7D32'%3E🎯 AI Results%3C/text%3E%3Ctext x='310' y='285' font-size='16' text-anchor='middle' font-weight='bold' fill='%234CAF50'%3E4.8 tons/ha%3C/text%3E%3Ctext x='310' y='305' font-size='10' text-anchor='middle' fill='%23666'%3EConfidence: 96.8%25%3C/text%3E%3Ctext x='310' y='320' font-size='10' text-anchor='middle' fill='%23666'%3ERevenue: ₹4,31,200%3C/text%3E%3Ctext x='310' y='335' font-size='10' text-anchor='middle' fill='%23FF9800'%3EHarvest: 78 days%3C/text%3E%3Crect x='420' y='80' width='180' height='280' rx='12' fill='white' stroke='%23E0E0E0'/%3E%3Ctext x='510' y='105' font-size='14' text-anchor='middle' font-weight='bold' fill='%232E7D32'%3E💡 Smart Recommendations%3C/text%3E%3Crect x='440' y='120' width='140' height='50' rx='8' fill='rgba(255,152,0,0.1)' stroke='%23FF9800'/%3E%3Ctext x='450' y='135' font-size='10' fill='%23FF9800'%3E⚠️ Action Required%3C/text%3E%3Ctext x='450' y='150' font-size='11' fill='%23333' font-weight='bold'%3EOptimize irrigation timing%3C/text%3E%3Ctext x='450' y='163' font-size='9' fill='%23666'%3ESchedule 5-7 AM for efficiency%3C/text%3E%3Crect x='440' y='180' width='140' height='50' rx='8' fill='rgba(76,175,80,0.1)' stroke='%234CAF50'/%3E%3Ctext x='450' y='195' font-size='10' fill='%234CAF50'%3E✅ Recommended%3C/text%3E%3Ctext x='450' y='210' font-size='11' fill='%23333' font-weight='bold'%3ENitrogen boost at day 45%3C/text%3E%3Ctext x='450' y='223' font-size='9' fill='%23666'%3EApply 25kg/ha extra dosage%3C/text%3E%3Crect x='440' y='240' width='140' height='50' rx='8' fill='rgba(33,150,243,0.1)' stroke='%232196F3'/%3E%3Ctext x='450' y='255' font-size='10' fill='%232196F3'%3Eℹ️ Insight Available%3C/text%3E%3Ctext x='450' y='270' font-size='11' fill='%23333' font-weight='bold'%3ESoil health monitoring%3C/text%3E%3Ctext x='450' y='283' font-size='9' fill='%23666'%3EWeekly pH testing advised%3C/text%3E%3Crect x='440' y='300' width='140' height='50' rx='8' fill='rgba(156,39,176,0.1)' stroke='%239C27B0'/%3E%3Ctext x='510' y='320' font-size='11' text-anchor='middle' fill='%239C27B0'%3E📊 Impact Forecast%3C/text%3E%3Ctext x='510' y='335' font-size='10' text-anchor='middle' fill='%23666'%3EPotential +18%25 yield boost%3C/text%3E%3Ctext x='510' y='345' font-size='10' text-anchor='middle' fill='%23666'%3ESave ₹18,500 input costs%3C/text%3E%3Crect x='620' y='80' width='160' height='280' rx='12' fill='white' stroke='%23E0E0E0'/%3E%3Ctext x='700' y='105' font-size='14' text-anchor='middle' font-weight='bold' fill='%232E7D32'%3E📈 Live Monitoring%3C/text%3E%3Crect x='640' y='120' width='120' height='60' rx='8' fill='rgba(244,67,54,0.1)' stroke='%23F44336'/%3E%3Ctext x='650' y='135' font-size='10' fill='%23F44336'%3E🚨 High Priority%3C/text%3E%3Ctext x='650' y='150' font-size='11' fill='%23333' font-weight='bold'%3ETemperature spike alert%3C/text%3E%3Ctext x='650' y='165' font-size='9' fill='%23666'%3E38°C detected - immediate%3C/text%3E%3Ctext x='650' y='175' font-size='9' fill='%23666'%3Ecooling measures needed%3C/text%3E%3Crect x='640' y='190' width='120' height='60' rx='8' fill='rgba(255,152,0,0.1)' stroke='%23FF9800'/%3E%3Ctext x='650' y='205' font-size='10' fill='%23FF9800'%3E⚠️ Medium Priority%3C/text%3E%3Ctext x='650' y='220' font-size='11' fill='%23333' font-weight='bold'%3ESoil moisture dropping%3C/text%3E%3Ctext x='650' y='235' font-size='9' fill='%23666'%3E28%25 - below optimal range%3C/text%3E%3Ctext x='650' y='245' font-size='9' fill='%23666'%3EIrrigation needed within 12h%3C/text%3E%3Crect x='640' y='260' width='120' height='90' rx='8' fill='rgba(33,150,243,0.1)'/%3E%3Ctext x='700' y='280' font-size='11' text-anchor='middle' fill='%232196F3'%3E📊 Real-time Data%3C/text%3E%3Ctext x='700' y='295' font-size='9' text-anchor='middle' fill='%23666'%3ETemp: 28°C ↗️%3C/text%3E%3Ctext x='700' y='308' font-size='9' text-anchor='middle' fill='%23666'%3EHumidity: 65%25 ↘️%3C/text%3E%3Ctext x='700' y='321' font-size='9' text-anchor='middle' fill='%23666'%3EWind: 12 km/h ↔️%3C/text%3E%3Ctext x='700' y='334' font-size='9' text-anchor='middle' fill='%23666'%3ESolar: 650W/m² ☀️%3C/text%3E%3C/svg%3E",
+      "sizes": "800x400",
+      "type": "image/svg+xml",
+      "form_factor": "wide",
+      "label": "Cropero AI Desktop Interface - Comprehensive farm management dashboard with AI recommendations"
     }
   ],
   "prefer_related_applications": false,
+  "related_applications": [],
   "edge_side_panel": {
-    "preferred_width": 400
+    "preferred_width": 420
   },
   "protocol_handlers": [
     {
       "protocol": "web+cropero",
       "url": "/?action=%s"
     }
-  ]
+  ],
+  "file_handlers": [
+    {
+      "action": "/upload",
+      "accept": {
+        "image/*": [".jpg", ".jpeg", ".png", ".gif", ".bmp", ".webp", ".tiff"],
+        "text/csv": [".csv"],
+        "application/json": [".json"],
+        "application/vnd.ms-excel": [".xls", ".xlsx"],
+        "application/pdf": [".pdf"]
+      }
+    }
+  ],
+  "share_target": {
+    "action": "/share-target",
+    "method": "POST",
+    "enctype": "multipart/form-data",
+    "params": {
+      "title": "title",
+      "text": "text",
+      "url": "url",
+      "files": [
+        {
+          "name": "farm_data",
+          "accept": ["text/csv", "application/json", "image/*", "application/pdf"]
+        }
+      ]
+    }
+  },
+  "background_sync": [
+    "weather-updates",
+    "soil-monitoring",
+    "yield-predictions",
+    "ai-recommendations",
+    "alert-notifications",
+    "market-prices",
+    "crop-analytics"
+  ],
+  "permissions": [
+    "geolocation",
+    "camera",
+    "storage-access",
+    "persistent-storage",
+    "background-sync",
+    "push-notifications",
+    "ambient-light-sensor"
+  ],
+  "features": [
+    "cross-origin-isolated",
+    "web-share-api",
+    "background-fetch",
+    "payment-request"
+  ],
+  "launch_handler": {
+    "client_mode": ["navigate-new", "navigate-existing", "auto"]
+  },
+  "handle_links": "preferred",
+  "scope_extensions": [
+    {"origin": "*.cropero.ai"},
+    {"origin": "*.agriculture.gov.in"},
+    {"origin": "*.openweathermap.org"},
+    {"origin": "*.mapbox.com"},
+    {"origin": "*.agri-tech.co.in"}
+  ],
+  "version": "2.1.0",
+  "manifest_version": 3,
+  "offline_enabled": true,
+  "offline_fallback": {
+    "pages": ["/offline.html"]
+  },
+  "display_override": [
+    "window-controls-overlay",
+    "minimal-ui", 
+    "standalone",
+    "browser"
+  ],
+  "capture_links": "new-client",
+  "categories_custom": [
+    "precision-agriculture",
+    "smart-farming", 
+    "crop-management",
+    "agricultural-ai",
+    "farming-tools",
+    "yield-prediction",
+    "farm-intelligence"
+  ],
+  "developer": {
+    "name": "Cropero AI Technologies",
+    "url": "https://cropero.ai"
+  },
+  "iarc_rating_id": "e84b072d-71b3-4d3e-86ae-31a8ce4e53b7"
 }
