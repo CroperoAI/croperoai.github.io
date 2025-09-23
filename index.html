@@ -8,12 +8,9 @@
     <link rel="stylesheet" href="style.css">
     <link rel="manifest" href="https://ppl-ai-code-interpreter-files.s3.amazonaws.com/web/direct-files/d041e1b662a835baefdad6f34d5a4275/2c963098-68e5-4873-9919-7810083335fd/ffa5b716.json">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://api.mapbox.com/mapbox-gl-js/v3.4.0/mapbox-gl.js"></script>
-    <link href="https://api.mapbox.com/mapbox-gl-js/v3.4.0/mapbox-gl.css" rel="stylesheet">
-    <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.min.js"></script>
-    <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.css" type="text/css">
 </head>
 <body>
+    <!-- Loading Screen -->
     <div id="loading-screen" class="loading-screen">
         <div class="loading-content">
             <div class="logo-large">
@@ -28,7 +25,9 @@
         </div>
     </div>
 
+    <!-- Main Application -->
     <div id="app" class="app hidden">
+        <!-- Header -->
         <header class="header">
             <div class="container">
                 <div class="header-content">
@@ -56,373 +55,608 @@
                 </div>
                 
                 <nav class="nav">
-                    <button class="nav-item active" data-section="dashboard" data-i18n="dashboard_nav">Dashboard</button>
-                    <button class="nav-item" data-section="prediction" data-i18n="prediction_nav">Yield Prediction</button>
-                    <button class="nav-item" data-section="monitoring" data-i18n="monitoring_nav">Live Monitoring</button>
-                    <button class="nav-item" data-section="recommendations" data-i18n="recommendations_nav">Smart Tips</button>
-                    <button class="nav-item" data-section="analytics" data-i18n="analytics_nav">Analytics</button>
-                    <button class="nav-item" data-section="marketplace" data-i18n="marketplace_nav">Marketplace</button>
+                    <button class="nav-item active" data-section="dashboard">Dashboard</button>
+                    <button class="nav-item" data-section="prediction">Yield Prediction</button>
+                    <button class="nav-item" data-section="monitoring">Live Monitoring</button>
+                    <button class="nav-item" data-section="recommendations">Smart Tips</button>
+                    <button class="nav-item" data-section="analytics">Analytics</button>
+                    <button class="nav-item" data-section="marketplace">Marketplace</button>
                 </nav>
             </div>
         </header>
 
+        <!-- Main Content -->
         <main class="main">
+            <!-- Dashboard Section -->
             <section id="dashboard-section" class="section active">
                 <div class="container">
                     <div class="section-header">
-                        <h2 data-i18n="dashboard_title">Farm Dashboard</h2>
+                        <h2>Farm Dashboard</h2>
                         <div class="ai-status">
                             <span class="status-indicator active"></span>
-                            <span data-i18n="ai_status">AI Active</span>
+                            <span>AI Active</span>
                         </div>
                     </div>
 
+                    <!-- Key Metrics Grid -->
                     <div class="metrics-grid">
                         <div class="metric-card">
                             <div class="metric-icon">📊</div>
                             <div class="metric-content">
-                                <h3 data-i18n="predicted_yield">Predicted Yield</h3>
+                                <h3>Predicted Yield</h3>
                                 <div class="metric-value">4.8 <span class="metric-unit">tons/ha</span></div>
-                                <div class="metric-change positive" data-i18n="yield_change">+18.5%</div>
+                                <div class="metric-change positive">+18.5%</div>
                             </div>
                         </div>
                         
                         <div class="metric-card">
                             <div class="metric-icon">💰</div>
                             <div class="metric-content">
-                                <h3 data-i18n="estimated_revenue">Estimated Revenue</h3>
+                                <h3>Estimated Revenue</h3>
                                 <div class="metric-value">₹4,31,200</div>
-                                <div class="metric-change positive" data-i18n="revenue_change">+12.3%</div>
+                                <div class="metric-change positive">+12.3%</div>
                             </div>
                         </div>
                         
                         <div class="metric-card">
                             <div class="metric-icon">🎯</div>
                             <div class="metric-content">
-                                <h3 data-i18n="ai_accuracy">AI Accuracy</h3>
+                                <h3>AI Accuracy</h3>
                                 <div class="metric-value">96.8%</div>
-                                <div class="metric-change" data-i18n="accuracy_note">Model confidence</div>
+                                <div class="metric-change">Model confidence</div>
                             </div>
                         </div>
                         
                         <div class="metric-card">
                             <div class="metric-icon">🏥</div>
                             <div class="metric-content">
-                                <h3 data-i18n="farm_health">Farm Health Score</h3>
+                                <h3>Farm Health Score</h3>
                                 <div class="metric-value">94<span class="metric-unit">/100</span></div>
-                                <div class="metric-change positive" data-i18n="health_note">Excellent</div>
+                                <div class="metric-change positive">Excellent</div>
                             </div>
                         </div>
                     </div>
 
+                    <!-- AI Insights Panel -->
                     <div class="insights-panel">
-                        <h3 data-i18n="insights_title">AI Insights</h3>
+                        <h3>AI Insights</h3>
                         <div class="insights-grid" id="insights-grid">
-                            </div>
+                            <!-- Insights will be populated by JavaScript -->
+                        </div>
                     </div>
 
+                    <!-- Charts Section -->
                     <div class="charts-section">
                         <div class="chart-container" style="position: relative; height: 300px;">
-                            <h3 data-i18n="yield_chart_title">Yield Forecast</h3>
+                            <h3>Yield Forecast</h3>
                             <canvas id="yield-chart"></canvas>
                         </div>
                         
                         <div class="chart-container" style="position: relative; height: 300px;">
-                            <h3 data-i18n="weather_chart_title">Weather Impact Analysis</h3>
+                            <h3>Weather Impact Analysis</h3>
                             <canvas id="weather-chart"></canvas>
                         </div>
                     </div>
 
+                    <!-- Quick Actions -->
                     <div class="quick-actions">
-                        <h3 data-i18n="actions_title">Quick Actions</h3>
+                        <h3>Quick Actions</h3>
                         <div class="actions-grid">
                             <button class="action-btn" data-action="predict">
                                 <span class="action-icon">🔮</span>
-                                <span data-i18n="new_prediction">New Prediction</span>
+                                <span>New Prediction</span>
                             </button>
                             <button class="action-btn" data-action="monitor">
                                 <span class="action-icon">📡</span>
-                                <span data-i18n="live_monitor">Live Monitor</span>
+                                <span>Live Monitor</span>
                             </button>
                             <button class="action-btn" data-action="report">
                                 <span class="action-icon">📊</span>
-                                <span data-i18n="generate_report">Generate Report</span>
+                                <span>Generate Report</span>
                             </button>
                             <button class="action-btn" data-action="tips">
                                 <span class="action-icon">💡</span>
-                                <span data-i18n="smart_tips">Smart Tips</span>
+                                <span>Smart Tips</span>
                             </button>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <section id="prediction-section" class="section hidden">
+            <!-- Yield Prediction Section -->
+            <section id="prediction-section" class="section">
                 <div class="container">
                     <div class="section-header">
-                        <h2 data-i18n="prediction_title">Yield Prediction Wizard</h2>
-                        <span id="current-location-display">📍 <span data-i18n="current_location">Current Location</span>: <span id="location-name">Punjab (Ludhiana)</span></span>
-                    </div>
-
-                    <div class="wizard-steps">
-                        <div class="wizard-step active" data-step="1">
-                            <span class="step-number">1</span>
-                            <span class="step-text" data-i18n="step_1">Select Crop & Variety</span>
-                        </div>
-                        <div class="wizard-step" data-step="2">
-                            <span class="step-number">2</span>
-                            <span class="step-text" data-i18n="step_2">Input Farm Data</span>
-                        </div>
-                        <div class="wizard-step" data-step="3">
-                            <span class="step-number">3</span>
-                            <span class="step-text" data-i18n="step_3">Review & Predict</span>
-                        </div>
-                    </div>
-
-                    <div id="step-1" class="wizard-pane active">
-                        <div class="form-group">
-                            <label for="crop-select" data-i18n="crop_label">Select Crop</label>
-                            <select id="crop-select"></select>
-                        </div>
-                        <div class="form-group">
-                            <label for="variety-select" data-i18n="variety_label">Select Variety</label>
-                            <select id="variety-select"></select>
-                        </div>
-                    </div>
-
-                    <div id="step-2" class="wizard-pane hidden">
-                        <div class="form-grid">
-                            <div class="form-group">
-                                <label for="area-input" data-i18n="area_label">Farm Area (acres)</label>
-                                <input type="number" id="area-input" value="10" placeholder="e.g., 10">
-                            </div>
-                            <div class="form-group">
-                                <label for="soil-type-select" data-i18n="soil_label">Soil Type</label>
-                                <select id="soil-type-select">
-                                    <option value="loamy" data-i18n="soil_loamy">Loamy</option>
-                                    <option value="sandy" data-i18n="soil_sandy">Sandy</option>
-                                    <option value="clay" data-i18n="soil_clay">Clay</option>
-                                    <option value="silt" data-i18n="soil_silt">Silt</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="irrigation-input" data-i18n="irrigation_label">Irrigation Frequency (per week)</label>
-                                <input type="number" id="irrigation-input" value="3" placeholder="e.g., 3">
-                            </div>
-                            <div class="form-group">
-                                <label for="planting-date-input" data-i18n="planting_date_label">Planting Date</label>
-                                <input type="date" id="planting-date-input">
-                            </div>
-                            <div class="form-group">
-                                <label for="fertilizer-input" data-i18n="fertilizer_label">Fertilizer (kg/acre)</label>
-                                <input type="number" id="fertilizer-input" value="50" placeholder="e.g., 50">
-                            </div>
-                            <div class="form-group">
-                                <label for="pesticide-input" data-i18n="pesticide_label">Pesticide (L/acre)</label>
-                                <input type="number" id="pesticide-input" value="0.5" placeholder="e.g., 0.5">
+                        <h2>AI Yield Prediction</h2>
+                        <div class="wizard-progress">
+                            <div class="progress-steps">
+                                <div class="step active" data-step="1">1</div>
+                                <div class="step" data-step="2">2</div>
+                                <div class="step" data-step="3">3</div>
+                                <div class="step" data-step="4">4</div>
                             </div>
                         </div>
                     </div>
 
-                    <div id="step-3" class="wizard-pane hidden">
-                        <div class="prediction-results-card">
-                            <div class="result-header">
-                                <h3 data-i18n="prediction_results">Prediction Results</h3>
-                                <div class="prediction-info">
-                                    <span data-i18n="prediction_for">Prediction for:</span>
-                                    <span id="predicted-crop">Rice</span>
-                                    <span id="predicted-variety"></span>
+                    <div class="prediction-wizard">
+                        <!-- Step 1: Farm & Crop Information -->
+                        <div class="wizard-step active" id="step-1">
+                            <div class="card">
+                                <div class="card__body">
+                                    <h3>Step 1: Farm & Crop Information</h3>
+                                    
+                                    <div class="form-grid">
+                                        <div class="form-group">
+                                            <label class="form-label">Crop Type</label>
+                                            <select class="form-control" id="crop-type">
+                                                <option value="">Select Crop</option>
+                                                <option value="rice">🌾 Rice</option>
+                                                <option value="wheat">🌾 Wheat</option>
+                                                <option value="maize">🌽 Maize</option>
+                                                <option value="cotton">🌸 Cotton</option>
+                                                <option value="sugarcane">🎋 Sugarcane</option>
+                                                <option value="soybean">🫘 Soybean</option>
+                                            </select>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label class="form-label">Variety</label>
+                                            <select class="form-control" id="crop-variety">
+                                                <option value="">First select crop type</option>
+                                            </select>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label class="form-label">Farm Area (hectares)</label>
+                                            <input type="number" class="form-control" id="farm-area" placeholder="e.g. 3.2" step="0.1">
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label class="form-label">Planting Date</label>
+                                            <input type="date" class="form-control" id="planting-date">
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label class="form-label">Expected Harvest Date</label>
+                                            <input type="date" class="form-control" id="harvest-date">
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label class="form-label">Farming Type</label>
+                                            <select class="form-control" id="farming-type">
+                                                <option value="">Select Type</option>
+                                                <option value="organic">Organic</option>
+                                                <option value="conventional">Conventional</option>
+                                                <option value="mixed">Mixed</option>
+                                            </select>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="results-grid" id="results-grid">
-                                <div class="result-item">
-                                    <span class="result-label" data-i18n="predicted_yield">Predicted Yield</span>
-                                    <span class="result-value" id="final-yield">0</span>
-                                    <span class="result-unit">tons/ha</span>
-                                </div>
-                                <div class="result-item">
-                                    <span class="result-label" data-i18n="yield_range">Yield Range</span>
-                                    <span class="result-value" id="final-range">0</span>
-                                    <span class="result-unit">tons/ha</span>
-                                </div>
-                                <div class="result-item">
-                                    <span class="result-label" data-i18n="predicted_revenue">Predicted Revenue</span>
-                                    <span class="result-value" id="final-revenue">0</span>
-                                    <span class="result-unit">₹</span>
-                                </div>
-                                <div class="result-item">
-                                    <span class="result-label" data-i18n="prediction_confidence">Prediction Confidence</span>
-                                    <span class="result-value" id="final-confidence">0%</span>
+                        </div>
+
+                        <!-- Step 2: Soil Health Parameters -->
+                        <div class="wizard-step" id="step-2">
+                            <div class="card">
+                                <div class="card__body">
+                                    <h3>Step 2: Soil Health Parameters</h3>
+                                    
+                                    <div class="auto-detect-section">
+                                        <button class="btn btn--primary" id="auto-detect-soil">
+                                            <span>📍</span> Auto-detect based on location
+                                        </button>
+                                        <p class="help-text">Or enter values manually below</p>
+                                    </div>
+                                    
+                                    <div class="form-grid">
+                                        <div class="form-group">
+                                            <label class="form-label">pH Level</label>
+                                            <input type="range" class="form-range" id="soil-ph" min="4" max="9" step="0.1" value="6.8">
+                                            <div class="range-display">
+                                                <span>Acidic (4-6)</span>
+                                                <span class="range-value" id="ph-value">6.8</span>
+                                                <span>Alkaline (7-9)</span>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label class="form-label">Soil Moisture (%)</label>
+                                            <input type="number" class="form-control" id="soil-moisture" placeholder="e.g. 42" min="0" max="100">
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label class="form-label">Nitrogen (kg/ha)</label>
+                                            <input type="number" class="form-control" id="soil-nitrogen" placeholder="e.g. 135">
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label class="form-label">Phosphorus (kg/ha)</label>
+                                            <input type="number" class="form-control" id="soil-phosphorus" placeholder="e.g. 68">
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label class="form-label">Potassium (kg/ha)</label>
+                                            <input type="number" class="form-control" id="soil-potassium" placeholder="e.g. 45">
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label class="form-label">Organic Matter (%)</label>
+                                            <input type="number" class="form-control" id="organic-matter" placeholder="e.g. 3.2" step="0.1">
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="result-message" id="result-message" data-i18n="result_message">Based on current parameters, the estimated yield is...</div>
+                        </div>
+
+                        <!-- Step 3: Farming Practices -->
+                        <div class="wizard-step" id="step-3">
+                            <div class="card">
+                                <div class="card__body">
+                                    <h3>Step 3: Farming Practices</h3>
+                                    
+                                    <div class="form-grid">
+                                        <div class="form-group">
+                                            <label class="form-label">Irrigation System</label>
+                                            <select class="form-control" id="irrigation-system">
+                                                <option value="">Select System</option>
+                                                <option value="drip">Drip Irrigation</option>
+                                                <option value="sprinkler">Sprinkler</option>
+                                                <option value="flood">Flood Irrigation</option>
+                                                <option value="furrow">Furrow Irrigation</option>
+                                            </select>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label class="form-label">Water Source</label>
+                                            <select class="form-control" id="water-source">
+                                                <option value="">Select Source</option>
+                                                <option value="borewell">Borewell</option>
+                                                <option value="canal">Canal</option>
+                                                <option value="river">River</option>
+                                                <option value="rainwater">Rainwater Harvesting</option>
+                                            </select>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label class="form-label">Fertilizer Usage</label>
+                                            <select class="form-control" id="fertilizer-usage">
+                                                <option value="">Select Type</option>
+                                                <option value="organic">Organic Only</option>
+                                                <option value="chemical">Chemical Only</option>
+                                                <option value="mixed">Mixed (Organic + Chemical)</option>
+                                            </select>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label class="form-label">Pest History</label>
+                                            <select class="form-control" id="pest-history">
+                                                <option value="">Select Level</option>
+                                                <option value="none">No pest issues</option>
+                                                <option value="minor">Minor pest issues</option>
+                                                <option value="moderate">Moderate pest issues</option>
+                                                <option value="severe">Severe pest issues</option>
+                                            </select>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label class="form-label">Previous Year Yield (tons/ha)</label>
+                                            <input type="number" class="form-control" id="previous-yield" placeholder="e.g. 4.2" step="0.1">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Step 4: Environmental Conditions -->
+                        <div class="wizard-step" id="step-4">
+                            <div class="card">
+                                <div class="card__body">
+                                    <h3>Step 4: Environmental Conditions</h3>
+                                    
+                                    <div class="weather-sync-section">
+                                        <div class="sync-notification">
+                                            <span class="sync-icon">🌤️</span>
+                                            <div class="sync-content">
+                                                <h4>Weather Data Sync</h4>
+                                                <p>Automatic weather synchronization is enabled for your location</p>
+                                            </div>
+                                            <button class="btn btn--secondary btn--sm" id="sync-weather">Sync Now</button>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="form-grid">
+                                        <div class="form-group">
+                                            <label class="form-label">Climate Zone</label>
+                                            <select class="form-control" id="climate-zone">
+                                                <option value="">Select Zone</option>
+                                                <option value="tropical">Tropical</option>
+                                                <option value="subtropical">Subtropical</option>
+                                                <option value="temperate">Temperate</option>
+                                                <option value="arid">Arid/Semi-arid</option>
+                                            </select>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label class="form-label">Average Rainfall (mm/year)</label>
+                                            <input type="number" class="form-control" id="avg-rainfall" placeholder="e.g. 1200">
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label class="form-label">Field Slope</label>
+                                            <select class="form-control" id="field-slope">
+                                                <option value="">Select Slope</option>
+                                                <option value="flat">Flat (0-2%)</option>
+                                                <option value="gentle">Gentle (2-5%)</option>
+                                                <option value="moderate">Moderate (5-10%)</option>
+                                                <option value="steep">Steep (>10%)</option>
+                                            </select>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label class="form-label">Drainage Quality</label>
+                                            <select class="form-control" id="drainage-quality">
+                                                <option value="">Select Quality</option>
+                                                <option value="excellent">Excellent</option>
+                                                <option value="good">Good</option>
+                                                <option value="fair">Fair</option>
+                                                <option value="poor">Poor</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Navigation Buttons -->
+                        <div class="wizard-navigation">
+                            <button class="btn btn--secondary" id="prev-step" style="display: none;">Previous</button>
+                            <button class="btn btn--primary" id="next-step">Next</button>
+                            <button class="btn btn--primary" id="generate-prediction" style="display: none;">Generate Prediction</button>
                         </div>
                     </div>
-                    
-                    <div class="wizard-navigation">
-                        <button class="btn btn--secondary" id="back-btn" data-i18n="back_btn">Back</button>
-                        <button class="btn btn--primary" id="next-btn" data-i18n="next_btn">Next</button>
+
+                    <!-- Prediction Results -->
+                    <div class="prediction-results hidden" id="prediction-results">
+                        <div class="results-header">
+                            <h3>AI Prediction Results</h3>
+                            <div class="confidence-score">
+                                <span class="confidence-label">Confidence Score</span>
+                                <span class="confidence-value">96.8%</span>
+                            </div>
+                        </div>
+                        
+                        <div class="results-cards">
+                            <div class="result-card">
+                                <div class="result-icon">📊</div>
+                                <h4>Predicted Yield</h4>
+                                <div class="result-value">4.8 tons/ha</div>
+                                <div class="result-detail">Total: 15.4 tons</div>
+                            </div>
+                            
+                            <div class="result-card">
+                                <div class="result-icon">💰</div>
+                                <h4>Estimated Revenue</h4>
+                                <div class="result-value">₹4,31,200</div>
+                                <div class="result-detail">₹28,000 per ton</div>
+                            </div>
+                            
+                            <div class="result-card">
+                                <div class="result-icon">📅</div>
+                                <h4>Harvest Timeline</h4>
+                                <div class="result-value">78 days</div>
+                                <div class="result-detail">Expected: Dec 15, 2025</div>
+                            </div>
+                            
+                            <div class="result-card">
+                                <div class="result-icon">⚠️</div>
+                                <h4>Risk Assessment</h4>
+                                <div class="result-value">Low Risk</div>
+                                <div class="result-detail">Weather stable</div>
+                            </div>
+                        </div>
+                        
+                        <div class="results-actions">
+                            <button class="btn btn--primary">Save Report</button>
+                            <button class="btn btn--secondary">Share Results</button>
+                            <button class="btn btn--outline">Expert Consult</button>
+                        </div>
                     </div>
                 </div>
             </section>
 
-            <section id="monitoring-section" class="section hidden">
+            <!-- Live Monitoring Section -->
+            <section id="monitoring-section" class="section">
                 <div class="container">
                     <div class="section-header">
-                        <h2 data-i18n="monitoring_title">Live Monitoring</h2>
-                        <span id="monitoring-location">📍 <span data-i18n="monitoring_location">Location</span>: <span id="location-name-monitoring">Punjab (Ludhiana)</span></span>
+                        <h2>Live Farm Monitoring</h2>
+                        <div class="refresh-indicator">
+                            <span class="refresh-dot"></span>
+                            <span>Live Data</span>
+                        </div>
                     </div>
 
                     <div class="monitoring-grid">
-                        <div class="monitoring-card">
-                            <div class="monitoring-icon">🌡️</div>
-                            <div class="monitoring-content">
-                                <h3 data-i18n="temperature">Temperature</h3>
-                                <div class="monitor-value">30°C</div>
-                                <span class="monitor-unit">Normal</span>
+                        <div class="monitor-card">
+                            <div class="monitor-header">
+                                <span class="monitor-icon">🌡️</span>
+                                <h3>Temperature</h3>
+                                <span class="status-indicator good"></span>
                             </div>
+                            <div class="monitor-value">28°C</div>
+                            <div class="monitor-range">Optimal: 25-32°C</div>
                         </div>
-                        <div class="monitoring-card">
-                            <div class="monitoring-icon">💧</div>
-                            <div class="monitoring-content">
-                                <h3 data-i18n="humidity">Humidity</h3>
-                                <div class="monitor-value">65%</div>
-                                <span class="monitor-unit">Normal</span>
+                        
+                        <div class="monitor-card">
+                            <div class="monitor-header">
+                                <span class="monitor-icon">💧</span>
+                                <h3>Humidity</h3>
+                                <span class="status-indicator good"></span>
                             </div>
+                            <div class="monitor-value">65%</div>
+                            <div class="monitor-range">Optimal: 60-70%</div>
                         </div>
-                        <div class="monitoring-card">
-                            <div class="monitoring-icon">🌬️</div>
-                            <div class="monitoring-content">
-                                <h3 data-i18n="wind_speed">Wind Speed</h3>
-                                <div class="monitor-value">12 km/h</div>
-                                <span class="monitor-unit">Normal</span>
+                        
+                        <div class="monitor-card">
+                            <div class="monitor-header">
+                                <span class="monitor-icon">🌊</span>
+                                <h3>Soil Moisture</h3>
+                                <span class="status-indicator warning"></span>
                             </div>
+                            <div class="monitor-value">42%</div>
+                            <div class="monitor-range">Needs attention</div>
                         </div>
-                        <div class="monitoring-card">
-                            <div class="monitoring-icon">☀️</div>
-                            <div class="monitoring-content">
-                                <h3 data-i18n="solar_radiation">Solar Radiation</h3>
-                                <div class="monitor-value">850 W/m²</div>
-                                <span class="monitor-unit">High</span>
+                        
+                        <div class="monitor-card">
+                            <div class="monitor-header">
+                                <span class="monitor-icon">☀️</span>
+                                <h3>Solar Radiation</h3>
+                                <span class="status-indicator good"></span>
                             </div>
+                            <div class="monitor-value">650 W/m²</div>
+                            <div class="monitor-range">Good for growth</div>
                         </div>
                     </div>
 
-                    <div class="alerts-panel">
-                        <h3 data-i18n="alerts_title">Recent Alerts</h3>
+                    <div class="trends-section">
+                        <h3>24-Hour Trends</h3>
+                        <div class="chart-container" style="position: relative; height: 300px;">
+                            <canvas id="trends-chart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="alerts-section">
+                        <h3>Active Alerts</h3>
                         <div class="alerts-list" id="alerts-list">
-                            </div>
-                    </div>
-                </div>
-            </section>
-
-            <section id="recommendations-section" class="section hidden">
-                <div class="container">
-                    <div class="section-header">
-                        <h2 data-i18n="recommendations_title">Smart Agriculture Tips</h2>
-                        <p data-i18n="recommendations_subtitle">AI-powered recommendations to optimize your farm's health and yield.</p>
-                    </div>
-                    <div class="tips-grid">
-                        <div class="tip-card success">
-                            <span class="tip-icon">✅</span>
-                            <div class="tip-content">
-                                <h3 data-i18n="optimal_conditions_title">Optimal Growing Conditions Detected</h3>
-                                <p data-i18n="optimal_conditions_message">Current weather and soil parameters are ideal for crop development. Yield potential is 22% above regional average.</p>
-                            </div>
-                        </div>
-                        <div class="tip-card warning">
-                            <span class="tip-icon">⚠️</span>
-                            <div class="tip-content">
-                                <h3 data-i18n="irrigation_optimization_title">Irrigation Optimization Opportunity</h3>
-                                <p data-i18n="irrigation_optimization_message">Schedule next irrigation for early morning (5-7 AM) to maximize water efficiency and reduce evaporation by 35%.</p>
-                            </div>
-                        </div>
-                        <div class="tip-card info">
-                            <span class="tip-icon">💡</span>
-                            <div class="tip-content">
-                                <h3 data-i18n="fertilization_title">Smart Fertilization Recommendation</h3>
-                                <p data-i18n="fertilization_message">Nitrogen levels optimal, but consider phosphorus boost in 2 weeks to enhance grain filling stage.</p>
-                            </div>
+                            <!-- Alerts will be populated by JavaScript -->
                         </div>
                     </div>
                 </div>
             </section>
 
-            <section id="analytics-section" class="section hidden">
+            <!-- Smart Recommendations Section -->
+            <section id="recommendations-section" class="section">
                 <div class="container">
                     <div class="section-header">
-                        <h2 data-i18n="analytics_title">Farm Analytics</h2>
-                        <p data-i18n="analytics_subtitle">Comprehensive reports on your farm's performance over time.</p>
+                        <h2>Smart Recommendations</h2>
+                        <p class="section-subtitle">AI-powered personalized recommendations for your farm</p>
                     </div>
-                    <div class="analytics-content">
-                        <p data-i18n="analytics_coming_soon">Analytics features are coming soon. Check back for detailed reports!</p>
+
+                    <div class="recommendations-grid">
+                        <div class="recommendation-card high-priority">
+                            <div class="rec-header">
+                                <div class="rec-category">💧 Irrigation</div>
+                                <div class="rec-priority">High Priority</div>
+                            </div>
+                            <h3>Smart Irrigation Timing</h3>
+                            <p>Optimize irrigation schedule based on soil moisture and weather forecasts</p>
+                            <div class="rec-impact">+15% water efficiency</div>
+                            <div class="rec-timeline">Implement immediately</div>
+                            <button class="btn btn--primary btn--sm">View Details</button>
+                        </div>
+                        
+                        <div class="recommendation-card medium-priority">
+                            <div class="rec-header">
+                                <div class="rec-category">🌱 Fertilization</div>
+                                <div class="rec-priority">Medium Priority</div>
+                            </div>
+                            <h3>Precision Nutrient Application</h3>
+                            <p>Apply targeted fertilizers during critical growth stages</p>
+                            <div class="rec-impact">+8% yield increase</div>
+                            <div class="rec-timeline">Next 2 weeks</div>
+                            <button class="btn btn--secondary btn--sm">View Details</button>
+                        </div>
+                        
+                        <div class="recommendation-card low-priority">
+                            <div class="rec-header">
+                                <div class="rec-category">🐛 Pest Control</div>
+                                <div class="rec-priority">Low Priority</div>
+                            </div>
+                            <h3>Preventive Pest Management</h3>
+                            <p>Install pheromone traps and beneficial insect habitats</p>
+                            <div class="rec-impact">Prevent 5-10% loss</div>
+                            <div class="rec-timeline">Within 1 month</div>
+                            <button class="btn btn--outline btn--sm">View Details</button>
+                        </div>
                     </div>
                 </div>
             </section>
 
-            <section id="marketplace-section" class="section hidden">
+            <!-- Analytics Section -->
+            <section id="analytics-section" class="section">
                 <div class="container">
                     <div class="section-header">
-                        <h2 data-i18n="marketplace_title">Marketplace</h2>
-                        <p data-i18n="marketplace_subtitle">Discover top-quality seeds, fertilizers, and equipment from trusted suppliers.</p>
+                        <h2>Farm Analytics</h2>
+                        <p class="section-subtitle">Comprehensive data insights and performance analysis</p>
                     </div>
-                    <div class="marketplace-content">
-                        <p data-i18n="marketplace_coming_soon">The marketplace is currently under development. Stay tuned for new products!</p>
+                    <div class="placeholder-section">
+                        <div class="placeholder-icon">📊</div>
+                        <h3>Analytics Dashboard</h3>
+                        <p>Advanced analytics features coming soon. Track yield trends, financial performance, and crop comparisons.</p>
+                        <button class="btn btn--primary">Request Early Access</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Marketplace Section -->
+            <section id="marketplace-section" class="section">
+                <div class="container">
+                    <div class="section-header">
+                        <h2>Agricultural Marketplace</h2>
+                        <p class="section-subtitle">Buy and sell crops, equipment, and agricultural services</p>
+                    </div>
+                    <div class="placeholder-section">
+                        <div class="placeholder-icon">🏪</div>
+                        <h3>Digital Marketplace</h3>
+                        <p>Connect with buyers, sellers, and service providers. Get best prices for your crops and farm equipment.</p>
+                        <button class="btn btn--primary">Join Marketplace</button>
                     </div>
                 </div>
             </section>
         </main>
+    </div>
 
-        <div id="language-modal" class="modal hidden">
-            <div class="modal-backdrop"></div>
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h3 data-i18n="select_language">Select Language</h3>
-                    <button class="modal-close" aria-label="Close">&times;</button>
-                </div>
-                <div class="modal-body">
-                    <div class="language-grid" id="language-grid">
-                        </div>
+    <!-- Language Modal -->
+    <div id="language-modal" class="modal hidden">
+        <div class="modal-backdrop"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Select Language</h3>
+                <button class="modal-close" aria-label="Close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="language-grid" id="language-grid">
+                    <!-- Languages will be populated by JavaScript -->
                 </div>
             </div>
         </div>
+    </div>
 
-        <div id="location-modal" class="modal hidden">
-            <div class="modal-backdrop"></div>
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h3 data-i18n="set_location">Set Farm Location</h3>
-                    <button class="modal-close" aria-label="Close">&times;</button>
-                </div>
-                <div class="modal-body">
-                    <div class="location-options">
-                        <button class="btn btn--primary btn--full-width" id="detect-location">
-                            📍 <span data-i18n="detect_location">Detect Current Location</span>
-                        </button>
-                        
-                        <div class="divider" data-i18n="or_choose">or choose from popular farming regions</div>
-                        
-                        <div class="popular-locations" id="popular-locations">
-                            </div>
-                        
-                        <div class="divider" data-i18n="or_select_on_map">or select a location on the map</div>
-
-                        <div id="map-container" class="map-container">
-                            <div id="map"></div>
-                        </div>
-
-                        <div class="location-selection-info hidden" id="manual-location-info">
-                            <p data-i18n="manual_location_info">Selected Coordinates:</p>
-                            <p>Lat: <span id="selected-lat"></span>, Lng: <span id="selected-lng"></span></p>
-                            <button class="btn btn--primary" id="confirm-manual-location" data-i18n="confirm_location_btn">Confirm Location</button>
-                        </div>
+    <!-- Location Modal -->
+    <div id="location-modal" class="modal hidden">
+        <div class="modal-backdrop"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Set Farm Location</h3>
+                <button class="modal-close" aria-label="Close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="location-options">
+                    <button class="btn btn--primary btn--full-width" id="detect-location">
+                        📍 Detect Current Location
+                    </button>
+                    
+                    <div class="divider">or choose from popular farming regions</div>
+                    
+                    <div class="popular-locations" id="popular-locations">
+                        <!-- Popular locations will be populated by JavaScript -->
                     </div>
                 </div>
             </div>
         </div>
-
-        <div id="toast-container" class="toast-container"></div>
     </div>
+
+    <!-- Toast Container -->
+    <div id="toast-container" class="toast-container"></div>
 
     <script src="app.js"></script>
 </body>
